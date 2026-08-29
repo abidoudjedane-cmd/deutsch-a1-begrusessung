@@ -1,0 +1,1559 @@
+<!DOCTYPE html>
+<html lang="de">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1">
+<title>Hallo! Deutsch A1 – Begrüßung &amp; Verabschiedung</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Fredoka:wght@400;500;600;700&family=Nunito:wght@400;600;700;800&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --cream:#FBF6EC;
+    --paper:#FFFDF9;
+    --ink:#2B2118;
+    --ink-soft:#6b6053;
+    --teal:#2f6f76;
+    --teal-dark:#1f4d52;
+    --teal-light:#eaf3f3;
+    --coral:#e8734a;
+    --coral-dark:#c85a34;
+    --coral-light:#fdece3;
+    --gold:#e8b84b;
+    --gold-dark:#b9871f;
+    --sage:#6f9c85;
+    --sage-dark:#4f7b64;
+    --sage-light:#e9f3ee;
+    --rose:#d9605f;
+    --line:#e7ddc9;
+    --shadow: 0 8px 24px rgba(43,33,24,0.10);
+    --radius:20px;
+  }
+  *{box-sizing:border-box;}
+  html,body{margin:0;padding:0;}
+  body{
+    background:
+      radial-gradient(circle at 8% 4%, #fff 0%, transparent 45%),
+      radial-gradient(circle at 92% 96%, #f3ead4 0%, transparent 40%),
+      var(--cream);
+    color:var(--ink);
+    font-family:'Nunito', sans-serif;
+    min-height:100vh;
+    -webkit-font-smoothing:antialiased;
+    padding-bottom:40px;
+  }
+  h1,h2,h3,.display{
+    font-family:'Fredoka', sans-serif;
+    font-weight:600;
+    letter-spacing:0.2px;
+  }
+  .app{
+    max-width:720px;
+    margin:0 auto;
+    padding:14px 16px 60px;
+  }
+  /* ---------- HEADER / PASSPORT ---------- */
+  .passport{
+    background:var(--paper);
+    border-radius:var(--radius);
+    box-shadow:var(--shadow);
+    padding:14px 16px 12px;
+    border-bottom:3px dashed var(--line);
+    position:sticky;
+    top:8px;
+    z-index:50;
+    margin-bottom:18px;
+  }
+  .passport-top{
+    display:flex;
+    align-items:center;
+    gap:12px;
+  }
+  .lexi-wrap{
+    position:relative;
+    flex-shrink:0;
+  }
+  .lexi{
+    width:52px;height:52px;
+    border-radius:50%;
+    background:linear-gradient(155deg,#ffd9a8,var(--coral));
+    display:flex;align-items:center;justify-content:center;
+    font-size:28px;
+    box-shadow:0 4px 10px rgba(200,90,52,0.35);
+    animation:lexi-float 3.2s ease-in-out infinite;
+  }
+  @keyframes lexi-float{
+    0%,100%{transform:translateY(0) rotate(-3deg);}
+    50%{transform:translateY(-4px) rotate(3deg);}
+  }
+  .lexi.talking{animation:lexi-talk 0.35s ease-in-out infinite;}
+  @keyframes lexi-talk{
+    0%,100%{transform:scale(1);}
+    50%{transform:scale(1.08);}
+  }
+  .passport-title{flex:1;min-width:0;}
+  .passport-title .eyebrow{
+    font-size:11px;
+    text-transform:uppercase;
+    letter-spacing:1.5px;
+    color:var(--teal);
+    font-weight:800;
+  }
+  .passport-title h1{
+    font-size:17px;
+    margin:1px 0 0;
+    color:var(--ink);
+  }
+  .xp-pill{
+    flex-shrink:0;
+    background:linear-gradient(155deg,#fff2cf,var(--gold));
+    border-radius:999px;
+    padding:7px 12px;
+    font-family:'Fredoka',sans-serif;
+    font-weight:600;
+    font-size:13px;
+    color:#5a4413;
+    box-shadow:0 3px 8px rgba(184,135,31,0.35);
+    display:flex;align-items:center;gap:4px;
+    white-space:nowrap;
+  }
+  .progress-track{
+    margin-top:12px;
+    height:10px;
+    background:var(--teal-light);
+    border-radius:999px;
+    overflow:hidden;
+    position:relative;
+  }
+  .progress-fill{
+    height:100%;
+    width:0%;
+    background:linear-gradient(90deg,var(--sage),var(--teal));
+    border-radius:999px;
+    transition:width .5s cubic-bezier(.4,1.4,.6,1);
+  }
+  .stamps-row{
+    display:flex;
+    justify-content:space-between;
+    margin-top:7px;
+    gap:2px;
+  }
+  .stamp-dot{
+    width:16px;height:16px;
+    border-radius:50%;
+    background:var(--teal-light);
+    border:2px solid var(--line);
+    font-size:9px;
+    display:flex;align-items:center;justify-content:center;
+    color:transparent;
+    transition:all .3s;
+    flex-shrink:0;
+  }
+  .stamp-dot.done{
+    background:var(--sage);
+    border-color:var(--sage-dark);
+    color:#fff;
+  }
+  .stamp-dot.current{
+    border-color:var(--coral);
+    box-shadow:0 0 0 3px var(--coral-light);
+  }
+  .lexi-tip{
+    margin-top:10px;
+    background:var(--teal-light);
+    border-radius:14px;
+    padding:9px 12px;
+    font-size:13.5px;
+    color:var(--teal-dark);
+    line-height:1.4;
+    display:none;
+  }
+  .lexi-tip.show{display:block;}
+  .lexi-tip b{color:var(--teal-dark);}
+
+  /* ---------- SCREENS ---------- */
+  .screen{display:none;animation:fadein .4s ease;}
+  .screen.active{display:block;}
+  @keyframes fadein{from{opacity:0;transform:translateY(8px);}to{opacity:1;transform:translateY(0);}}
+
+  .card{
+    background:var(--paper);
+    border-radius:var(--radius);
+    box-shadow:var(--shadow);
+    padding:20px 18px;
+    margin-bottom:16px;
+  }
+  .section-title{
+    display:flex;align-items:center;gap:8px;
+    font-size:20px;
+    margin:0 0 4px;
+  }
+  .section-sub{
+    color:var(--ink-soft);
+    font-size:14px;
+    margin:0 0 16px;
+  }
+
+  /* ---------- START SCREEN ---------- */
+  .start-hero{
+    text-align:center;
+    padding:34px 18px 26px;
+  }
+  .start-hero .big-lexi{
+    width:110px;height:110px;
+    border-radius:50%;
+    background:linear-gradient(155deg,#ffd9a8,var(--coral));
+    display:flex;align-items:center;justify-content:center;
+    font-size:58px;
+    margin:0 auto 18px;
+    box-shadow:0 10px 24px rgba(200,90,52,0.35);
+    animation:lexi-float 3.2s ease-in-out infinite;
+  }
+  .start-hero h1{
+    font-size:30px;
+    margin:0 0 8px;
+    color:var(--ink);
+  }
+  .start-hero p{
+    color:var(--ink-soft);
+    font-size:15.5px;
+    max-width:420px;
+    margin:0 auto 22px;
+    line-height:1.5;
+  }
+  .start-badges{
+    display:flex;justify-content:center;gap:10px;flex-wrap:wrap;
+    margin-bottom:24px;
+  }
+  .start-badge{
+    background:var(--cream);
+    border:1.5px solid var(--line);
+    border-radius:12px;
+    padding:8px 12px;
+    font-size:12.5px;
+    color:var(--ink-soft);
+    font-weight:700;
+  }
+
+  /* ---------- BUTTONS ---------- */
+  .btn{
+    font-family:'Fredoka',sans-serif;
+    font-weight:600;
+    font-size:15px;
+    border:none;
+    border-radius:14px;
+    padding:13px 22px;
+    cursor:pointer;
+    display:inline-flex;align-items:center;justify-content:center;gap:7px;
+    transition:transform .15s, box-shadow .15s, opacity .15s;
+    min-height:46px;
+  }
+  .btn:active{transform:scale(0.96);}
+  .btn-primary{
+    background:linear-gradient(155deg,var(--coral),var(--coral-dark));
+    color:#fff;
+    box-shadow:0 5px 14px rgba(200,90,52,0.35);
+  }
+  .btn-secondary{
+    background:var(--teal-light);
+    color:var(--teal-dark);
+  }
+  .btn-ghost{
+    background:transparent;
+    color:var(--ink-soft);
+    border:1.5px solid var(--line);
+  }
+  .btn-sage{
+    background:linear-gradient(155deg,var(--sage),var(--sage-dark));
+    color:#fff;
+    box-shadow:0 5px 14px rgba(79,123,100,0.3);
+  }
+  .btn:disabled{opacity:.45;cursor:not-allowed;transform:none;}
+  .btn-block{width:100%;}
+  .btn-sm{padding:8px 14px;font-size:13px;min-height:36px;border-radius:10px;}
+
+  .nav-row{
+    display:flex;justify-content:space-between;gap:10px;
+    margin-top:6px;
+  }
+  .nav-row .btn{flex:1;}
+
+  /* ---------- LERNZIELE ---------- */
+  .goals-list{list-style:none;margin:0;padding:0;}
+  .goals-list li{
+    display:flex;align-items:flex-start;gap:10px;
+    padding:11px 4px;
+    border-bottom:1px solid var(--line);
+    font-size:15px;
+  }
+  .goals-list li:last-child{border-bottom:none;}
+  .goal-check{
+    flex-shrink:0;
+    width:26px;height:26px;
+    border-radius:50%;
+    background:var(--sage-light);
+    color:var(--sage-dark);
+    display:flex;align-items:center;justify-content:center;
+    font-size:13px;font-weight:800;
+  }
+
+  /* ---------- DIALOGUE ---------- */
+  .dialog-tabs{display:flex;gap:8px;margin-bottom:14px;}
+  .dialog-tab{
+    flex:1;
+    padding:10px;
+    border-radius:12px;
+    border:1.5px solid var(--line);
+    background:var(--cream);
+    text-align:center;
+    font-family:'Fredoka',sans-serif;
+    font-weight:600;
+    font-size:13.5px;
+    cursor:pointer;
+    color:var(--ink-soft);
+  }
+  .dialog-tab.active{
+    background:var(--teal);
+    border-color:var(--teal);
+    color:#fff;
+  }
+  .stage-scene{
+    background:linear-gradient(180deg,#eef6f2,#f7f3e6);
+    border-radius:16px;
+    padding:18px 14px 14px;
+    margin-bottom:14px;
+  }
+  .avatars-row{
+    display:flex;justify-content:space-around;
+    margin-bottom:8px;
+  }
+  .avatar-box{
+    display:flex;flex-direction:column;align-items:center;
+    gap:6px;
+    opacity:0.55;
+    transition:opacity .25s, transform .25s;
+  }
+  .avatar-box.speaking{
+    opacity:1;
+    transform:translateY(-3px);
+  }
+  .avatar-circle{
+    width:64px;height:64px;
+    border-radius:50%;
+    display:flex;align-items:center;justify-content:center;
+    font-size:32px;
+    box-shadow:0 5px 12px rgba(0,0,0,0.12);
+  }
+  .avatar-circle.anna{background:linear-gradient(155deg,#ffe1ea,var(--rose));}
+  .avatar-circle.ali{background:linear-gradient(155deg,#dceeff,var(--teal));}
+  .avatar-box.speaking .avatar-circle{animation:talk-bounce .4s ease-in-out infinite;}
+  @keyframes talk-bounce{
+    0%,100%{transform:scale(1);}
+    50%{transform:scale(1.1) rotate(-2deg);}
+  }
+  .avatar-name{font-family:'Fredoka',sans-serif;font-weight:600;font-size:12.5px;color:var(--ink-soft);}
+  .bubbles{display:flex;flex-direction:column;gap:8px;min-height:150px;justify-content:center;}
+  .bubble{
+    max-width:82%;
+    padding:10px 14px;
+    border-radius:16px;
+    font-size:14.5px;
+    line-height:1.35;
+    background:#fff;
+    border:1.5px solid var(--line);
+    cursor:pointer;
+    transition:all .2s;
+    box-shadow:0 2px 6px rgba(0,0,0,0.05);
+  }
+  .bubble:hover{border-color:var(--teal);}
+  .bubble.anna{align-self:flex-start;border-bottom-left-radius:4px;}
+  .bubble.ali{align-self:flex-end;border-bottom-right-radius:4px;background:var(--teal-light);}
+  .bubble.active-line{
+    border-color:var(--coral);
+    box-shadow:0 0 0 3px var(--coral-light);
+    transform:scale(1.02);
+  }
+  .bubble .play-ico{opacity:0.45;margin-right:4px;font-size:12px;}
+  .dialog-controls{display:flex;gap:8px;margin-top:12px;flex-wrap:wrap;}
+  .dialog-controls .btn{flex:1;min-width:100px;}
+
+  /* ---------- VOCAB CARDS ---------- */
+  .vocab-grid{
+    display:grid;
+    grid-template-columns:1fr 1fr;
+    gap:10px;
+  }
+  .vocab-card{
+    background:var(--cream);
+    border:1.5px solid var(--line);
+    border-radius:14px;
+    padding:12px 10px;
+    text-align:center;
+    cursor:pointer;
+    transition:all .2s;
+    position:relative;
+  }
+  .vocab-card:active{transform:scale(0.96);}
+  .vocab-card .vc-text{
+    font-family:'Fredoka',sans-serif;
+    font-weight:600;
+    font-size:14.5px;
+    margin-bottom:3px;
+  }
+  .vocab-card .vc-meaning{
+    font-size:11.5px;
+    color:var(--ink-soft);
+    line-height:1.3;
+  }
+  .vocab-card.done{
+    background:var(--sage-light);
+    border-color:var(--sage);
+  }
+  .vocab-card .vc-check{
+    position:absolute;top:6px;right:8px;
+    font-size:12px;color:var(--sage-dark);
+    opacity:0;
+  }
+  .vocab-card.done .vc-check{opacity:1;}
+  .vc-speaker{font-size:16px;}
+
+  /* ---------- SORT ACTIVITIES ---------- */
+  .chip-bank{
+    display:flex;flex-wrap:wrap;gap:8px;
+    margin-bottom:16px;
+    min-height:40px;
+  }
+  .chip{
+    background:#fff;
+    border:1.5px solid var(--line);
+    border-radius:999px;
+    padding:9px 15px;
+    font-size:13.5px;
+    font-weight:700;
+    font-family:'Fredoka',sans-serif;
+    cursor:pointer;
+    transition:all .15s;
+  }
+  .chip.selected{
+    border-color:var(--coral);
+    background:var(--coral-light);
+    transform:scale(1.05);
+  }
+  .chip.wrong-shake{animation:shake .35s;}
+  @keyframes shake{
+    0%,100%{transform:translateX(0);}
+    25%{transform:translateX(-5px);}
+    75%{transform:translateX(5px);}
+  }
+  .columns-row{
+    display:flex;gap:10px;
+  }
+  .drop-col{
+    flex:1;
+    background:var(--cream);
+    border:2px dashed var(--line);
+    border-radius:14px;
+    padding:10px;
+    min-height:120px;
+    transition:border-color .2s, background .2s;
+  }
+  .drop-col.hover-ready{border-color:var(--coral);background:var(--coral-light);}
+  .drop-col h4{
+    margin:0 0 8px;
+    font-size:13px;
+    text-align:center;
+    font-family:'Fredoka',sans-serif;
+  }
+  .drop-col.greet h4{color:var(--sage-dark);}
+  .drop-col.farewell h4{color:var(--rose);}
+  .drop-col.informal h4{color:var(--coral-dark);}
+  .drop-col.formal h4{color:var(--teal-dark);}
+  .placed-chip{
+    background:#fff;
+    border-radius:10px;
+    padding:6px 9px;
+    font-size:12.5px;
+    font-weight:700;
+    margin-bottom:6px;
+    text-align:center;
+    box-shadow:0 2px 4px rgba(0,0,0,0.06);
+  }
+  .info-note{
+    display:flex;gap:8px;
+    background:var(--gold);
+    background:linear-gradient(155deg,#fff6dd,#fbe7b6);
+    border-radius:12px;
+    padding:10px 12px;
+    font-size:13px;
+    color:#5a4413;
+    margin-top:14px;
+    line-height:1.4;
+  }
+
+  /* ---------- MC ACTIVITIES (welche passt / final challenge) ---------- */
+  .situation-card{
+    background:var(--cream);
+    border-radius:14px;
+    padding:14px;
+    margin-bottom:12px;
+  }
+  .situation-text{
+    font-size:15px;
+    font-weight:700;
+    font-family:'Fredoka',sans-serif;
+    margin-bottom:10px;
+  }
+  .mc-options{display:flex;flex-wrap:wrap;gap:8px;}
+  .mc-opt{
+    background:#fff;
+    border:1.5px solid var(--line);
+    border-radius:12px;
+    padding:9px 14px;
+    font-size:13.5px;
+    font-weight:700;
+    cursor:pointer;
+    font-family:'Fredoka',sans-serif;
+  }
+  .mc-opt.correct{background:var(--sage-light);border-color:var(--sage);color:var(--sage-dark);}
+  .mc-opt.incorrect{background:#fbe3e0;border-color:var(--rose);color:var(--rose);}
+  .mc-feedback{
+    margin-top:8px;font-size:13px;font-weight:700;min-height:18px;
+  }
+  .mc-feedback.ok{color:var(--sage-dark);}
+  .mc-feedback.bad{color:var(--rose);}
+
+  /* ---------- NACHSPRECHEN ---------- */
+  .speak-item{
+    background:var(--cream);
+    border-radius:14px;
+    padding:12px 14px;
+    margin-bottom:10px;
+  }
+  .speak-item-top{
+    display:flex;align-items:center;justify-content:space-between;gap:10px;
+  }
+  .speak-item-phrase{
+    font-family:'Fredoka',sans-serif;font-weight:600;font-size:15px;
+  }
+  .speak-panel{
+    display:none;
+    margin-top:10px;
+    padding-top:10px;
+    border-top:1px dashed var(--line);
+  }
+  .speak-panel.show{display:block;}
+  .speak-panel .jetzt{
+    font-size:13.5px;color:var(--ink-soft);margin-bottom:8px;
+    font-weight:700;
+  }
+  .speak-item.done{background:var(--sage-light);}
+  .speak-item.done .speak-item-phrase{color:var(--sage-dark);}
+
+  /* ---------- DIALOG FILL ---------- */
+  .fill-line{
+    font-size:14.5px;
+    margin-bottom:10px;
+    line-height:1.6;
+    padding:8px 10px;
+    border-radius:10px;
+    background:var(--cream);
+  }
+  .fill-line b{font-family:'Fredoka',sans-serif;}
+  .blank-slot{
+    display:inline-block;
+    min-width:64px;
+    padding:2px 8px;
+    border-bottom:2.5px solid var(--coral);
+    font-weight:800;
+    color:var(--coral-dark);
+    text-align:center;
+  }
+  .blank-slot.empty{color:transparent;background:repeating-linear-gradient(90deg,var(--ink-soft) 0 4px, transparent 4px 8px);height:2px;}
+  .fill-options{display:flex;gap:8px;flex-wrap:wrap;margin:8px 0 4px 20px;}
+
+  /* ---------- ROLEPLAY ---------- */
+  .rp-situation{
+    background:var(--teal-light);
+    border-radius:12px;
+    padding:10px 14px;
+    font-size:13.5px;
+    color:var(--teal-dark);
+    font-weight:700;
+    margin-bottom:14px;
+  }
+  .rp-line{
+    display:flex;gap:10px;align-items:flex-start;
+    margin-bottom:12px;
+  }
+  .rp-avatar{
+    width:34px;height:34px;border-radius:50%;
+    background:linear-gradient(155deg,#ffe1ea,var(--rose));
+    display:flex;align-items:center;justify-content:center;
+    font-size:17px;flex-shrink:0;
+  }
+  .rp-bubble{
+    background:#fff;border:1.5px solid var(--line);
+    border-radius:14px;padding:9px 13px;font-size:14px;
+    flex:1;
+  }
+  .rp-student{
+    margin-left:44px;margin-bottom:14px;
+  }
+  .rp-input-row{display:flex;gap:8px;}
+  .rp-input{
+    flex:1;
+    border:1.5px solid var(--line);
+    border-radius:12px;
+    padding:10px 12px;
+    font-size:14.5px;
+    font-family:'Nunito',sans-serif;
+  }
+  .rp-input:focus{outline:none;border-color:var(--teal);}
+  .rp-feedback{font-size:13px;font-weight:700;margin-top:6px;min-height:18px;}
+  .rp-hint{font-size:12.5px;color:var(--ink-soft);margin-top:5px;display:none;}
+  .rp-hint.show{display:block;}
+
+  /* ---------- REVIEW ---------- */
+  .review-list{display:flex;flex-direction:column;gap:8px;}
+  .review-item{
+    display:flex;align-items:center;justify-content:space-between;gap:10px;
+    background:var(--cream);
+    border-radius:12px;
+    padding:11px 14px;
+    cursor:pointer;
+  }
+  .review-item:active{transform:scale(0.98);}
+  .review-phrase{font-family:'Fredoka',sans-serif;font-weight:600;font-size:14.5px;}
+  .review-meaning{font-size:12px;color:var(--ink-soft);}
+
+  /* ---------- MISSION ---------- */
+  .mission-hero{text-align:center;padding:20px 10px 10px;}
+  .trophy{font-size:64px;margin-bottom:6px;animation:trophy-pop .6s ease;}
+  @keyframes trophy-pop{
+    0%{transform:scale(0) rotate(-20deg);}
+    70%{transform:scale(1.15) rotate(6deg);}
+    100%{transform:scale(1) rotate(0);}
+  }
+  .badge-plate{
+    background:linear-gradient(155deg,#fff2cf,var(--gold));
+    border-radius:16px;
+    padding:14px;
+    text-align:center;
+    margin:16px 0;
+    box-shadow:0 6px 16px rgba(184,135,31,0.3);
+  }
+  .badge-plate .badge-name{
+    font-family:'Fredoka',sans-serif;font-weight:700;font-size:16px;color:#5a4413;letter-spacing:0.5px;
+  }
+  .xp-total{
+    text-align:center;
+    font-family:'Fredoka',sans-serif;
+    font-size:34px;
+    color:var(--coral-dark);
+    margin:10px 0;
+  }
+  .xp-total span{font-size:16px;color:var(--ink-soft);display:block;font-family:'Nunito',sans-serif;font-weight:700;}
+
+  @media (max-width:420px){
+    .vocab-grid{grid-template-columns:1fr;}
+    .avatar-circle{width:52px;height:52px;font-size:26px;}
+    .start-hero h1{font-size:25px;}
+  }
+</style>
+</head>
+<body>
+<div class="app">
+
+  <!-- HEADER / PASSPORT -->
+  <div class="passport">
+    <div class="passport-top">
+      <div class="lexi-wrap"><div class="lexi" id="lexiAvatar">🦊</div></div>
+      <div class="passport-title">
+        <div class="eyebrow">Dein Sprachpass</div>
+        <h1>Hallo! – Begrüßung &amp; Verabschiedung</h1>
+      </div>
+      <div class="xp-pill">⭐ <span id="xpCount">0</span> XP</div>
+    </div>
+    <div class="progress-track"><div class="progress-fill" id="progressFill"></div></div>
+    <div class="stamps-row" id="stampsRow"></div>
+    <div class="lexi-tip" id="lexiTip"></div>
+  </div>
+
+  <!-- 0: START -->
+  <section class="screen active" id="screen-start">
+    <div class="card start-hero">
+      <div class="big-lexi">🦊</div>
+      <h1>Hallo, ich bin Lexi!</h1>
+      <p>Ich helfe dir, auf Deutsch <b>Hallo</b> zu sagen, deinen Namen vorzustellen und dich zu verabschieden. Bereit für deine erste Reise auf Deutsch? 🇩🇪</p>
+      <div class="start-badges">
+        <div class="start-badge">🎧 Hören</div>
+        <div class="start-badge">🗣️ Sprechen</div>
+        <div class="start-badge">🧩 Üben</div>
+        <div class="start-badge">🏆 Anwenden</div>
+      </div>
+      <button class="btn btn-primary btn-block" onclick="goTo(1)">Los geht's! ▶</button>
+    </div>
+  </section>
+
+  <!-- 1: LERNZIELE -->
+  <section class="screen" id="screen-objectives">
+    <div class="card">
+      <h2 class="section-title">🎯 Lernziele</h2>
+      <p class="section-sub">Nach dieser Lektion kann ich …</p>
+      <ul class="goals-list">
+        <li><span class="goal-check">✓</span> jemanden begrüßen.</li>
+        <li><span class="goal-check">✓</span> meinen Namen sagen.</li>
+        <li><span class="goal-check">✓</span> nach dem Namen fragen.</li>
+        <li><span class="goal-check">✓</span> mich verabschieden.</li>
+        <li><span class="goal-check">✓</span> zwischen informellen und formellen Begrüßungen unterscheiden.</li>
+      </ul>
+    </div>
+    <div class="nav-row">
+      <button class="btn btn-ghost" onclick="goTo(0)">◀ Zurück</button>
+      <button class="btn btn-primary" onclick="goTo(2)">Weiter ▶</button>
+    </div>
+  </section>
+
+  <!-- 2: DIALOGUE -->
+  <section class="screen" id="screen-dialogue">
+    <div class="card">
+      <h2 class="section-title">🎧 Hören: Anna &amp; Ali</h2>
+      <p class="section-sub">Hör dir die Dialoge an. Klicke auf eine Sprechblase, um nur diesen Satz zu hören.</p>
+      <div class="dialog-tabs">
+        <div class="dialog-tab active" id="tab1" onclick="switchDialog(1)">😊 Informell</div>
+        <div class="dialog-tab" id="tab2" onclick="switchDialog(2)">🎩 Formell</div>
+      </div>
+      <div class="stage-scene">
+        <div class="avatars-row">
+          <div class="avatar-box" id="avatarAnna">
+            <div class="avatar-circle anna">👩</div>
+            <div class="avatar-name">Anna</div>
+          </div>
+          <div class="avatar-box" id="avatarAli">
+            <div class="avatar-circle ali">🧑</div>
+            <div class="avatar-name">Ali</div>
+          </div>
+        </div>
+        <div class="bubbles" id="bubblesContainer"></div>
+      </div>
+      <div class="dialog-controls">
+        <button class="btn btn-primary" id="btnPlayDialog" onclick="playDialog()">▶ Dialog anhören</button>
+        <button class="btn btn-secondary" onclick="pauseDialog()">⏸ Pause</button>
+        <button class="btn btn-ghost" onclick="repeatDialog()">🔁 Nochmal</button>
+      </div>
+    </div>
+    <div class="nav-row">
+      <button class="btn btn-ghost" onclick="goTo(1)">◀ Zurück</button>
+      <button class="btn btn-primary" onclick="goTo(3)">Weiter ▶</button>
+    </div>
+  </section>
+
+  <!-- 3: VOCAB -->
+  <section class="screen" id="screen-vocab">
+    <div class="card">
+      <h2 class="section-title">🔎 Wichtige Ausdrücke entdecken</h2>
+      <p class="section-sub">Tippe auf eine Karte, um sie zu hören.</p>
+      <div class="vocab-grid" id="vocabGrid"></div>
+    </div>
+    <div class="nav-row">
+      <button class="btn btn-ghost" onclick="goTo(2)">◀ Zurück</button>
+      <button class="btn btn-primary" onclick="goTo(4)">Weiter ▶</button>
+    </div>
+  </section>
+
+  <!-- 4: BEGRÜSSUNG ODER VERABSCHIEDUNG -->
+  <section class="screen" id="screen-sortgf">
+    <div class="card">
+      <h2 class="section-title">👋 Begrüßung oder Verabschiedung?</h2>
+      <p class="section-sub">Tippe zuerst auf einen Ausdruck (du hörst ihn), dann auf die richtige Spalte.</p>
+      <div class="chip-bank" id="gfBank"></div>
+      <div class="columns-row">
+        <div class="drop-col greet" id="gfColGreet"><h4>👋 Begrüßung</h4></div>
+        <div class="drop-col farewell" id="gfColFarewell"><h4>🚪 Verabschiedung</h4></div>
+      </div>
+    </div>
+    <div class="nav-row">
+      <button class="btn btn-ghost" onclick="goTo(3)">◀ Zurück</button>
+      <button class="btn btn-primary" onclick="goTo(5)">Weiter ▶</button>
+    </div>
+  </section>
+
+  <!-- 5: FORMAL / INFORMAL -->
+  <section class="screen" id="screen-formality">
+    <div class="card">
+      <h2 class="section-title">😊🎩 Informell oder formell?</h2>
+      <p class="section-sub">Tippe auf einen Ausdruck, dann auf die richtige Gruppe.</p>
+      <div class="chip-bank" id="fiBank"></div>
+      <div class="columns-row">
+        <div class="drop-col informal" id="fiColInformal"><h4>😊 Informell</h4></div>
+        <div class="drop-col formal" id="fiColFormal"><h4>🎩 Formell</h4></div>
+      </div>
+      <div class="info-note">💡 <span><b>Informell</b> → Freunde, Familie, Mitschüler.<br><b>Formell</b> → Lehrer, unbekannte Personen, berufliche Situationen.</span></div>
+    </div>
+    <div class="nav-row">
+      <button class="btn btn-ghost" onclick="goTo(4)">◀ Zurück</button>
+      <button class="btn btn-primary" onclick="goTo(6)">Weiter ▶</button>
+    </div>
+  </section>
+
+  <!-- 6: WELCHE BEGRÜSSUNG PASST -->
+  <section class="screen" id="screen-whichgreet">
+    <div class="card">
+      <h2 class="section-title">🧩 Welche Begrüßung passt?</h2>
+      <p class="section-sub">Wähle den passenden Ausdruck für jede Situation.</p>
+      <div id="whichGreetList"></div>
+    </div>
+    <div class="nav-row">
+      <button class="btn btn-ghost" onclick="goTo(5)">◀ Zurück</button>
+      <button class="btn btn-primary" onclick="goTo(7)">Weiter ▶</button>
+    </div>
+  </section>
+
+  <!-- 7: NACHSPRECHEN -->
+  <section class="screen" id="screen-nachsprechen">
+    <div class="card">
+      <h2 class="section-title">🎙️ Nachsprechen</h2>
+      <p class="section-sub">Hör zu, dann sprich laut nach.</p>
+      <div id="speakList"></div>
+    </div>
+    <div class="nav-row">
+      <button class="btn btn-ghost" onclick="goTo(6)">◀ Zurück</button>
+      <button class="btn btn-primary" onclick="goTo(8)">Weiter ▶</button>
+    </div>
+  </section>
+
+  <!-- 8: DIALOG ERGÄNZEN -->
+  <section class="screen" id="screen-dialogfill">
+    <div class="card">
+      <h2 class="section-title">✏️ Dialog ergänzen</h2>
+      <p class="section-sub">Wähle das richtige Wort für jede Lücke.</p>
+      <div id="fillContainer"></div>
+    </div>
+    <div class="nav-row">
+      <button class="btn btn-ghost" onclick="goTo(7)">◀ Zurück</button>
+      <button class="btn btn-primary" onclick="goTo(9)">Weiter ▶</button>
+    </div>
+  </section>
+
+  <!-- 9: ROLLENSPIEL -->
+  <section class="screen" id="screen-roleplay">
+    <div class="card">
+      <h2 class="section-title">🎭 Rollenspiel: Du bist Ali</h2>
+      <div class="rp-situation" id="rpSituation">Situation: „Du kommst am Morgen in die Klasse.“</div>
+      <div id="rpContainer"></div>
+    </div>
+    <div class="nav-row">
+      <button class="btn btn-ghost" onclick="goTo(8)">◀ Zurück</button>
+      <button class="btn btn-primary" onclick="goTo(10)">Weiter ▶</button>
+    </div>
+  </section>
+
+  <!-- 10: MINI REVIEW -->
+  <section class="screen" id="screen-review">
+    <div class="card">
+      <h2 class="section-title">🧠 Mini-Wiederholung</h2>
+      <p class="section-sub">Tippe auf einen Ausdruck, um ihn noch einmal zu hören.</p>
+      <div class="review-list" id="reviewList"></div>
+    </div>
+    <div class="nav-row">
+      <button class="btn btn-ghost" onclick="goTo(9)">◀ Zurück</button>
+      <button class="btn btn-primary" onclick="goTo(11)">Weiter ▶</button>
+    </div>
+  </section>
+
+  <!-- 11: FINAL CHALLENGE -->
+  <section class="screen" id="screen-final">
+    <div class="card">
+      <h2 class="section-title">🏆 Final Challenge</h2>
+      <p class="section-sub">Zeig, was du gelernt hast!</p>
+      <div id="finalList"></div>
+      <div id="finalDone" style="display:none;text-align:center;padding:14px 0 4px;">
+        <div style="font-size:36px;">🏆</div>
+        <div style="font-family:'Fredoka',sans-serif;font-weight:700;font-size:17px;color:var(--sage-dark);">Final Challenge geschafft!</div>
+      </div>
+    </div>
+    <div class="nav-row">
+      <button class="btn btn-ghost" onclick="goTo(10)">◀ Zurück</button>
+      <button class="btn btn-primary" id="btnToMission" onclick="goTo(12)">Weiter ▶</button>
+    </div>
+  </section>
+
+  <!-- 12: MISSION GESCHAFFT -->
+  <section class="screen" id="screen-mission">
+    <div class="card mission-hero">
+      <div class="trophy">🏆</div>
+      <h1 style="margin:0;">MISSION GESCHAFFT!</h1>
+      <p style="color:var(--ink-soft);">Heute kann ich …</p>
+      <ul class="goals-list" style="text-align:left;">
+        <li><span class="goal-check">✓</span> jemanden begrüßen.</li>
+        <li><span class="goal-check">✓</span> meinen Namen sagen.</li>
+        <li><span class="goal-check">✓</span> nach dem Namen fragen.</li>
+        <li><span class="goal-check">✓</span> mich verabschieden.</li>
+        <li><span class="goal-check">✓</span> zwischen informell und formell unterscheiden.</li>
+      </ul>
+      <div class="xp-total"><span>Gesamtpunkte</span>⭐ <span id="missionXP">0</span> XP</div>
+      <div class="badge-plate">
+        <div style="font-size:26px;">🎖️</div>
+        <div class="badge-name">BEGRÜSSUNGS-STARTER</div>
+      </div>
+      <button class="btn btn-sage btn-block" onclick="restartLesson()">🔁 Lektion wiederholen</button>
+    </div>
+  </section>
+
+</div>
+
+<script>
+/* ============================================================
+   DATA
+   ============================================================ */
+const PHRASES = [
+  {id:'hallo', text:'Hallo!', type:'informal', cat:'greet', meaning:'Begrüßung (informell)'},
+  {id:'gutenmorgen', text:'Guten Morgen!', type:'formal', cat:'greet', meaning:'Begrüßung am Morgen'},
+  {id:'gutentag', text:'Guten Tag!', type:'formal', cat:'greet', meaning:'höfliche Begrüßung'},
+  {id:'wieheisstdu', text:'Wie heißt du?', type:'informal', cat:'ask', meaning:'nach dem Namen fragen (informell)'},
+  {id:'wieheissensie', text:'Wie heißen Sie?', type:'formal', cat:'ask', meaning:'nach dem Namen fragen (formell)'},
+  {id:'ichheisse', text:'Ich heiße …', type:'neutral', cat:'say', meaning:'den eigenen Namen sagen'},
+  {id:'unddu', text:'Und du?', type:'informal', cat:'ask', meaning:'die Frage zurückgeben (informell)'},
+  {id:'undsie', text:'Und Sie?', type:'formal', cat:'ask', meaning:'die Frage zurückgeben (formell)'},
+  {id:'tschuess', text:'Tschüss!', type:'informal', cat:'farewell', meaning:'informelle Verabschiedung'},
+  {id:'aufwiedersehen', text:'Auf Wiedersehen!', type:'formal', cat:'farewell', meaning:'formelle Verabschiedung'}
+];
+const byId = id => PHRASES.find(p=>p.id===id);
+
+const DIALOG1 = [
+  {speaker:'anna', text:'Hallo!'},
+  {speaker:'ali', text:'Hallo!'},
+  {speaker:'anna', text:'Wie heißt du?'},
+  {speaker:'ali', text:'Ich heiße Ali. Und du?'},
+  {speaker:'anna', text:'Ich heiße Anna.'},
+  {speaker:'ali', text:'Tschüss!'},
+  {speaker:'anna', text:'Tschüss!'}
+];
+const DIALOG2 = [
+  {speaker:'anna', text:'Guten Morgen!'},
+  {speaker:'ali', text:'Guten Morgen!'},
+  {speaker:'anna', text:'Wie heißen Sie?'},
+  {speaker:'ali', text:'Ich heiße Ali. Und Sie?'},
+  {speaker:'anna', text:'Ich heiße Anna.'},
+  {speaker:'ali', text:'Auf Wiedersehen!'},
+  {speaker:'anna', text:'Auf Wiedersehen!'}
+];
+
+const GF_ITEMS = [
+  {id:'hallo', col:'greet'},
+  {id:'gutenmorgen', col:'greet'},
+  {id:'gutentag', col:'greet'},
+  {id:'tschuess', col:'farewell'},
+  {id:'aufwiedersehen', col:'farewell'}
+];
+
+const FI_ITEMS = [
+  {id:'hallo', col:'informal'},
+  {id:'tschuess', col:'informal'},
+  {id:'wieheisstdu', col:'informal'},
+  {id:'unddu', col:'informal'},
+  {id:'gutenmorgen', col:'formal'},
+  {id:'gutentag', col:'formal'},
+  {id:'aufwiedersehen', col:'formal'},
+  {id:'wieheissensie', col:'formal'},
+  {id:'undsie', col:'formal'}
+];
+
+const SITUATIONS = [
+  {id:'s1', text:'🌅 Es ist 7:00 Uhr am Morgen.', accept:['Guten Morgen!']},
+  {id:'s2', text:'👩‍🏫 Du triffst deine Lehrerin.', accept:['Guten Tag!']},
+  {id:'s3', text:'👋 Du triffst deinen Freund.', accept:['Hallo!']},
+  {id:'s4', text:'🚪 Du gehst nach Hause.', accept:['Tschüss!','Auf Wiedersehen!']}
+];
+const SITUATION_OPTIONS = ['Hallo!','Guten Morgen!','Guten Tag!','Tschüss!','Auf Wiedersehen!'];
+
+const NACHSPRECHEN_LIST = ['hallo','gutenmorgen','gutentag','wieheisstdu','ichheisse','tschuess','aufwiedersehen'];
+
+const FILL_BLANKS = [
+  {before:'Anna: Hallo!', line:null},
+  {speaker:'Ali', pre:'Wie', blankId:'b1', correct:'heißt', options:['heißt','heiße','heißen'], post:'du?'},
+  {speaker:'Ali', pre:'Ich', blankId:'b2', correct:'heiße', options:['heiße','heißt','heißen'], post:'Ali. Und du?'},
+  {before:'Anna: Ich heiße Anna.', line:null},
+  {speaker:'Ali', pre:'', blankId:'b3', correct:'Tschüss', options:['Tschüss','Hallo','Guten Tag'], post:'!'}
+];
+
+const ROLEPLAY_STEPS = [
+  {who:'anna', text:'Guten Morgen!'},
+  {who:'student', accept:['guten morgen'], placeholder:'Antworte auf Deutsch …', hint:'Tipp: „Guten Morgen!“'},
+  {who:'anna', text:'Wie heißt du?'},
+  {who:'student', accept:['ich heiße'], placeholder:'Ich heiße …', hint:'Tipp: „Ich heiße Ali. Und du?“'},
+  {who:'anna', text:'Ich heiße Anna.'},
+  {who:'student', accept:['auf wiedersehen','tschuss','tschüss'], placeholder:'Verabschiede dich …', hint:'Tipp: „Auf Wiedersehen!“'}
+];
+
+const FINAL_QUESTIONS = [
+  {id:'f1', text:'Du triffst einen Freund. Was sagst du?', accept:['Hallo!'], options:['Hallo!','Auf Wiedersehen!','Wie heißen Sie?']},
+  {id:'f2', text:'Es ist 8 Uhr morgens.', accept:['Guten Morgen!'], options:['Guten Morgen!','Tschüss!','Hallo!']},
+  {id:'f3', text:'Du möchtest nach dem Namen fragen.', accept:['Wie heißt du?'], options:['Wie heißt du?','Ich heiße …','Guten Tag!']},
+  {id:'f4', text:'Du gehst nach Hause.', accept:['Tschüss!','Auf Wiedersehen!'], options:['Tschüss!','Guten Morgen!','Wie heißt du?']}
+];
+
+const LEXI_TIPS = [
+  'Tippe auf „Los geht\'s!“, um deine Reise zu starten. 🦊',
+  'Lies dir in Ruhe durch, was du gleich lernen wirst.',
+  'Hör dir zuerst den informellen, dann den formellen Dialog an.',
+  'Tippe auf eine Karte, um jeden Ausdruck zu hören.',
+  'Ordne jeden Ausdruck der richtigen Spalte zu.',
+  'Freunde ODER Lehrer? Achte auf die Situation!',
+  'Überlege: Wer ist das, und wie spät ist es?',
+  'Hör zu und sprich dann laut nach – das hilft beim Lernen!',
+  'Welches Wort passt in die Lücke?',
+  'Du bist jetzt Ali! Schreib deine Antwort auf Deutsch.',
+  'Tippe auf jeden Ausdruck, um ihn dir noch einmal zu merken.',
+  'Letzte Aufgabe – du schaffst das! 💪',
+  'Super gemacht! Du hast dein erstes Abzeichen verdient. 🎉'
+];
+
+const SCREENS = ['start','objectives','dialogue','vocab','sortgf','formality','whichgreet','nachsprechen','dialogfill','roleplay','review','final','mission'];
+
+/* ============================================================
+   STATE
+   ============================================================ */
+let state = {
+  screenIndex:0,
+  maxReached:0,
+  totalXP:0,
+  xpFlags:new Set(),
+  gfPlaced:{}, fiPlaced:{},
+  gfSelectedChip:null, fiSelectedChip:null,
+  whichAnswered:{},
+  fillAnswered:{},
+  finalAnswered:{},
+  rpStepIndex:0,
+  rpTries:0,
+  roleplayStarted:false,
+  dialogCurrent:1,
+  dialogPlaying:false,
+  dialogLineIndex:0
+};
+
+/* ============================================================
+   SPEECH
+   ============================================================ */
+function speak(text, onend){
+  if(!('speechSynthesis' in window)){ if(onend) onend(); return; }
+  window.speechSynthesis.cancel();
+  const u = new SpeechSynthesisUtterance(text);
+  u.lang = 'de-DE';
+  u.rate = 0.92;
+  u.pitch = 1.0;
+  if(onend) u.onend = onend;
+  u.onerror = function(){ if(onend) onend(); };
+  window.speechSynthesis.speak(u);
+}
+function stopSpeaking(){
+  if('speechSynthesis' in window) window.speechSynthesis.cancel();
+}
+
+/* ============================================================
+   XP / NAV / HEADER
+   ============================================================ */
+function award(flagId, amount){
+  if(!state.xpFlags.has(flagId)){
+    state.xpFlags.add(flagId);
+    state.totalXP += amount;
+    renderHeader();
+    pulseLexi();
+  }
+}
+function pulseLexi(){
+  const el = document.getElementById('lexiAvatar');
+  el.classList.add('talking');
+  setTimeout(()=>el.classList.remove('talking'), 500);
+}
+function renderHeader(){
+  document.getElementById('xpCount').textContent = state.totalXP;
+  const pct = Math.round((state.screenIndex/(SCREENS.length-1))*100);
+  document.getElementById('progressFill').style.width = pct+'%';
+  const row = document.getElementById('stampsRow');
+  row.innerHTML='';
+  SCREENS.forEach((s,i)=>{
+    const d = document.createElement('div');
+    d.className = 'stamp-dot' + (i<state.screenIndex?' done':'') + (i===state.screenIndex?' current':'');
+    d.textContent = i<state.screenIndex ? '✓' : '';
+    row.appendChild(d);
+  });
+  const tip = document.getElementById('lexiTip');
+  tip.textContent = LEXI_TIPS[state.screenIndex] || '';
+  tip.classList.add('show');
+}
+function goTo(index){
+  stopSpeaking();
+  state.dialogPlaying = false;
+  document.querySelectorAll('.screen').forEach(s=>s.classList.remove('active'));
+  document.getElementById('screen-'+SCREENS[index]).classList.add('active');
+  state.screenIndex = index;
+  if(index > state.maxReached) state.maxReached = index;
+  renderHeader();
+  window.scrollTo({top:0, behavior:'smooth'});
+  if(index===12){ document.getElementById('missionXP').textContent = state.totalXP; }
+  if(index===9 && !state.roleplayStarted){
+    state.roleplayStarted = true;
+    renderRoleplay();
+  }
+}
+
+/* ============================================================
+   DIALOGUE SCREEN
+   ============================================================ */
+function currentDialogLines(){ return state.dialogCurrent===1 ? DIALOG1 : DIALOG2; }
+
+function renderBubbles(){
+  const container = document.getElementById('bubblesContainer');
+  container.innerHTML='';
+  currentDialogLines().forEach((line, i)=>{
+    const b = document.createElement('div');
+    b.className = 'bubble ' + line.speaker;
+    b.id = 'bubble-'+i;
+    b.innerHTML = '<span class="play-ico">🔊</span>' + line.text;
+    b.onclick = ()=>{ stopSpeaking(); state.dialogPlaying=false; highlightLine(i); speak(line.text, ()=>clearHighlight()); };
+    container.appendChild(b);
+  });
+}
+function switchDialog(num){
+  stopSpeaking();
+  state.dialogPlaying = false;
+  state.dialogCurrent = num;
+  document.getElementById('tab1').classList.toggle('active', num===1);
+  document.getElementById('tab2').classList.toggle('active', num===2);
+  renderBubbles();
+  clearHighlight();
+}
+function highlightLine(i){
+  clearHighlight();
+  const line = currentDialogLines()[i];
+  const bubble = document.getElementById('bubble-'+i);
+  if(bubble) bubble.classList.add('active-line');
+  document.getElementById('avatarAnna').classList.toggle('speaking', line.speaker==='anna');
+  document.getElementById('avatarAli').classList.toggle('speaking', line.speaker==='ali');
+}
+function clearHighlight(){
+  document.querySelectorAll('.bubble').forEach(b=>b.classList.remove('active-line'));
+  document.getElementById('avatarAnna').classList.remove('speaking');
+  document.getElementById('avatarAli').classList.remove('speaking');
+}
+function playDialog(){
+  stopSpeaking();
+  state.dialogPlaying = true;
+  state.dialogLineIndex = 0;
+  award('dialog-play-'+state.dialogCurrent, 5);
+  stepDialog();
+}
+function stepDialog(){
+  const lines = currentDialogLines();
+  if(!state.dialogPlaying || state.dialogLineIndex >= lines.length){
+    state.dialogPlaying = false;
+    clearHighlight();
+    return;
+  }
+  const i = state.dialogLineIndex;
+  highlightLine(i);
+  speak(lines[i].text, ()=>{
+    state.dialogLineIndex++;
+    if(state.dialogPlaying) stepDialog();
+  });
+}
+function pauseDialog(){
+  state.dialogPlaying = false;
+  stopSpeaking();
+}
+function repeatDialog(){
+  playDialog();
+}
+
+/* ============================================================
+   VOCAB SCREEN
+   ============================================================ */
+function renderVocab(){
+  const grid = document.getElementById('vocabGrid');
+  grid.innerHTML='';
+  PHRASES.forEach(p=>{
+    const card = document.createElement('div');
+    card.className = 'vocab-card';
+    card.id = 'vc-'+p.id;
+    card.innerHTML = '<div class="vc-check">✓</div><div class="vc-text"><span class="vc-speaker">🔊</span> '+p.text+'</div><div class="vc-meaning">'+p.meaning+'</div>';
+    card.onclick = ()=>{
+      speak(p.text);
+      card.classList.add('done');
+      award('vocab-'+p.id, 1);
+    };
+    grid.appendChild(card);
+  });
+}
+
+/* ============================================================
+   SORT ACTIVITIES (generic)
+   ============================================================ */
+function renderSort(bankId, items, colConfigs, stateKey, selectedKey, xpPrefix){
+  const bank = document.getElementById(bankId);
+  bank.innerHTML='';
+  colConfigs.forEach(c=>{
+    const col = document.getElementById(c.colId);
+    col.querySelectorAll('.placed-chip').forEach(el=>el.remove());
+  });
+  items.forEach(item=>{
+    const placed = state[stateKey][item.id];
+    if(placed) return;
+    const p = byId(item.id);
+    const chip = document.createElement('div');
+    chip.className = 'chip';
+    chip.id = 'chip-'+stateKey+'-'+item.id;
+    chip.textContent = p.text;
+    chip.onclick = ()=>{
+      speak(p.text);
+      document.querySelectorAll('#'+bankId+' .chip').forEach(c=>c.classList.remove('selected'));
+      chip.classList.add('selected');
+      state[selectedKey] = item.id;
+    };
+    bank.appendChild(chip);
+  });
+  colConfigs.forEach(c=>{
+    const col = document.getElementById(c.colId);
+    col.onclick = ()=>{
+      const selId = state[selectedKey];
+      if(!selId) return;
+      const item = items.find(it=>it.id===selId);
+      if(!item) return;
+      if(item.col === c.key){
+        state[stateKey][selId] = true;
+        state[selectedKey] = null;
+        award(xpPrefix+'-'+selId, 2);
+        renderSort(bankId, items, colConfigs, stateKey, selectedKey, xpPrefix);
+        const p = byId(selId);
+        const placedEl = document.createElement('div');
+        placedEl.className='placed-chip';
+        placedEl.textContent = p.text + ' ✓';
+        col.appendChild(placedEl);
+      } else {
+        const chipEl = document.getElementById('chip-'+stateKey+'-'+selId);
+        if(chipEl){
+          chipEl.classList.add('wrong-shake');
+          setTimeout(()=>chipEl.classList.remove('wrong-shake'), 400);
+        }
+        col.classList.add('hover-ready');
+        setTimeout(()=>col.classList.remove('hover-ready'), 300);
+      }
+    };
+  });
+}
+function renderGF(){
+  renderSort('gfBank', GF_ITEMS,
+    [{key:'greet', colId:'gfColGreet'},{key:'farewell', colId:'gfColFarewell'}],
+    'gfPlaced', 'gfSelectedChip', 'gf');
+}
+function renderFI(){
+  renderSort('fiBank', FI_ITEMS,
+    [{key:'informal', colId:'fiColInformal'},{key:'formal', colId:'fiColFormal'}],
+    'fiPlaced', 'fiSelectedChip', 'fi');
+}
+
+/* ============================================================
+   WELCHE BEGRÜSSUNG PASST
+   ============================================================ */
+function shuffle(arr){
+  const a = arr.slice();
+  for(let i=a.length-1;i>0;i--){
+    const j = Math.floor(Math.random()*(i+1));
+    [a[i],a[j]]=[a[j],a[i]];
+  }
+  return a;
+}
+function renderWhichGreet(){
+  const list = document.getElementById('whichGreetList');
+  list.innerHTML='';
+  const situations = shuffle(SITUATIONS);
+  situations.forEach(sit=>{
+    const card = document.createElement('div');
+    card.className = 'situation-card';
+    const options = shuffle(SITUATION_OPTIONS);
+    const optsHtml = options.map(opt=>`<button class="mc-opt" data-opt="${opt}">${opt}</button>`).join('');
+    card.innerHTML = `<div class="situation-text">${sit.text}</div><div class="mc-options">${optsHtml}</div><div class="mc-feedback" id="fb-${sit.id}"></div>`;
+    list.appendChild(card);
+    card.querySelectorAll('.mc-opt').forEach(btn=>{
+      btn.onclick = ()=>{
+        if(state.whichAnswered[sit.id]) return;
+        const chosen = btn.getAttribute('data-opt');
+        const fb = document.getElementById('fb-'+sit.id);
+        if(sit.accept.includes(chosen)){
+          btn.classList.add('correct');
+          fb.textContent = 'Richtig! 🎉';
+          fb.className = 'mc-feedback ok';
+          state.whichAnswered[sit.id] = true;
+          award('which-'+sit.id, 5);
+        } else {
+          btn.classList.add('incorrect');
+          fb.textContent = 'Versuch es noch einmal!';
+          fb.className = 'mc-feedback bad';
+          setTimeout(()=>btn.classList.remove('incorrect'), 500);
+        }
+      };
+    });
+  });
+}
+
+/* ============================================================
+   NACHSPRECHEN
+   ============================================================ */
+function renderSpeakList(){
+  const list = document.getElementById('speakList');
+  list.innerHTML='';
+  NACHSPRECHEN_LIST.forEach(id=>{
+    const p = byId(id);
+    const item = document.createElement('div');
+    item.className = 'speak-item';
+    item.id = 'speak-'+id;
+    item.innerHTML = `
+      <div class="speak-item-top">
+        <div class="speak-item-phrase">🔊 ${p.text}</div>
+        <button class="btn btn-secondary btn-sm" onclick="hearPhrase('${id}')">Hör zu</button>
+      </div>
+      <div class="speak-panel" id="panel-${id}">
+        <div class="jetzt">Jetzt du! Sprich laut nach: „${p.text}“</div>
+        <div style="display:flex;gap:8px;flex-wrap:wrap;">
+          <button class="btn btn-ghost btn-sm" onclick="hearPhrase('${id}')">🔊 Nochmal hören</button>
+          <button class="btn btn-sage btn-sm" onclick="markSpoken('${id}')">✓ Ich habe gesprochen</button>
+        </div>
+      </div>
+      <button class="btn btn-primary btn-sm" style="margin-top:8px;" onclick="openSpeakPanel('${id}')">🎙️ Nachsprechen</button>
+    `;
+    list.appendChild(item);
+  });
+}
+function hearPhrase(id){ speak(byId(id).text); }
+function openSpeakPanel(id){
+  hearPhrase(id);
+  document.getElementById('panel-'+id).classList.add('show');
+}
+function markSpoken(id){
+  document.getElementById('speak-'+id).classList.add('done');
+  award('speak-'+id, 2);
+}
+
+/* ============================================================
+   DIALOG ERGÄNZEN
+   ============================================================ */
+function renderFill(){
+  const container = document.getElementById('fillContainer');
+  container.innerHTML='';
+  FILL_BLANKS.forEach((item, idx)=>{
+    if(item.line === null){
+      const div = document.createElement('div');
+      div.className = 'fill-line';
+      div.textContent = item.before;
+      container.appendChild(div);
+      return;
+    }
+    const wrap = document.createElement('div');
+    wrap.className = 'fill-line';
+    wrap.innerHTML = `<b>${item.speaker}:</b> ${item.pre} <span class="blank-slot empty" id="slot-${item.blankId}">____</span> ${item.post}`;
+    container.appendChild(wrap);
+    const optsWrap = document.createElement('div');
+    optsWrap.className = 'fill-options';
+    shuffle(item.options).forEach(opt=>{
+      const btn = document.createElement('button');
+      btn.className = 'mc-opt';
+      btn.textContent = opt;
+      btn.onclick = ()=>{
+        if(state.fillAnswered[item.blankId]) return;
+        const slot = document.getElementById('slot-'+item.blankId);
+        if(opt === item.correct){
+          slot.textContent = opt;
+          slot.classList.remove('empty');
+          btn.classList.add('correct');
+          state.fillAnswered[item.blankId] = true;
+          award('fill-'+item.blankId, 5);
+          speak((item.pre+' '+opt+' '+item.post).trim());
+        } else {
+          btn.classList.add('incorrect');
+          setTimeout(()=>btn.classList.remove('incorrect'), 450);
+        }
+      };
+      optsWrap.appendChild(btn);
+    });
+    container.appendChild(optsWrap);
+  });
+}
+
+/* ============================================================
+   ROLLENSPIEL
+   ============================================================ */
+function normalizeText(s){
+  return s.toLowerCase()
+    .replace(/ß/g,'ss')
+    .replace(/[.,!?…]/g,'')
+    .replace(/\s+/g,' ')
+    .trim();
+}
+function rpMatches(input, acceptList){
+  const norm = normalizeText(input);
+  return acceptList.some(k=> norm.includes(normalizeText(k)));
+}
+function renderRoleplay(){
+  state.rpStepIndex = 0;
+  state.rpTries = 0;
+  const container = document.getElementById('rpContainer');
+  container.innerHTML='';
+  showNextRpStep();
+}
+function showNextRpStep(){
+  const container = document.getElementById('rpContainer');
+  if(state.rpStepIndex >= ROLEPLAY_STEPS.length){
+    const done = document.createElement('div');
+    done.style.textAlign='center';
+    done.style.padding='10px';
+    done.innerHTML = '<div style="font-size:30px;">🎉</div><div style="font-weight:700;color:var(--sage-dark);font-family:Fredoka,sans-serif;">Rollenspiel geschafft!</div>';
+    container.appendChild(done);
+    return;
+  }
+  const step = ROLEPLAY_STEPS[state.rpStepIndex];
+  if(step.who === 'anna'){
+    const line = document.createElement('div');
+    line.className = 'rp-line';
+    line.innerHTML = `<div class="rp-avatar">👩</div><div class="rp-bubble">${step.text}</div>`;
+    container.appendChild(line);
+    speak(step.text);
+    state.rpStepIndex++;
+    setTimeout(showNextRpStep, 250);
+  } else {
+    state.rpTries = 0;
+    const wrap = document.createElement('div');
+    wrap.className = 'rp-student';
+    const stepIdx = state.rpStepIndex;
+    wrap.innerHTML = `
+      <div class="rp-input-row">
+        <input type="text" class="rp-input" id="rpInput" placeholder="${step.placeholder}">
+        <button class="btn btn-primary btn-sm" id="rpCheckBtn">Prüfen</button>
+      </div>
+      <div class="rp-feedback" id="rpFeedback"></div>
+      <div class="rp-hint" id="rpHint">${step.hint}</div>
+    `;
+    container.appendChild(wrap);
+    const input = wrap.querySelector('#rpInput');
+    const checkBtn = wrap.querySelector('#rpCheckBtn');
+    const feedback = wrap.querySelector('#rpFeedback');
+    const hint = wrap.querySelector('#rpHint');
+    function check(){
+      const val = input.value.trim();
+      if(!val) return;
+      if(rpMatches(val, step.accept)){
+        feedback.textContent = 'Richtig! 🎉';
+        feedback.style.color = 'var(--sage-dark)';
+        input.disabled = true;
+        checkBtn.disabled = true;
+        award('rp-'+stepIdx, 5);
+        state.rpStepIndex++;
+        setTimeout(showNextRpStep, 400);
+      } else {
+        state.rpTries++;
+        feedback.textContent = 'Versuch es noch einmal!';
+        feedback.style.color = 'var(--rose)';
+        if(state.rpTries >= 1) hint.classList.add('show');
+      }
+    }
+    checkBtn.onclick = check;
+    input.onkeydown = (e)=>{ if(e.key==='Enter') check(); };
+  }
+}
+
+/* ============================================================
+   MINI REVIEW
+   ============================================================ */
+function renderReview(){
+  const list = document.getElementById('reviewList');
+  list.innerHTML='';
+  PHRASES.forEach(p=>{
+    const item = document.createElement('div');
+    item.className = 'review-item';
+    item.innerHTML = `<div><div class="review-phrase">🔊 ${p.text}</div><div class="review-meaning">${p.meaning}</div></div>`;
+    item.onclick = ()=>speak(p.text);
+    list.appendChild(item);
+  });
+}
+
+/* ============================================================
+   FINAL CHALLENGE
+   ============================================================ */
+function renderFinal(){
+  const list = document.getElementById('finalList');
+  list.innerHTML='';
+  document.getElementById('finalDone').style.display='none';
+  state.finalAnswered = {};
+  const questions = shuffle(FINAL_QUESTIONS);
+  questions.forEach(q=>{
+    const card = document.createElement('div');
+    card.className = 'situation-card';
+    const opts = shuffle(q.options);
+    const optsHtml = opts.map(o=>`<button class="mc-opt" data-opt="${o}">${o}</button>`).join('');
+    card.innerHTML = `<div class="situation-text">${q.text}</div><div class="mc-options">${optsHtml}</div><div class="mc-feedback" id="ffb-${q.id}"></div>`;
+    list.appendChild(card);
+    card.querySelectorAll('.mc-opt').forEach(btn=>{
+      btn.onclick = ()=>{
+        if(state.finalAnswered[q.id]) return;
+        const chosen = btn.getAttribute('data-opt');
+        const fb = document.getElementById('ffb-'+q.id);
+        if(q.accept.includes(chosen)){
+          btn.classList.add('correct');
+          fb.textContent = 'Richtig! 🎉';
+          fb.className = 'mc-feedback ok';
+          state.finalAnswered[q.id] = true;
+          award('final-'+q.id, 10);
+          checkFinalComplete();
+        } else {
+          btn.classList.add('incorrect');
+          fb.textContent = 'Versuch es noch einmal!';
+          fb.className = 'mc-feedback bad';
+          setTimeout(()=>btn.classList.remove('incorrect'), 450);
+        }
+      };
+    });
+  });
+}
+function checkFinalComplete(){
+  const allDone = FINAL_QUESTIONS.every(q=>state.finalAnswered[q.id]);
+  if(allDone){
+    document.getElementById('finalDone').style.display='block';
+  }
+}
+
+/* ============================================================
+   RESTART
+   ============================================================ */
+function restartLesson(){
+  stopSpeaking();
+  state = {
+    screenIndex:0, maxReached:0, totalXP:0, xpFlags:new Set(),
+    gfPlaced:{}, fiPlaced:{}, gfSelectedChip:null, fiSelectedChip:null,
+    whichAnswered:{}, fillAnswered:{}, finalAnswered:{},
+    rpStepIndex:0, rpTries:0, roleplayStarted:false,
+    dialogCurrent:1, dialogPlaying:false, dialogLineIndex:0
+  };
+  document.getElementById('tab1').classList.add('active');
+  document.getElementById('tab2').classList.remove('active');
+  renderAll();
+  goTo(0);
+}
+
+/* ============================================================
+   INIT
+   ============================================================ */
+function renderAll(){
+  renderBubbles();
+  renderVocab();
+  renderGF();
+  renderFI();
+  renderWhichGreet();
+  renderSpeakList();
+  renderFill();
+  renderReview();
+  renderFinal();
+  renderHeader();
+}
+renderAll();
+</script>
+</body>
+</html>
