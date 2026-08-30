@@ -1,0 +1,2485 @@
+<!DOCTYPE html>
+<html lang="de">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1">
+<title>Lernreise: Das deutsche Alphabet</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Fredoka:wght@400;500;600;700&family=Nunito:wght@400;600;700;800&display=swap" rel="stylesheet">
+<style>
+:root{
+  /* ---- shared design tokens (match the Begrüßung lesson) ---- */
+  --cream:#FBF6EC;
+  --paper:#FFFDF9;
+  --ink:#2B2118;
+  --ink-soft:#6b6053;
+  --teal:#2f6f76;
+  --teal-dark:#1f4d52;
+  --teal-light:#eaf3f3;
+  --coral:#e8734a;
+  --coral-dark:#c85a34;
+  --coral-light:#fdece3;
+  --gold:#e8b84b;
+  --gold-dark:#b9871f;
+  --sage:#6f9c85;
+  --sage-dark:#4f7b64;
+  --sage-light:#e9f3ee;
+  --rose:#d9605f;
+  --rose-light:#fbe3e0;
+  --line:#e7ddc9;
+  --radius:18px;
+  --shadow:0 10px 26px rgba(43,33,24,0.12);
+
+  /* ---- legacy variable names kept as aliases ----
+     (the scene scripts below style themselves with these
+     custom properties, so re-pointing them is what re-skins
+     every screen without touching the JavaScript) */
+  --ink-2:var(--paper);
+  --ink-3:#f3ecdc;
+  --paper-dim:var(--ink-soft);
+  --yellow:var(--gold);
+  --yellow-dim:var(--gold-dark);
+  --red:var(--rose);
+  --green:var(--sage-dark);
+  --blue:var(--teal);
+
+  --font-display:'Fredoka', sans-serif;
+  --font-body:'Nunito', sans-serif;
+  --font-mono:'Nunito', sans-serif;
+}
+*{box-sizing:border-box;}
+html,body{height:100%;}
+body{
+  margin:0;
+  background:
+    radial-gradient(1100px 600px at 88% -8%, rgba(232,184,75,0.14), transparent 55%),
+    radial-gradient(900px 520px at -8% 108%, rgba(47,111,118,0.10), transparent 55%),
+    var(--cream);
+  color:var(--ink);
+  font-family:var(--font-body);
+  overflow:hidden;
+  -webkit-font-smoothing:antialiased;
+}
+button{font-family:inherit;}
+:focus-visible{outline:3px solid var(--coral);outline-offset:3px;}
+h1,h2,h3{font-family:var(--font-display);font-weight:600;letter-spacing:0.2px;}
+
+/* ================= APP SHELL ================= */
+#app{
+  height:100vh;
+  display:grid;
+  grid-template-rows:auto 1fr auto;
+}
+
+/* ---- progress rail (passport-style header) ---- */
+#rail{
+  padding:16px clamp(16px,4vw,48px) 12px;
+  background:var(--paper);
+  border-bottom:3px dashed var(--line);
+  box-shadow:0 4px 16px rgba(43,33,24,0.06);
+  position:relative;
+  z-index:50;
+}
+#rail-top{
+  display:flex;align-items:center;justify-content:space-between;
+  gap:14px;flex-wrap:wrap;
+  margin-bottom:12px;
+}
+#rail-title{
+  font-family:var(--font-body);
+  font-weight:800;
+  font-size:12px;
+  letter-spacing:0.12em;
+  text-transform:uppercase;
+  color:var(--ink-soft);
+}
+#rail-title b{color:var(--teal);font-weight:800;}
+#scene-counter{
+  font-family:var(--font-body);
+  font-weight:700;
+  font-size:12px;
+  color:var(--ink-soft);
+  letter-spacing:0.04em;
+  white-space:nowrap;
+}
+#track{
+  position:relative;
+  height:10px;
+  background:var(--teal-light);
+  border-radius:999px;
+  overflow:hidden;
+}
+#track-fill{
+  position:absolute;left:0;top:0;height:100%;
+  background:linear-gradient(90deg,var(--sage),var(--teal));
+  border-radius:999px;
+  transition:width .5s cubic-bezier(.4,1.4,.6,1);
+}
+#stops{
+  display:flex;justify-content:space-between;
+  margin-top:10px;
+  gap:2px;
+}
+.stop{
+  display:flex;flex-direction:column;align-items:center;gap:6px;
+  font-family:var(--font-body);
+  font-weight:700;
+  font-size:10.5px;
+  letter-spacing:0.04em;
+  color:var(--ink-soft);
+  flex:1;
+  text-align:center;
+}
+.stop .dot{
+  width:14px;height:14px;border-radius:50%;
+  background:var(--paper);
+  border:2px solid var(--line);
+  transition:all .3s;
+}
+.stop.done .dot{background:var(--sage);border-color:var(--sage-dark);}
+.stop.active .dot{background:var(--gold);border-color:var(--gold-dark);box-shadow:0 0 0 5px rgba(232,184,75,0.22);}
+.stop.active{color:var(--ink);}
+.stop.done{color:var(--ink-soft);}
+
+/* ---- xp badge ---- */
+#xp-badge{
+  display:flex;align-items:center;gap:6px;
+  font-family:var(--font-display);
+  font-weight:600;
+  font-size:13px;
+  color:#5a4413;
+  padding:7px 13px;
+  border-radius:999px;
+  background:linear-gradient(155deg,#fff2cf,var(--gold));
+  box-shadow:0 3px 8px rgba(184,135,31,0.35);
+  white-space:nowrap;
+}
+#xp-badge b{font-size:14px;}
+#xp-badge.pulse{animation:xppulse .5s ease;}
+@keyframes xppulse{0%{transform:scale(1);}40%{transform:scale(1.12);}100%{transform:scale(1);}}
+
+/* ---- stage ---- */
+#stage{
+  position:relative;
+  overflow-y:auto;
+  padding:clamp(20px,4vw,56px);
+  display:flex;
+  align-items:flex-start;
+  justify-content:center;
+}
+.scene{
+  width:100%;
+  max-width:1100px;
+  margin:auto;
+  animation:enter .45s cubic-bezier(.2,.8,.2,1);
+}
+@keyframes enter{
+  from{opacity:0;transform:translateY(14px);}
+  to{opacity:1;transform:translateY(0);}
+}
+.eyebrow{
+  font-family:var(--font-body);
+  font-weight:800;
+  font-size:clamp(11px,1.1vw,13px);
+  letter-spacing:0.14em;
+  text-transform:uppercase;
+  color:var(--coral-dark);
+  margin:0 0 10px;
+  display:flex;align-items:center;gap:10px;
+}
+.eyebrow::before{content:"";width:22px;height:2px;background:var(--coral);display:inline-block;flex-shrink:0;}
+h1.scene-title{
+  font-family:var(--font-display);
+  font-weight:600;
+  font-size:clamp(26px,4.2vw,44px);
+  line-height:1.12;
+  margin:0 0 14px;
+  letter-spacing:-0.005em;
+  color:var(--ink);
+}
+p.lead{
+  font-size:clamp(15px,1.6vw,17px);
+  line-height:1.55;
+  color:var(--ink-soft);
+  max-width:64ch;
+  margin:0 0 26px;
+}
+.card{
+  background:var(--paper);
+  border:1px solid var(--line);
+  border-radius:var(--radius);
+  box-shadow:var(--shadow);
+}
+.btn{
+  font-family:var(--font-display);
+  font-weight:600;
+  font-size:15px;
+  padding:13px 22px;
+  border-radius:14px;
+  border:1.5px solid var(--line);
+  background:var(--paper);
+  color:var(--ink);
+  cursor:pointer;
+  display:inline-flex;align-items:center;justify-content:center;gap:7px;
+  transition:transform .15s, background .15s, border-color .15s, box-shadow .15s;
+  min-height:46px;
+}
+.btn:hover{transform:translateY(-2px);border-color:var(--teal);}
+.btn:active{transform:translateY(0) scale(0.97);}
+.btn.primary{
+  background:linear-gradient(155deg,var(--coral),var(--coral-dark));
+  color:#fff;
+  border-color:transparent;
+  box-shadow:0 5px 14px rgba(200,90,52,0.35);
+}
+.btn.primary:hover{filter:brightness(1.05);}
+.btn.ghost{background:transparent;color:var(--ink-soft);border:1.5px solid var(--line);}
+.btn.ghost:hover{border-color:var(--teal);color:var(--teal-dark);}
+.btn[disabled]{opacity:.4;cursor:not-allowed;transform:none!important;box-shadow:none;}
+.btn.correct{background:var(--sage)!important;color:#fff!important;border-color:transparent!important;}
+.btn.wrong{background:var(--rose)!important;color:#fff!important;border-color:transparent!important;}
+
+/* ---- bottom nav ---- */
+#nav{
+  display:flex;align-items:center;justify-content:space-between;
+  gap:16px;
+  padding:14px clamp(16px,4vw,48px);
+  border-top:1px solid var(--line);
+  background:var(--paper);
+  box-shadow:0 -6px 18px rgba(43,33,24,0.05);
+}
+#nav .side{display:flex;gap:10px;}
+#nav-progress-label{
+  font-family:var(--font-body);
+  font-weight:700;
+  font-size:12px;
+  color:var(--ink-soft);
+  letter-spacing:.06em;
+  text-align:center;
+  flex:1;
+}
+
+/* ---- mascot ---- */
+#mascot{
+  position:fixed;
+  right:clamp(14px,3vw,34px);
+  bottom:92px;
+  display:flex;
+  align-items:flex-end;
+  gap:12px;
+  z-index:50;
+  max-width:min(340px,80vw);
+  pointer-events:none;
+}
+#mascot-bubble{
+  background:var(--paper);
+  color:var(--ink);
+  font-family:var(--font-body);
+  font-weight:700;
+  font-size:14px;
+  line-height:1.4;
+  padding:12px 15px;
+  border-radius:14px 14px 4px 14px;
+  border:1px solid var(--line);
+  box-shadow:var(--shadow);
+  max-width:260px;
+  transform-origin:bottom right;
+  animation:pop .3s cubic-bezier(.2,.8,.2,1);
+}
+#mascot-bubble.mood-success{background:var(--sage-light);border-color:var(--sage);color:var(--sage-dark);}
+#mascot-bubble.mood-error{background:var(--rose-light);border-color:var(--rose);color:var(--rose);}
+@keyframes pop{from{opacity:0;transform:scale(.85) translateY(6px);}to{opacity:1;transform:scale(1) translateY(0);}}
+#mascot-avatar{
+  width:56px;height:56px;border-radius:50%;
+  background:linear-gradient(155deg,#ffd9a8,var(--coral));
+  display:flex;align-items:center;justify-content:center;
+  font-size:28px;
+  box-shadow:0 6px 14px rgba(200,90,52,0.35);
+  flex-shrink:0;
+  animation:lexi-float 3.2s ease-in-out infinite;
+}
+@keyframes lexi-float{
+  0%,100%{transform:translateY(0) rotate(-3deg);}
+  50%{transform:translateY(-4px) rotate(3deg);}
+}
+#mascot-avatar.talking{animation:lexi-talk .35s ease-in-out infinite;}
+@keyframes lexi-talk{0%,100%{transform:scale(1);}50%{transform:scale(1.08);}}
+
+/* ================= FLAP TILE (signature element) ================= */
+.flap-grid{
+  display:grid;
+  grid-template-columns:repeat(auto-fill,minmax(76px,1fr));
+  gap:10px;
+}
+.flap{
+  position:relative;
+  aspect-ratio:3/4;
+  perspective:600px;
+  cursor:pointer;
+  background:none;
+  border:none;
+  padding:0;
+}
+.flap-face{
+  position:absolute;inset:0;
+  background:var(--paper);
+  border:1.5px solid var(--line);
+  border-radius:12px;
+  display:flex;flex-direction:column;align-items:center;justify-content:center;
+  font-family:var(--font-display);
+  box-shadow:0 2px 6px rgba(43,33,24,0.06);
+  transition:transform .18s, border-color .18s, background .18s;
+}
+.flap-letter{
+  font-size:clamp(22px,2.6vw,30px);
+  font-weight:600;
+  color:var(--teal-dark);
+}
+.flap-name{
+  font-size:10px;
+  color:var(--ink-soft);
+  margin-top:4px;
+  opacity:0;
+  transition:opacity .3s;
+  letter-spacing:.04em;
+}
+.flap.discovered .flap-face{background:var(--sage-light);border-color:var(--sage);}
+.flap.discovered .flap-name{opacity:1;}
+.flap.discovered .flap-letter{color:var(--sage-dark);}
+.flap.flipping .flap-face{animation:flapdown .42s ease;}
+@keyframes flapdown{
+  0%{transform:rotateX(0);}
+  45%{transform:rotateX(85deg);}
+  55%{transform:rotateX(85deg);}
+  100%{transform:rotateX(0);}
+}
+.flap-sound{
+  position:absolute;bottom:6px;right:6px;
+  font-size:10px;color:var(--teal);opacity:.85;
+}
+
+/* ---- utility layouts ---- */
+.row-wrap{display:flex;flex-wrap:wrap;gap:12px;}
+.grid-2{display:grid;grid-template-columns:1fr 1fr;gap:16px;}
+.chip{
+  font-family:var(--font-display);
+  font-weight:600;
+  font-size:15px;
+  padding:11px 18px;
+  border-radius:999px;
+  border:1.5px solid var(--line);
+  background:var(--paper);
+  color:var(--ink);
+  cursor:pointer;
+  transition:all .15s;
+}
+.chip:hover{border-color:var(--teal);transform:translateY(-2px);}
+.chip.selected{border-color:var(--coral);background:var(--coral-light);transform:scale(1.04);}
+.chip.matched{background:var(--sage);color:#fff;border-color:transparent;cursor:default;transform:none;}
+.chip.locked{opacity:.4;cursor:default;}
+.chip.wrong{border-color:var(--rose);background:var(--rose-light);animation:shake .35s;}
+@keyframes shake{
+  0%,100%{transform:translateX(0);}
+  25%{transform:translateX(-5px);}
+  75%{transform:translateX(5px);}
+}
+
+.pill-counter{
+  display:inline-flex;align-items:center;gap:8px;
+  font-family:var(--font-body);
+  font-weight:700;
+  font-size:12.5px;
+  padding:7px 14px;
+  border-radius:999px;
+  background:var(--cream);
+  border:1.5px solid var(--line);
+  color:var(--ink-soft);
+  margin-bottom:18px;
+}
+.pill-counter b{color:var(--coral-dark);}
+
+.text-input{
+  font-family:var(--font-display);
+  font-size:18px;
+  padding:12px 16px;
+  border-radius:12px;
+  border:1.5px solid var(--line);
+  background:var(--paper);
+  color:var(--ink);
+  width:100%;
+  max-width:280px;
+}
+.text-input:focus{outline:none;border-color:var(--teal);}
+
+.exam-progress{font-family:var(--font-body);font-weight:700;font-size:12.5px;color:var(--ink-soft);margin-bottom:16px;letter-spacing:.04em;}
+
+.goal-list{list-style:none;margin:0 auto 26px;padding:0;max-width:520px;text-align:left;}
+.goal-list li{display:flex;align-items:flex-start;gap:10px;padding:10px 0;font-size:14.5px;color:var(--ink-soft);border-bottom:1px solid var(--line);}
+.goal-list li:last-child{border-bottom:none;}
+.goal-list li::before{content:"✓";color:#fff;background:var(--sage);border-radius:50%;width:20px;height:20px;flex-shrink:0;font-size:11px;font-weight:800;display:flex;align-items:center;justify-content:center;margin-top:1px;}
+
+.sub-hint{font-size:12.5px;color:var(--ink-soft);margin-top:6px;}
+
+.progressbar-mini{height:8px;background:var(--teal-light);border-radius:999px;overflow:hidden;margin-bottom:20px;}
+.progressbar-mini > div{height:100%;background:linear-gradient(90deg,var(--sage),var(--teal));transition:width .4s;}
+
+.big-badge{
+  width:150px;height:150px;border-radius:50%;
+  background:conic-gradient(var(--gold),var(--coral),var(--sage),var(--teal),var(--gold));
+  display:flex;align-items:center;justify-content:center;
+  margin:0 auto 22px;
+  box-shadow:var(--shadow);
+  position:relative;
+}
+.big-badge::before{
+  content:"";
+  position:absolute;inset:8px;
+  border-radius:50%;
+  background:var(--paper);
+}
+.big-badge span{
+  position:relative;
+  font-family:var(--font-display);
+  font-weight:700;
+  font-size:15px;
+  text-align:center;
+  line-height:1.2;
+  color:var(--ink);
+}
+
+/* ================= BEGRÜSSUNG: DIALOG-SZENE ================= */
+.dialog-hint-box{
+  font-family:var(--font-body);font-weight:800;font-size:12px;letter-spacing:.08em;
+  text-transform:uppercase;color:var(--ink-soft);text-align:center;margin-bottom:4px;
+}
+.dialog-stage{
+  display:flex;align-items:flex-end;justify-content:center;
+  gap:clamp(28px,10vw,140px);
+  padding:56px 10px 14px;
+  position:relative;
+}
+.dialog-person{
+  display:flex;flex-direction:column;align-items:center;gap:10px;
+  position:relative;width:130px;
+}
+.dialog-avatar{
+  width:84px;height:84px;border-radius:50%;
+  display:flex;align-items:center;justify-content:center;
+  font-size:40px;
+  background:linear-gradient(155deg,#dceeff,var(--teal));
+  border:2px solid var(--line);
+  box-shadow:var(--shadow);
+  transition:transform .25s, border-color .25s, box-shadow .25s;
+  animation:sway 3.4s ease-in-out infinite;
+}
+.dialog-person.b .dialog-avatar{animation-delay:1.15s;background:linear-gradient(155deg,#ffe1ea,var(--rose));}
+@keyframes sway{0%,100%{transform:translateY(0) rotate(0deg);}50%{transform:translateY(-5px) rotate(-2deg);}}
+.dialog-avatar.speaking{
+  border-color:var(--gold);
+  transform:scale(1.08);
+  box-shadow:0 0 0 7px rgba(232,184,75,.22);
+}
+.dialog-name{font-family:var(--font-display);font-weight:600;font-size:12.5px;color:var(--ink-soft);letter-spacing:.02em;}
+.dialog-bubble{
+  position:absolute;top:-58px;left:50%;transform:translateX(-50%);
+  background:var(--paper);color:var(--ink);
+  font-family:var(--font-body);font-weight:700;font-size:14px;
+  padding:10px 14px;border-radius:14px;
+  border:1.5px solid var(--line);
+  box-shadow:var(--shadow);
+  min-width:100px;max-width:220px;text-align:center;
+  opacity:0;transition:opacity .2s;
+  pointer-events:none;
+}
+.dialog-bubble::after{
+  content:"";position:absolute;bottom:-7px;left:50%;transform:translateX(-50%);
+  border-width:7px 7px 0 7px;border-style:solid;border-color:var(--paper) transparent transparent transparent;
+}
+.dialog-bubble.show{opacity:1;}
+.dialog-controls{display:flex;flex-wrap:wrap;gap:10px;margin:18px 0 6px;}
+.dialog-status{font-family:var(--font-body);font-weight:700;font-size:12.5px;color:var(--ink-soft);letter-spacing:.02em;min-height:18px;margin-bottom:6px;}
+.comprehension-box{
+  margin-top:20px;padding:18px 20px;
+  animation:enter .4s cubic-bezier(.2,.8,.2,1);
+}
+.comprehension-box .q{font-family:var(--font-display);font-weight:700;font-size:19px;margin-bottom:4px;color:var(--ink);}
+
+/* ================= BEGRÜSSUNG: WORT-KARTEN ================= */
+.word-grid{display:flex;flex-wrap:wrap;gap:10px;}
+.word-card{
+  font-family:var(--font-display);font-weight:600;font-size:14px;
+  padding:12px 17px;border-radius:12px;
+  border:1.5px solid var(--line);background:var(--paper);color:var(--ink);
+  cursor:pointer;transition:all .15s;
+}
+.word-card:hover{border-color:var(--teal);transform:translateY(-2px);}
+.word-card.correct{background:var(--sage)!important;color:#fff!important;border-color:transparent;cursor:default;}
+.word-card.wrong{background:var(--rose)!important;color:#fff!important;border-color:transparent;}
+.word-card.locked{opacity:.5;cursor:default;}
+
+/* ================= BEGRÜSSUNG: BEDEUTUNGS-KARTEN ================= */
+.meaning-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(160px,1fr));gap:14px;}
+.meaning-card{padding:20px 16px;text-align:center;cursor:pointer;transition:border-color .15s, transform .15s;}
+.meaning-card:hover{transform:translateY(-2px);border-color:var(--teal);}
+.meaning-card .emo{font-size:36px;margin-bottom:10px;}
+.meaning-card .phrase{font-family:var(--font-display);font-weight:600;font-size:16px;margin-bottom:0;color:var(--ink);}
+.meaning-card .desc{font-size:12.5px;color:var(--ink-soft);max-height:0;opacity:0;overflow:hidden;transition:all .3s;}
+.meaning-card.open{border-color:var(--sage);background:var(--sage-light);}
+.meaning-card.open .desc{max-height:120px;opacity:1;margin-top:8px;}
+
+/* ================= BEGRÜSSUNG: SORTIER-ZONEN ================= */
+.zone-grid{display:grid;grid-template-columns:1fr 1fr;gap:18px;margin-top:18px;}
+.zone-card{padding:20px;text-align:center;min-height:120px;transition:border-color .15s, background .15s;}
+.zone-card.target-active{border-color:var(--gold);background:var(--coral-light);}
+.zone-card h3{margin:0 0 12px;font-family:var(--font-display);font-size:17px;color:var(--ink);}
+.zone-list{display:flex;flex-wrap:wrap;gap:8px;justify-content:center;min-height:30px;}
+.zone-list .tag{background:var(--sage);color:#fff;padding:6px 12px;border-radius:8px;font-family:var(--font-display);font-size:13px;font-weight:600;}
+
+/* ================= BEGRÜSSUNG: CHAT / LEXI-BEGEGNUNG ================= */
+.chat-row{display:flex;gap:10px;align-items:flex-start;margin-bottom:14px;}
+.chat-row.user{flex-direction:row-reverse;}
+.chat-avatar{
+  width:36px;height:36px;border-radius:10px;flex-shrink:0;
+  display:flex;align-items:center;justify-content:center;font-size:17px;
+  background:linear-gradient(155deg,#ffd9a8,var(--coral));
+}
+.chat-avatar.user{background:var(--cream);border:1px solid var(--line);}
+.chat-bubble{background:var(--paper);border:1.5px solid var(--line);padding:10px 14px;border-radius:12px 12px 12px 4px;font-size:14px;max-width:60ch;line-height:1.45;color:var(--ink);}
+.chat-row.user .chat-bubble{background:var(--teal-light);border-radius:12px 12px 4px 12px;}
+
+/* ================= BEGRÜSSUNG: MISSION-STORY ================= */
+.mission-step{padding:18px 20px;margin-bottom:14px;transition:opacity .2s, border-color .2s;}
+.mission-step.pending{opacity:.45;}
+.mission-step.done{border-color:var(--sage);background:var(--sage-light);}
+.mission-step .step-label{font-family:var(--font-body);font-weight:800;font-size:11px;letter-spacing:.1em;color:var(--ink-soft);text-transform:uppercase;margin-bottom:6px;}
+.mission-step .step-prompt{font-family:var(--font-display);font-weight:600;font-size:16px;margin-bottom:12px;color:var(--ink);}
+
+@media (max-width:900px){
+  #app{height:auto;min-height:100vh;}
+  body{overflow:auto;}
+  #stage{overflow-y:visible;}
+  #rail{position:sticky;top:0;}
+}
+@media (max-width:720px){
+  .grid-2{grid-template-columns:1fr;}
+  #nav-progress-label{display:none;}
+  #mascot{bottom:150px;}
+  #stops{display:none;}
+  .dialog-stage{gap:18px;}
+  .zone-grid{grid-template-columns:1fr;}
+  #rail-top{gap:8px;}
+}
+@media (max-width:420px){
+  .dialog-avatar{width:64px;height:64px;font-size:30px;}
+  h1.scene-title{font-size:25px;}
+}
+@media (prefers-reduced-motion: reduce){
+  *{animation-duration:.001s!important;transition-duration:.001s!important;}
+}
+
+</style>
+</head>
+<body>
+<div id="app">
+  <div id="rail">
+    <div id="rail-top">
+      <div id="rail-title">Lernreise &middot; <b>Deutsch A1 – Das Alphabet</b></div>
+      <div style="display:flex;align-items:center;gap:14px;">
+        <div id="xp-badge">⭐ <b id="xp-value">0</b> XP</div>
+        <div id="scene-counter"></div>
+      </div>
+    </div>
+    <div id="track"><div id="track-fill"></div></div>
+    <div id="stops"></div>
+  </div>
+
+  <div id="stage"><div class="scene" id="stage-content"></div></div>
+
+  <div id="nav">
+    <div class="side">
+      <button class="btn ghost" id="btn-start-nav">⟵ Start</button>
+      <button class="btn ghost" id="btn-back">Zurück</button>
+    </div>
+    <div id="nav-progress-label"></div>
+    <div class="side">
+      <button class="btn primary" id="btn-next">Weiter →</button>
+    </div>
+  </div>
+</div>
+
+<div id="mascot">
+  <div id="mascot-bubble">Hallo! Ich bin <b>Lexi</b> – ich begleite dich durch das Alphabet.</div>
+  <div id="mascot-avatar">🦊</div>
+</div>
+
+<script>
+/* ============================================================
+   DATA
+   Jeder Buchstabe: Großbuchstabe (l), Kleinbuchstabe (s),
+   Buchstabenname (n), A1-Beispielwort (w)
+============================================================ */
+const ALPHABET = [
+ {l:'A',s:'a',n:'ah',w:'Apfel'},     {l:'B',s:'b',n:'beh',w:'Banane'},
+ {l:'C',s:'c',n:'tseh',w:'Computer'},{l:'D',s:'d',n:'deh',w:'Dach'},
+ {l:'E',s:'e',n:'eh',w:'Ei'},        {l:'F',s:'f',n:'ef',w:'Fisch'},
+ {l:'G',s:'g',n:'geh',w:'Garten'},   {l:'H',s:'h',n:'hah',w:'Haus'},
+ {l:'I',s:'i',n:'ih',w:'Igel'},      {l:'J',s:'j',n:'yot',w:'Jacke'},
+ {l:'K',s:'k',n:'kah',w:'Katze'},    {l:'L',s:'l',n:'el',w:'Lampe'},
+ {l:'M',s:'m',n:'em',w:'Mutter'},    {l:'N',s:'n',n:'en',w:'Name'},
+ {l:'O',s:'o',n:'oh',w:'Oma'},       {l:'P',s:'p',n:'peh',w:'Papa'},
+ {l:'Q',s:'q',n:'kuh',w:'Quark'},    {l:'R',s:'r',n:'er',w:'Radio'},
+ {l:'S',s:'s',n:'es',w:'Sonne'},     {l:'T',s:'t',n:'teh',w:'Tür'},
+ {l:'U',s:'u',n:'uh',w:'Uhr'},       {l:'V',s:'v',n:'fau',w:'Vater'},
+ {l:'W',s:'w',n:'weh',w:'Wasser'},   {l:'X',s:'x',n:'iks',w:'Taxi'},
+ {l:'Y',s:'y',n:'üpsilon',w:'Yoga'}, {l:'Z',s:'z',n:'tset',w:'Zug'}
+];
+const SPECIAL = [
+ {l:'Ä', s:'ä', hint:'Ä ist ein Umlaut. Es klingt wie ein kurzes „e“.', example:'Mädchen'},
+ {l:'Ö', s:'ö', hint:'Ö ist ein Umlaut. Runde Lippen, ähnlich wie in „schön“.', example:'schön'},
+ {l:'Ü', s:'ü', hint:'Ü ist ein Umlaut. Runde Lippen, ähnlich wie in „müde“.', example:'müde'},
+ {l:'ß', s:'ß', hint:'ß heißt „Eszett“. Es klingt wie „ss“.', example:'Straße'}
+];
+/* Kontrastpaare für gezieltes Hörtraining (typische Schwierigkeiten) */
+const CONTRAST_PAIRS = [['B','P'],['D','T'],['M','N'],['W','V'],['F','V'],['R','L']];
+/* Kuratierte Buchstabe→Wort Paare */
+const WORD_PAIRS = [
+  {l:'A',w:'Apfel'},{l:'B',w:'Banane'},{l:'H',w:'Haus'},
+  {l:'M',w:'Mutter'},{l:'T',w:'Tür'},{l:'S',w:'Sonne'},{l:'N',w:'Name'}
+];
+const ALPHA_STAGES = ['START','ENTDECKEN','LERNEN','SPIELEN','MISSION','ERFOLG'];
+const GREET_STAGES = ['HÖREN','ENTDECKEN','VERSTEHEN','ÜBEN','SPRECHEN','MISSION','ERFOLG'];
+
+/* ============================================================
+   BEGRÜSSUNG: DATEN
+============================================================ */
+const GREET_DIALOG = [
+  {who:'a', name:'Anna', text:'Hallo!'},
+  {who:'b', name:'Ali',  text:'Hallo!'},
+  {who:'a', name:'Anna', text:'Guten Morgen!'},
+  {who:'b', name:'Ali',  text:'Guten Morgen!'},
+  {who:'a', name:'Anna', text:'Wie heißt du?'},
+  {who:'b', name:'Ali',  text:'Ich heiße Ali. Und du?'},
+  {who:'a', name:'Anna', text:'Ich heiße Anna.'},
+  {who:'b', name:'Ali',  text:'Tschüss!'},
+  {who:'a', name:'Anna', text:'Tschüss!'}
+];
+/* Redemittel, die tatsächlich im Dialog vorkommen */
+const GREET_TRUE_WORDS = ['Hallo','Guten Morgen','Wie heißt du?','Ich heiße …','Und du?','Tschüss'];
+/* Distraktoren – kommen im Dialog NICHT vor (für genaues Hören) */
+const GREET_DISTRACTORS = ['Auf Wiedersehen','Gute Nacht','Wie geht es dir?'];
+/* Bedeutung über Bild/Situation statt Übersetzung */
+const GREET_MEANINGS = [
+  {phrase:'Hallo!', emo:'👋', desc:'Eine lockere Begrüßung – für Freunde und im Alltag.'},
+  {phrase:'Guten Morgen!', emo:'🌅', desc:'Eine Begrüßung am Morgen, bis ca. 10–11 Uhr.'},
+  {phrase:'Wie heißt du?', emo:'🙋', desc:'Man fragt eine andere Person nach ihrem Namen.'},
+  {phrase:'Ich heiße …', emo:'😊', desc:'So sagst du deinen eigenen Namen.'},
+  {phrase:'Und du?', emo:'🔁', desc:'Man gibt die Frage an die andere Person zurück.'},
+  {phrase:'Tschüss!', emo:'🚪', desc:'Eine lockere Verabschiedung – für Freunde und im Alltag.'}
+];
+/* Begrüßen vs. Verabschieden */
+const GREET_SORT_WORDS = [
+  {w:'Hallo', cat:'begruessen'},
+  {w:'Guten Morgen', cat:'begruessen'},
+  {w:'Tschüss', cat:'verabschieden'},
+  {w:'Auf Wiedersehen', cat:'verabschieden'}
+];
+/* Passende Begrüßung zur Situation */
+const GREET_SITUATIONS = [
+  {emo:'🌅', text:'Es ist 8 Uhr morgens. Du triffst deine Lehrerin.', options:['Guten Morgen!','Tschüss!','Gute Nacht!'], answer:'Guten Morgen!'},
+  {emo:'🙋', text:'Du triffst eine Freundin auf der Straße.', options:['Auf Wiedersehen!','Hallo!','Gute Nacht!'], answer:'Hallo!'},
+  {emo:'🚪', text:'Du gehst nach Hause. Was sagst du?', options:['Guten Morgen!','Wie heißt du?','Tschüss!'], answer:'Tschüss!'}
+];
+/* Formell / informell */
+const GREET_FORMAL = [
+  {text:'Hallo!', answer:'informell'},
+  {text:'Guten Morgen!', answer:'formell'},
+  {text:'Tschüss!', answer:'informell'},
+  {text:'Auf Wiedersehen!', answer:'formell'}
+];
+/* Mini-Dialog mit Lücken */
+const GREET_MINIDIALOG = [
+  {speaker:'A', prompt:'A beginnt das Gespräch am Morgen.', options:['Tschüss!','Guten Morgen!','Wie heißt du?'], answer:'Guten Morgen!'},
+  {speaker:'B', prompt:'B antwortet gleich.', options:['Guten Morgen!','Ich heiße Lina.','Tschüss!'], answer:'Guten Morgen!'},
+  {speaker:'A', prompt:'A möchte den Namen wissen.', options:['Wie heißt du?','Und du?','Tschüss!'], answer:'Wie heißt du?'},
+  {speaker:'B', prompt:'B sagt den eigenen Namen.', options:['Guten Morgen!','Ich heiße Lina.','Auf Wiedersehen!'], answer:'Ich heiße Lina.'},
+  {speaker:'A', prompt:'A verabschiedet sich.', options:['Wie heißt du?','Hallo!','Tschüss!'], answer:'Tschüss!'},
+  {speaker:'B', prompt:'B verabschiedet sich auch.', options:['Guten Morgen!','Tschüss!','Ich heiße …'], answer:'Tschüss!'}
+];
+/* Rollenspiel: Person A sagt etwas vor, Lernende(r) antwortet als Person B */
+const GREET_ROLEPLAY = [
+  {a:'Hallo!', options:['Hallo!','Tschüss!','Guten Morgen!'], answer:'Hallo!'},
+  {a:'Wie heißt du?', options:['Ich heiße …','Und du?','Guten Morgen!'], answer:'Ich heiße …'},
+  {a:'Und du, wie geht’s?', options:['Tschüss!','Und du?','Hallo!'], answer:'Und du?'},
+  {a:'Tschüss!', options:['Guten Morgen!','Wie heißt du?','Tschüss!'], answer:'Tschüss!'}
+];
+/* Mission: 4 Schritte einer neuen Begegnung */
+const GREET_MISSION = [
+  {label:'Schritt 1', prompt:'Du triffst eine neue Person. Wie begrüßt du sie?', options:['Tschüss!','Hallo!','Auf Wiedersehen!'], answer:'Hallo!'},
+  {label:'Schritt 2', prompt:'Du möchtest wissen, wie die Person heißt.', options:['Ich heiße …','Wie heißt du?','Guten Morgen!'], answer:'Wie heißt du?'},
+  {label:'Schritt 3', prompt:'Jetzt sagst du deinen eigenen Namen.', options:['Und du?','Tschüss!','Ich heiße …'], answer:'Ich heiße …'},
+  {label:'Schritt 4', prompt:'Das Gespräch ist zu Ende. Wie verabschiedest du dich?', options:['Hallo!','Tschüss!','Wie heißt du?'], answer:'Tschüss!'}
+];
+
+/* ============================================================
+   STATE
+============================================================ */
+function initialState(){
+  return {
+    unit:'alphabet',
+    sceneIndex: 0,
+    discovered: new Set(),
+    riddleAnswered:false,
+    matched:new Set(),
+    matchSelectedLetter:null,
+    sequenceFilled:{},
+    caseMatched:new Set(), caseSelectedLetter:null,
+    wordRound:0, wordScore:0, wordTotal:WORD_PAIRS.length, wordCurrent:null,
+    listenRound:0, listenScore:0, listenTotal:6, listenCurrent:null,
+    sprintRound:0, sprintScore:0, sprintTotal:8, sprintCurrent:null, sprintTimer:null,
+    challengeWords:['HAUS','BUS','TÜR','NAME','AUTO','HALLO','MAMA','PAPA','KINO'],
+    challengeIndex:0, challengeProgress:'', challengeDone:false,
+    nameValue:'', nameProgress:'', nameStarted:false,
+    exam:{questions:null, index:0, score:0, locked:false, xpGiven:0},
+    xp:0, xpAwarded:{},
+    /* -------- Begrüßung (Einheit 2) -------- */
+    greet:{
+      dialogNextIndex:0, dialogPlaying:false, dialogPaused:false, dialogTimer:null, dialogPlayed:false,
+      recognized:new Set(),
+      meaningOpen:new Set(),
+      sortSelected:null, sortPlaced:new Set(),
+      situationRound:0, situationScore:0, situationLocked:false,
+      formalRound:0, formalScore:0, formalLocked:false,
+      minidialogStep:0, minidialogDone:false,
+      roleplayStep:0, roleplayDone:false,
+      lexiStep:0, lexiName:'',
+      missionStep:0, missionDone:false
+    }
+  };
+}
+let state = initialState();
+
+function speak(text){
+  if(!('speechSynthesis' in window)) return;
+  try{
+    speechSynthesis.cancel();
+    const u = new SpeechSynthesisUtterance(text);
+    u.lang='de-DE'; u.rate=0.82;
+    speechSynthesis.speak(u);
+  }catch(e){}
+}
+
+function setMascot(text, mood){
+  const bubble = document.getElementById('mascot-bubble');
+  bubble.className='';
+  bubble.style.animation='none';
+  requestAnimationFrame(()=>{
+    bubble.style.animation='';
+    if(mood) bubble.classList.add('mood-'+mood);
+    bubble.textContent = text;
+  });
+}
+function shuffle(arr){const a=[...arr];for(let i=a.length-1;i>0;i--){const j=Math.floor(Math.random()*(i+1));[a[i],a[j]]=[a[j],a[i]];}return a;}
+
+/* ============================================================
+   XP SYSTEM
+   awardXP ist idempotent pro id, damit nichts doppelt zählt.
+============================================================ */
+function awardXP(id, amount){
+  if(state.xpAwarded[id]) return;
+  state.xpAwarded[id] = true;
+  state.xp += amount;
+  updateXPDisplay(true);
+}
+function updateXPDisplay(pulse){
+  const val = document.getElementById('xp-value');
+  if(val) val.textContent = state.xp;
+  if(pulse){
+    const badge = document.getElementById('xp-badge');
+    if(badge){
+      badge.classList.remove('pulse');
+      void badge.offsetWidth;
+      badge.classList.add('pulse');
+    }
+    const avatar = document.getElementById('mascot-avatar');
+    if(avatar){
+      avatar.classList.add('talking');
+      setTimeout(()=>avatar.classList.remove('talking'), 450);
+    }
+  }
+}
+
+/* ============================================================
+   ABSCHLUSSPRÜFUNG: Fragen-Generator
+   Deckt ab: Buchstaben erkennen, Groß-/Kleinschreibung,
+   Hören, Buchstabe-Wort, fehlende Buchstaben, Buchstabieren.
+============================================================ */
+function buildExamQuestions(){
+  const qs = [];
+  const rndLetters = (exclude, n)=> shuffle(ALPHABET.filter(a=>!exclude.includes(a.l))).slice(0,n).map(a=>a.l);
+
+  // 1) Buchstaben erkennen (Name hören, Buchstabe wählen)
+  let a = shuffle(ALPHABET)[0];
+  qs.push({type:'choice', title:'Buchstaben erkennen', prompt:'Welcher Buchstabe ist das?', audio:a.l,
+    options:shuffle([a.l, ...rndLetters([a.l],3)]), answer:a.l, reveal:a.l});
+
+  // 2) Groß-/Kleinschreibung
+  let b = shuffle(ALPHABET)[0];
+  const wrongLower = shuffle(ALPHABET.filter(x=>x.l!==b.l)).slice(0,3).map(x=>x.s);
+  qs.push({type:'choice', title:'Groß- und Kleinbuchstaben', prompt:`Welcher Kleinbuchstabe gehört zu „${b.l}“?`,
+    options:shuffle([b.s, ...wrongLower]), answer:b.s, reveal:b.s});
+
+  // 3) Hören – Kontrastpaar
+  const pair = shuffle(CONTRAST_PAIRS)[0];
+  const target = shuffle(pair)[0];
+  const partner = pair.find(l=>l!==target);
+  const others = rndLetters([target,partner],2);
+  qs.push({type:'choice', title:'Genau hinhören', prompt:'Welchen Buchstaben hörst du?', audio:target,
+    options:shuffle([target,partner,...others]), answer:target, reveal:target});
+
+  // 4) Buchstabe → Wort
+  const wp = shuffle(WORD_PAIRS)[0];
+  const wrongWords = shuffle(WORD_PAIRS.filter(p=>p.l!==wp.l)).slice(0,3).map(p=>p.w);
+  qs.push({type:'choice', title:'Buchstabe und Wort', prompt:`„${wp.l}“ – welches Wort passt?`,
+    options:shuffle([wp.w, ...wrongWords]), answer:wp.w, reveal:wp.w});
+
+  // 5) Fehlender Buchstabe in der Reihenfolge
+  const idx = 2 + Math.floor(Math.random()*20); // vermeidet Rand
+  const seqLetters = ALPHABET.map(x=>x.l);
+  const missing = seqLetters[idx];
+  const before = seqLetters[idx-1], after = seqLetters[idx+1];
+  const seqOptions = shuffle([missing, ...rndLetters([missing,before,after],3)]);
+  qs.push({type:'choice', title:'Fehlender Buchstabe', prompt:`Welcher Buchstabe fehlt? … ${before} – _ – ${after} …`,
+    options:seqOptions, answer:missing, reveal:missing});
+
+  // 6) noch eine Groß-/Kleinschreibung-Frage
+  let c = shuffle(ALPHABET.filter(x=>x.l!==b.l))[0];
+  const wrongLower2 = shuffle(ALPHABET.filter(x=>x.l!==c.l)).slice(0,3).map(x=>x.s);
+  qs.push({type:'choice', title:'Groß- und Kleinbuchstaben', prompt:`Welcher Kleinbuchstabe gehört zu „${c.l}“?`,
+    options:shuffle([c.s, ...wrongLower2]), answer:c.s, reveal:c.s});
+
+  // 7) Buchstabe → Wort (zweite Runde)
+  const wp2 = shuffle(WORD_PAIRS.filter(p=>p.l!==wp.l))[0];
+  const wrongWords2 = shuffle(WORD_PAIRS.filter(p=>p.l!==wp2.l)).slice(0,3).map(p=>p.w);
+  qs.push({type:'choice', title:'Buchstabe und Wort', prompt:`„${wp2.l}“ – welches Wort passt?`,
+    options:shuffle([wp2.w, ...wrongWords2]), answer:wp2.w, reveal:wp2.w});
+
+  // 8) Hören – zweite Runde
+  const pair2 = shuffle(CONTRAST_PAIRS)[0];
+  const target2 = shuffle(pair2)[0];
+  const partner2 = pair2.find(l=>l!==target2);
+  const others2 = rndLetters([target2,partner2],2);
+  qs.push({type:'choice', title:'Genau hinhören', prompt:'Welchen Buchstaben hörst du?', audio:target2,
+    options:shuffle([target2,partner2,...others2]), answer:target2, reveal:target2});
+
+  // 9) Sonderzeichen erkennen
+  const sp = shuffle(SPECIAL)[0];
+  const wrongSpecial = shuffle(SPECIAL.filter(s=>s.l!==sp.l)).map(s=>s.l);
+  qs.push({type:'choice', title:'Ä, Ö, Ü, ß erkennen', prompt:`Welches Zeichen passt zum Beispielwort „${sp.example}“?`,
+    options:shuffle([sp.l, ...wrongSpecial]), answer:sp.l, reveal:sp.l});
+
+  // 10) Ein einfaches Wort buchstabieren
+  const examWord = shuffle(['TÜR','BUS','NAME','KINO'])[0];
+  qs.push({type:'spell', title:'Wort buchstabieren', prompt:`Buchstabiere das Wort: „${examWord}“`, word:examWord});
+
+  return qs;
+}
+function examFeedback(score,total){
+  const ratio = score/total;
+  if(ratio>=0.8) return 'Ausgezeichnet! Du kennst jetzt die wichtigsten Grundlagen des deutschen Alphabets sehr sicher.';
+  if(ratio>=0.5) return 'Gut gemacht! Du kennst schon viele Grundlagen des deutschen Alphabets. Übung macht den Meister.';
+  return 'Guter Start! Geh gerne noch einmal zurück und wiederhole die Übungen – das hilft dir sehr.';
+}
+
+/* ============================================================
+   SCENES
+============================================================ */
+const ALPHA_SCENES = [
+
+/* ---------------- 0: START ---------------- */
+{
+  id:'start', stage:'START',
+  render(root){
+    root.innerHTML = `
+      <div class="eyebrow">Willkommen</div>
+      <h1 class="scene-title">Bereit für eine<br>Lernreise durch das Alphabet?</h1>
+      <p class="lead">In den nächsten Minuten entdeckst du gemeinsam mit Lexi, woraus die deutsche Sprache aufgebaut ist – Buchstabe für Buchstabe. Kein Frontalunterricht: Du klickst, hörst, rätst und spielst dich selbst zur Antwort.</p>
+      <div class="row-wrap">
+        <button class="btn primary" id="go">Lernreise starten →</button>
+      </div>
+    `;
+    root.querySelector('#go').onclick = ()=>goTo(state.sceneIndex+1);
+    setMascot('Hallo! Ich bin Lexi. Klick auf „Lernreise starten“ – los geht’s!');
+  }
+},
+
+/* ---------------- 1: RÄTSEL 30 ---------------- */
+{
+  id:'riddle', stage:'START',
+  render(root){
+    root.innerHTML = `
+      <div class="eyebrow">Rätsel</div>
+      <h1 class="scene-title">Was hat es mit dieser Zahl auf sich?</h1>
+      <div class="card" style="padding:34px 30px;max-width:260px;text-align:center;margin-bottom:26px;">
+        <div style="font-family:var(--font-display);font-weight:700;font-size:96px;color:var(--yellow);line-height:1;">30</div>
+      </div>
+      <p class="lead">Wähle die richtige Erklärung:</p>
+      <div class="row-wrap" id="riddle-options"></div>
+      <p class="lead" id="riddle-feedback" style="margin-top:18px;min-height:20px;"></p>
+    `;
+    const options = [
+      {t:'30 Tage bis zur nächsten Prüfung', correct:false},
+      {t:'30 Zeichen im deutschen Alphabet', correct:true},
+      {t:'30 neue Vokabeln pro Woche', correct:false},
+      {t:'30 Minuten Pause im Unterricht', correct:false}
+    ];
+    const box = root.querySelector('#riddle-options');
+    options.forEach(o=>{
+      const b = document.createElement('button');
+      b.className='btn';
+      b.textContent=o.t;
+      b.onclick=()=>{
+        if(state.riddleAnswered) return;
+        if(o.correct){
+          b.classList.add('correct');
+          state.riddleAnswered=true;
+          root.querySelector('#riddle-feedback').textContent='Genau! 26 Grundbuchstaben + 4 Sonderzeichen (Ä, Ö, Ü, ß) = 30 Zeichen.';
+          setMascot('Sehr gut! Du hast das Rätsel gelöst.', 'success');
+          awardXP('riddle', 10);
+          updateNav();
+        } else {
+          b.classList.add('wrong');
+          setMascot('Versuch es noch einmal!', 'error');
+          setTimeout(()=>b.classList.remove('wrong'),500);
+        }
+      };
+      box.appendChild(b);
+    });
+    if(state.riddleAnswered){
+      root.querySelector('#riddle-feedback').textContent='Genau! 26 Grundbuchstaben + 4 Sonderzeichen (Ä, Ö, Ü, ß) = 30 Zeichen.';
+    }
+    if(!state.riddleAnswered) setMascot('Rate mal: Wofür steht die 30?');
+  }
+},
+
+/* ---------------- 2: ENTDECKUNG ---------------- */
+{
+  id:'reveal', stage:'ENTDECKEN',
+  render(root){
+    root.innerHTML = `
+      <div class="eyebrow">Entdeckung</div>
+      <h1 class="scene-title">Das deutsche Alphabet</h1>
+      <div class="grid-2" style="align-items:center;gap:28px;">
+        <div class="card" style="padding:26px;text-align:center;">
+          <div style="font-family:var(--font-mono);font-size:13px;color:var(--paper-dim);margin-bottom:8px;">GRUNDBUCHSTABEN</div>
+          <div style="font-family:var(--font-display);font-size:56px;font-weight:700;color:var(--blue);">26</div>
+        </div>
+        <div class="card" style="padding:26px;text-align:center;">
+          <div style="font-family:var(--font-mono);font-size:13px;color:var(--paper-dim);margin-bottom:8px;">SONDERZEICHEN</div>
+          <div style="font-family:var(--font-display);font-size:56px;font-weight:700;color:var(--yellow);">4</div>
+          <div style="font-family:var(--font-mono);font-size:20px;letter-spacing:.1em;margin-top:6px;">Ä Ö Ü ß</div>
+        </div>
+      </div>
+      <p class="lead" style="margin-top:26px;">Zusammen ergeben sie <strong style="color:var(--ink);">30 Zeichen</strong>. Auf dieser Reise lernst du zuerst die 26 Grundbuchstaben kennen, danach die vier Besonderheiten.</p>
+      <button class="btn primary" id="go">Alphabet entdecken →</button>
+    `;
+    root.querySelector('#go').onclick=()=>goTo(state.sceneIndex+1);
+    setMascot('26 + 4 = 30. Merk dir das gut – es kommt gleich wieder!');
+  }
+},
+
+/* ---------------- 3: 26 GRUNDBUCHSTABEN (Split-Flap Board) ---------------- */
+{
+  id:'board', stage:'LERNEN',
+  render(root){
+    root.innerHTML = `
+      <div class="eyebrow">Entdecken &middot; Anzeigetafel</div>
+      <h1 class="scene-title">Die 26 Grundbuchstaben</h1>
+      <p class="lead">Klick auf jede Kachel wie an einer Bahnhofstafel. Du hörst die Aussprache und siehst den Buchstabiernamen.</p>
+      <div class="pill-counter">Entdeckt: <b id="disc-count">${state.discovered.size}</b> / 26</div>
+      <div class="flap-grid" id="flap-grid"></div>
+    `;
+    const grid = root.querySelector('#flap-grid');
+    ALPHABET.forEach(item=>{
+      const btn = document.createElement('button');
+      btn.className='flap'+(state.discovered.has(item.l)?' discovered':'');
+      btn.setAttribute('aria-label','Buchstabe '+item.l);
+      btn.innerHTML = `
+        <div class="flap-face">
+          <div class="flap-letter">${item.l}</div>
+          <div class="flap-name">${item.n}</div>
+        </div>
+        <div class="flap-sound">♪</div>
+      `;
+      btn.onclick=()=>{
+        speak(item.l);
+        btn.classList.add('flipping');
+        setTimeout(()=>btn.classList.remove('flipping'),420);
+        if(!state.discovered.has(item.l)){
+          state.discovered.add(item.l);
+          btn.classList.add('discovered');
+          root.querySelector('#disc-count').textContent = state.discovered.size;
+          if(state.discovered.size===26){
+            setMascot('Mission geschafft! Du kennst alle 26 Grundbuchstaben.', 'success');
+            awardXP('board', 20);
+          } else if(state.discovered.size===13){
+            setMascot('Die Hälfte geschafft! Weiter so.', 'success');
+          } else {
+            setMascot('Sehr gut! Klick weiter, bis alle Kacheln grün sind.');
+          }
+        }
+      };
+      grid.appendChild(btn);
+    });
+    if(state.discovered.size===0) setMascot('Klick auf einen Buchstaben – ich sage dir, wie er klingt!');
+  }
+},
+
+/* ---------------- 3b: GROSS- UND KLEINBUCHSTABEN ---------------- */
+{
+  id:'case', stage:'LERNEN',
+  render(root){
+    root.innerHTML = `
+      <div class="eyebrow">Lernen &middot; Groß- und Kleinschreibung</div>
+      <h1 class="scene-title">Welche Form gehört zusammen?</h1>
+      <p class="lead">Wähle zuerst einen Großbuchstaben, dann den passenden Kleinbuchstaben. Zum Beispiel: A → a.</p>
+      <div class="pill-counter">Gefunden: <b id="case-count">${state.caseMatched.size}</b> / 26</div>
+      <div class="row-wrap" id="case-upper" style="margin-bottom:14px;"></div>
+      <div class="row-wrap" id="case-lower"></div>
+    `;
+    const upperBox = root.querySelector('#case-upper');
+    const lowerBox = root.querySelector('#case-lower');
+    ALPHABET.forEach(item=>{
+      const chip = document.createElement('button');
+      chip.className='chip'+(state.caseMatched.has(item.l)?' matched':'');
+      chip.textContent = item.l;
+      chip.dataset.letter = item.l;
+      chip.onclick=()=>{
+        if(state.caseMatched.has(item.l)) return;
+        speak(item.l);
+        [...upperBox.children].forEach(c=>c.classList.remove('selected'));
+        chip.classList.add('selected');
+        state.caseSelectedLetter = item.l;
+      };
+      upperBox.appendChild(chip);
+    });
+    shuffle(ALPHABET).forEach(item=>{
+      const chip = document.createElement('button');
+      chip.className='chip'+(state.caseMatched.has(item.l)?' matched':'');
+      chip.textContent = item.s;
+      chip.onclick=()=>{
+        if(state.caseMatched.has(item.l)) return;
+        if(!state.caseSelectedLetter){ setMascot('Wähle zuerst einen Großbuchstaben.'); return; }
+        if(state.caseSelectedLetter===item.l){
+          chip.classList.add('matched');
+          const upperChip = [...upperBox.children].find(c=>c.dataset.letter===item.l);
+          upperChip.classList.add('matched'); upperChip.classList.remove('selected');
+          state.caseMatched.add(item.l);
+          root.querySelector('#case-count').textContent = state.caseMatched.size;
+          setMascot(`Richtig! ${item.l} → ${item.s}`, 'success');
+          if(state.caseMatched.size===26) awardXP('case', 20);
+        } else {
+          chip.classList.add('wrong');
+          setTimeout(()=>chip.classList.remove('wrong'),450);
+          setMascot('Versuch es noch einmal!', 'error');
+        }
+        state.caseSelectedLetter=null;
+      };
+      lowerBox.appendChild(chip);
+    });
+    if(state.caseMatched.size===0) setMascot('Verbinde jeden Großbuchstaben mit seinem Kleinbuchstaben.');
+  }
+},
+
+/* ---------------- 3c: BUCHSTABE → WORT ---------------- */
+{
+  id:'letterword', stage:'LERNEN',
+  render(root){
+    root.innerHTML = `
+      <div class="eyebrow">Lernen &middot; Buchstabe → Wort</div>
+      <h1 class="scene-title">Welches Wort passt?</h1>
+      <div class="progressbar-mini"><div id="word-bar" style="width:${(state.wordRound/state.wordTotal)*100}%"></div></div>
+      <p class="lead">Runde <span id="word-round">${Math.min(state.wordRound+1,state.wordTotal)}</span> / ${state.wordTotal} &middot; Punkte: <b id="word-score">${state.wordScore}</b></p>
+      <div class="card" style="padding:26px;text-align:center;max-width:180px;margin-bottom:20px;">
+        <div id="word-target" style="font-family:var(--font-display);font-size:64px;font-weight:700;color:var(--yellow);"></div>
+      </div>
+      <button class="btn" id="word-play" style="margin-bottom:22px;">🔊 Wort hören</button>
+      <div class="row-wrap" id="word-options"></div>
+      <p class="lead" id="word-feedback" style="margin-top:14px;min-height:20px;"></p>
+    `;
+    const next = ()=>{
+      if(state.wordRound>=state.wordTotal){
+        root.querySelector('#word-feedback').textContent = `Fertig! ${state.wordScore} / ${state.wordTotal} richtig.`;
+        setMascot('Sehr gut! Du verbindest Buchstaben und Wörter.', 'success');
+        awardXP('letterword', 15);
+        return;
+      }
+      const pair = WORD_PAIRS[state.wordRound];
+      const distractors = shuffle(WORD_PAIRS.filter(p=>p.l!==pair.l)).slice(0,3);
+      const opts = shuffle([pair, ...distractors]);
+      state.wordCurrent = pair.w;
+      root.querySelector('#word-round').textContent = state.wordRound+1;
+      root.querySelector('#word-target').textContent = pair.l;
+      const optBox = root.querySelector('#word-options');
+      optBox.innerHTML='';
+      opts.forEach(o=>{
+        const b=document.createElement('button');
+        b.className='btn';
+        b.textContent=o.w;
+        b.onclick=()=>{
+          if(o.w===state.wordCurrent){
+            b.classList.add('correct');
+            state.wordScore++; state.wordRound++;
+            root.querySelector('#word-score').textContent=state.wordScore;
+            root.querySelector('#word-bar').style.width=(state.wordRound/state.wordTotal)*100+'%';
+            setMascot(`Sehr gut! ${pair.l} – ${pair.w}.`, 'success');
+            setTimeout(next,650);
+          } else {
+            b.classList.add('wrong');
+            setMascot('Hör noch einmal genau hin.', 'error');
+            setTimeout(()=>b.classList.remove('wrong'),450);
+          }
+        };
+        optBox.appendChild(b);
+      });
+      root.querySelector('#word-play').onclick=()=>speak(pair.w);
+      speak(pair.w);
+    };
+    next();
+  }
+},
+
+/* ---------------- 4: SONDERZEICHEN Ä Ö Ü ß ---------------- */
+{
+  id:'special', stage:'LERNEN',
+  render(root){
+    root.innerHTML = `
+      <div class="eyebrow">Entdecken &middot; Besonderheiten</div>
+      <h1 class="scene-title">Ä, Ö, Ü und ß</h1>
+      <p class="lead"><strong style="color:var(--ink);">Ä, Ö, Ü</strong> heißen Umlaute. <strong style="color:var(--ink);">ß</strong> heißt „Eszett“. Klick auf einen Buchstaben, um den Tipp und das Beispielwort zu hören. Ordne danach jeden Buchstaben dem passenden Beispielwort zu.</p>
+      <div class="row-wrap" id="special-cards" style="margin-bottom:26px;"></div>
+      <p class="lead" style="margin-bottom:8px;"><strong style="color:var(--ink);">Zuordnung:</strong> Wähle zuerst einen Buchstaben, dann das passende Wort.</p>
+      <div class="row-wrap" id="match-letters" style="margin-bottom:12px;"></div>
+      <div class="row-wrap" id="match-words"></div>
+      <p class="lead" id="match-feedback" style="margin-top:14px;min-height:20px;"></p>
+    `;
+    // info cards
+    const cardsBox = root.querySelector('#special-cards');
+    SPECIAL.forEach(s=>{
+      const c = document.createElement('button');
+      c.className='card';
+      c.style.cssText='padding:20px;min-width:150px;text-align:center;cursor:pointer;border:1px solid var(--line);';
+      c.innerHTML = `<div style="font-family:var(--font-display);font-size:40px;font-weight:700;color:var(--yellow);">${s.l} <span style="color:var(--paper-dim);font-size:26px;">${s.s}</span></div>
+        <div style="font-size:13px;color:var(--paper-dim);margin-top:8px;">${s.hint}</div>
+        <div style="font-family:var(--font-mono);font-size:12px;color:var(--blue);margin-top:6px;">🔊 ${s.example}</div>`;
+      c.onclick=()=>speak(s.example);
+      cardsBox.appendChild(c);
+    });
+    // matching game
+    const letterBox = root.querySelector('#match-letters');
+    const wordBox = root.querySelector('#match-words');
+    const words = shuffle(SPECIAL.map(s=>s.example));
+    SPECIAL.forEach(s=>{
+      const chip = document.createElement('button');
+      chip.className='chip'+(state.matched.has(s.l)?' matched':'');
+      chip.textContent = s.l;
+      chip.dataset.letter = s.l;
+      chip.onclick=()=>{
+        if(state.matched.has(s.l)) return;
+        [...letterBox.children].forEach(c=>c.classList.remove('selected'));
+        chip.classList.add('selected');
+        state.matchSelectedLetter = s.l;
+      };
+      letterBox.appendChild(chip);
+    });
+    words.forEach(w=>{
+      const chip = document.createElement('button');
+      const owner = SPECIAL.find(s=>s.example===w).l;
+      chip.className='chip'+(state.matched.has(owner)?' matched':'');
+      chip.textContent = w;
+      chip.onclick=()=>{
+        if(!state.matchSelectedLetter){
+          setMascot('Wähle zuerst einen Buchstaben.');
+          return;
+        }
+        if(state.matched.has(owner)) return;
+        const correctWord = SPECIAL.find(s=>s.l===state.matchSelectedLetter).example;
+        if(correctWord===w){
+          chip.classList.add('matched');
+          const letterChip = [...letterBox.children].find(c=>c.dataset.letter===state.matchSelectedLetter);
+          letterChip.classList.add('matched');
+          letterChip.classList.remove('selected');
+          state.matched.add(owner);
+          setMascot('Richtig! Gut kombiniert.', 'success');
+          root.querySelector('#match-feedback').textContent = state.matched.size+' / 4 Paaren gefunden.';
+          if(state.matched.size===4) awardXP('special', 10);
+        } else {
+          chip.classList.add('wrong');
+          setTimeout(()=>chip.classList.remove('wrong'),450);
+          setMascot('Versuch es noch einmal!', 'error');
+        }
+        state.matchSelectedLetter=null;
+      };
+      wordBox.appendChild(chip);
+    });
+    root.querySelector('#match-feedback').textContent = state.matched.size+' / 4 Paaren gefunden.';
+  }
+},
+
+/* ---------------- 5: ALPHABET-SEQUENZ ---------------- */
+{
+  id:'sequence', stage:'LERNEN',
+  render(root){
+    const letters = ALPHABET.map(a=>a.l);
+    const blanks = ['D','H','M','R','W'];
+    root.innerHTML = `
+      <div class="eyebrow">Entdecken &middot; Reihenfolge</div>
+      <h1 class="scene-title">Fehlende Buchstaben</h1>
+      <p class="lead">Fünf Buchstaben fehlen in der Reihenfolge. Klick auf die passende Lücke, dann auf den richtigen Buchstaben unten.</p>
+      <div class="row-wrap" id="seq-line" style="font-family:var(--font-mono);font-size:20px;margin-bottom:26px;"></div>
+      <div class="row-wrap" id="seq-bank"></div>
+      <p class="lead" id="seq-feedback" style="margin-top:14px;min-height:20px;"></p>
+    `;
+    let selectedBlank = null;
+    const line = root.querySelector('#seq-line');
+    letters.forEach(l=>{
+      const el = document.createElement('button');
+      el.className='chip';
+      el.style.minWidth='38px';
+      if(blanks.includes(l) && !state.sequenceFilled[l]){
+        el.textContent='_';
+        el.style.borderColor='var(--yellow)';
+        el.onclick=()=>{
+          [...line.children].forEach(c=>c.classList.remove('selected'));
+          el.classList.add('selected');
+          selectedBlank = l;
+          setMascot('Welcher Buchstabe fehlt hier?');
+        };
+      } else if(blanks.includes(l) && state.sequenceFilled[l]){
+        el.textContent=l;
+        el.classList.add('matched');
+      } else {
+        el.textContent=l;
+        el.classList.add('locked');
+      }
+      line.appendChild(el);
+    });
+    const bank = root.querySelector('#seq-bank');
+    shuffle(blanks).forEach(l=>{
+      const chip = document.createElement('button');
+      chip.className='chip'+(state.sequenceFilled[l]?' locked':'');
+      chip.textContent=l;
+      chip.onclick=()=>{
+        if(state.sequenceFilled[l]) return;
+        if(!selectedBlank){ setMascot('Wähle zuerst eine Lücke.'); return; }
+        if(selectedBlank===l){
+          state.sequenceFilled[l]=true;
+          setMascot('Richtig! Du bist auf dem richtigen Weg!', 'success');
+          if(Object.keys(state.sequenceFilled).length===5) awardXP('sequence', 10);
+          selectedBlank=null;
+          this.render(root); // re-render whole scene to reflect state
+        } else {
+          chip.classList.add('wrong');
+          setTimeout(()=>chip.classList.remove('wrong'),450);
+          setMascot('Versuch es noch einmal!', 'error');
+        }
+        const done = Object.keys(state.sequenceFilled).length;
+        root.querySelector('#seq-feedback').textContent = done+' / 5 Lücken gefüllt.';
+      };
+      bank.appendChild(chip);
+    });
+    root.querySelector('#seq-feedback').textContent = Object.keys(state.sequenceFilled).length+' / 5 Lücken gefüllt.';
+  }
+},
+
+/* ---------------- 6: HÖRAUFGABE ---------------- */
+{
+  id:'listening', stage:'SPIELEN',
+  render(root){
+    root.innerHTML = `
+      <div class="eyebrow">Spielen &middot; Hörverstehen</div>
+      <h1 class="scene-title">Welcher Buchstabe war das?</h1>
+      <div class="progressbar-mini"><div id="listen-bar" style="width:${(state.listenRound/state.listenTotal)*100}%"></div></div>
+      <p class="lead">Runde <span id="listen-round">${Math.min(state.listenRound+1,state.listenTotal)}</span> / ${state.listenTotal} &middot; Punkte: <b id="listen-score">${state.listenScore}</b></p>
+      <button class="btn" id="play-sound" style="margin-bottom:22px;">🔊 Buchstabe abspielen</button>
+      <div class="row-wrap" id="listen-options"></div>
+      <p class="lead" id="listen-feedback" style="margin-top:14px;min-height:20px;"></p>
+    `;
+    const nextRound = ()=>{
+      if(state.listenRound>=state.listenTotal){
+        root.querySelector('#listen-feedback').textContent = `Fertig! ${state.listenScore} / ${state.listenTotal} richtig.`;
+        setMascot('Mission geschafft! Weiter zum nächsten Spiel.', 'success');
+        awardXP('listening', 15);
+        return;
+      }
+      // Bevorzugt Kontrastpaare (B/P, D/T, M/N, W/V, F/V, R/L) für gezieltes Training
+      const pair = shuffle(CONTRAST_PAIRS)[0];
+      const correctLetter = shuffle(pair)[0];
+      const correct = ALPHABET.find(a=>a.l===correctLetter);
+      const partnerLetter = pair.find(l=>l!==correctLetter);
+      const partner = ALPHABET.find(a=>a.l===partnerLetter);
+      const others = shuffle(ALPHABET.filter(a=>a.l!==correct.l && a.l!==partner.l)).slice(0,2);
+      const opts = shuffle([correct, partner, ...others]);
+      state.listenCurrent = correct.l;
+      root.querySelector('#listen-round').textContent = state.listenRound+1;
+      const optBox = root.querySelector('#listen-options');
+      optBox.innerHTML='';
+      opts.forEach(o=>{
+        const b=document.createElement('button');
+        b.className='btn';
+        b.textContent=o.l;
+        b.onclick=()=>{
+          if(o.l===state.listenCurrent){
+            b.classList.add('correct');
+            state.listenScore++;
+            state.listenRound++;
+            root.querySelector('#listen-score').textContent=state.listenScore;
+            root.querySelector('#listen-bar').style.width=(state.listenRound/state.listenTotal)*100+'%';
+            setMascot(`Sehr gut! Das war ${correct.l}.`, 'success');
+            setTimeout(nextRound,650);
+          } else {
+            b.classList.add('wrong');
+            setMascot('Hör noch einmal genau hin.', 'error');
+            setTimeout(()=>b.classList.remove('wrong'),450);
+          }
+        };
+        optBox.appendChild(b);
+      });
+      root.querySelector('#play-sound').onclick=()=>speak(correct.l);
+      speak(correct.l);
+    };
+    nextRound();
+  }
+},
+
+/* ---------------- 7: BUCHSTABEN-SPRINT ---------------- */
+{
+  id:'sprint', stage:'SPIELEN',
+  render(root){
+    root.innerHTML = `
+      <div class="eyebrow">Spielen &middot; Tempo-Challenge</div>
+      <h1 class="scene-title">Buchstaben-Sprint</h1>
+      <div class="progressbar-mini"><div id="sprint-bar" style="width:${(state.sprintRound/state.sprintTotal)*100}%"></div></div>
+      <p class="lead">Finde den <strong style="color:var(--ink);">gezeigten Buchstaben</strong> so schnell wie möglich. Runde <span id="sprint-round">${Math.min(state.sprintRound+1,state.sprintTotal)}</span> / ${state.sprintTotal} &middot; Punkte: <b id="sprint-score">${state.sprintScore}</b></p>
+      <div class="card" style="padding:26px;text-align:center;max-width:180px;margin-bottom:24px;">
+        <div id="sprint-target" style="font-family:var(--font-display);font-size:64px;font-weight:700;color:var(--yellow);"></div>
+      </div>
+      <div class="flap-grid" id="sprint-grid" style="max-width:520px;"></div>
+      <p class="lead" id="sprint-feedback" style="margin-top:14px;min-height:20px;"></p>
+    `;
+    const next = ()=>{
+      if(state.sprintRound>=state.sprintTotal){
+        root.querySelector('#sprint-feedback').textContent = `Fertig! ${state.sprintScore} / ${state.sprintTotal} richtig getroffen.`;
+        setMascot('Starke Runde! Weiter zur Mission.', 'success');
+        awardXP('sprint', 15);
+        return;
+      }
+      const pool = shuffle(ALPHABET);
+      const target = pool[0];
+      const tileLetters = shuffle(pool.slice(0,6));
+      if(!tileLetters.find(t=>t.l===target.l)) tileLetters[0]=target;
+      state.sprintCurrent = target.l;
+      root.querySelector('#sprint-round').textContent = state.sprintRound+1;
+      root.querySelector('#sprint-target').textContent = target.l;
+      const grid = root.querySelector('#sprint-grid');
+      grid.innerHTML='';
+      shuffle(tileLetters).forEach(t=>{
+        const btn=document.createElement('button');
+        btn.className='flap';
+        btn.innerHTML=`<div class="flap-face"><div class="flap-letter">${t.l}</div></div>`;
+        btn.onclick=()=>{
+          if(t.l===state.sprintCurrent){
+            state.sprintScore++;
+            state.sprintRound++;
+            root.querySelector('#sprint-score').textContent=state.sprintScore;
+            root.querySelector('#sprint-bar').style.width=(state.sprintRound/state.sprintTotal)*100+'%';
+            setMascot('Blitzschnell! Sehr gut!', 'success');
+            setTimeout(next,400);
+          } else {
+            setMascot('Versuch es noch einmal!', 'error');
+          }
+        };
+        grid.appendChild(btn);
+      });
+    };
+    next();
+  }
+},
+
+/* ---------------- 8: BUCHSTABIER-MISSION ---------------- */
+{
+  id:'challenge', stage:'MISSION',
+  render(root){
+    const word = state.challengeWords[state.challengeIndex];
+    root.innerHTML = `
+      <div class="eyebrow">Mission</div>
+      <h1 class="scene-title">Buchstabier-Mission</h1>
+      <p class="lead">Klick die Buchstaben in der richtigen Reihenfolge an, um das Wort zu buchstabieren. Wort ${state.challengeIndex+1} / ${state.challengeWords.length}</p>
+      <div class="card" style="padding:26px;margin-bottom:24px;">
+        <div id="ch-slots" style="font-family:var(--font-mono);font-size:34px;letter-spacing:.15em;min-height:44px;"></div>
+      </div>
+      <div class="row-wrap" id="ch-bank"></div>
+      <p class="lead" id="ch-feedback" style="margin-top:14px;min-height:20px;"></p>
+    `;
+    if(!word){
+      root.querySelector('#ch-slots').textContent = 'Alle Wörter geschafft!';
+      root.querySelector('#ch-feedback').textContent = 'Mission geschafft!';
+      setMascot('Mission geschafft! Du hast alle Wörter richtig buchstabiert.', 'success');
+      awardXP('challenge', 20);
+      return;
+    }
+    const renderSlots = ()=>{
+      root.querySelector('#ch-slots').textContent = word.split('').map((c,i)=> i<state.challengeProgress.length ? c : '_').join(' ');
+    };
+    renderSlots();
+    const bank = root.querySelector('#ch-bank');
+    shuffle(word.split('')).forEach(c=>{
+      const chip=document.createElement('button');
+      chip.className='chip';
+      chip.textContent=c;
+      chip.onclick=()=>{
+        const expected = word[state.challengeProgress.length];
+        if(c===expected && !chip.classList.contains('matched')){
+          chip.classList.add('matched');
+          state.challengeProgress += c;
+          renderSlots();
+          if(state.challengeProgress===word){
+            setMascot('Wort geschafft! Weiter zum nächsten.', 'success');
+            speak(word);
+            setTimeout(()=>{
+              state.challengeIndex++;
+              state.challengeProgress='';
+              this.render(root);
+            },800);
+          } else {
+            setMascot('Sehr gut! Weiter so.', 'success');
+          }
+        } else if(!chip.classList.contains('matched')) {
+          chip.classList.add('wrong');
+          setTimeout(()=>chip.classList.remove('wrong'),400);
+          setMascot('Versuch es noch einmal!', 'error');
+        }
+      };
+      bank.appendChild(chip);
+    });
+    root.querySelector('#ch-feedback').textContent = `Noch ${state.challengeWords.length-state.challengeIndex} Wort(e) übrig.`;
+  }
+},
+
+/* ---------------- 8b: WIE SCHREIBT MAN DEINEN NAMEN? ---------------- */
+{
+  id:'namespell', stage:'MISSION',
+  render(root){
+    root.innerHTML = `
+      <div class="eyebrow">Mission &middot; Alltag</div>
+      <h1 class="scene-title">Wie schreibt man deinen Namen?</h1>
+      <p class="lead">Lexi sagt: „Ich buchstabiere meinen Namen: L – E – X – I.“ Jetzt bist du dran. Gib einen einfachen Namen ein und buchstabiere ihn danach selbst.</p>
+      <div class="row-wrap" style="margin-bottom:20px;align-items:center;">
+        <input type="text" class="text-input" id="name-input" maxlength="12" placeholder="z. B. ANNA" value="${state.nameValue}">
+        <button class="btn primary" id="name-go">Buchstabieren →</button>
+      </div>
+      <div class="sub-hint" id="name-hint">Nur Buchstaben A–Z, Ä, Ö, Ü, ß erlaubt. Ohne Eingabe nehmen wir „ANNA“.</div>
+      <div id="name-activity" style="margin-top:22px;"></div>
+    `;
+    const startSpelling = ()=>{
+      let raw = (root.querySelector('#name-input').value || 'ANNA').toUpperCase().trim();
+      raw = raw.replace(/[^A-ZÄÖÜß]/g,'');
+      if(!raw) raw='ANNA';
+      state.nameValue = raw;
+      state.nameProgress = '';
+      state.nameStarted = true;
+      setMascot(`Ich buchstabiere: ${raw.split('').join(' – ')}`);
+      raw.split('').forEach((c,i)=>setTimeout(()=>speak(c), i*500));
+      renderActivity();
+    };
+    const renderActivity = ()=>{
+      const word = state.nameValue;
+      const box = root.querySelector('#name-activity');
+      box.innerHTML = `
+        <div class="card" style="padding:26px;margin-bottom:24px;">
+          <div id="name-slots" style="font-family:var(--font-mono);font-size:34px;letter-spacing:.15em;min-height:44px;"></div>
+        </div>
+        <div class="row-wrap" id="name-bank"></div>
+        <p class="lead" id="name-feedback" style="margin-top:14px;min-height:20px;"></p>
+      `;
+      const renderSlots = ()=>{
+        box.querySelector('#name-slots').textContent = word.split('').map((c,i)=> i<state.nameProgress.length ? c : '_').join(' ');
+      };
+      renderSlots();
+      const bank = box.querySelector('#name-bank');
+      shuffle(word.split('')).forEach(c=>{
+        const chip=document.createElement('button');
+        chip.className='chip';
+        chip.textContent=c;
+        chip.onclick=()=>{
+          const expected = word[state.nameProgress.length];
+          if(c===expected && !chip.classList.contains('matched')){
+            chip.classList.add('matched');
+            state.nameProgress += c;
+            renderSlots();
+            if(state.nameProgress===word){
+              setMascot('Perfekt buchstabiert! So schreibt man deinen Namen.', 'success');
+              speak(word);
+              awardXP('namespell', 10);
+            } else {
+              setMascot('Sehr gut! Weiter so.', 'success');
+            }
+          } else if(!chip.classList.contains('matched')) {
+            chip.classList.add('wrong');
+            setTimeout(()=>chip.classList.remove('wrong'),400);
+            setMascot('Versuch es noch einmal!', 'error');
+          }
+        };
+        bank.appendChild(chip);
+      });
+    };
+    root.querySelector('#name-go').onclick = startSpelling;
+    if(state.nameStarted) renderActivity();
+    if(!state.nameStarted) setMascot('Gib einen Namen ein – dann üben wir das Buchstabieren gemeinsam.');
+  }
+},
+
+/* ---------------- 8c: ABSCHLUSSPRÜFUNG ---------------- */
+{
+  id:'exam', stage:'MISSION',
+  render(root){
+    if(!state.exam.questions){
+      state.exam.questions = buildExamQuestions();
+      state.exam.index = 0;
+      state.exam.score = 0;
+      state.exam.locked = false;
+    }
+    const total = state.exam.questions.length;
+    if(state.exam.index >= total){
+      root.innerHTML = `
+        <div class="eyebrow">Mission &middot; Abschlussprüfung</div>
+        <h1 class="scene-title">Prüfung abgeschlossen!</h1>
+        <p class="lead">Du hast <strong style="color:var(--ink);">${state.exam.score} / ${total}</strong> Aufgaben richtig gelöst.</p>
+        <p class="lead">${examFeedback(state.exam.score,total)}</p>
+      `;
+      setMascot(state.exam.score>=total*0.7 ? 'Sehr gut! Du kennst jetzt die wichtigsten Grundlagen des deutschen Alphabets.' : 'Gut gemacht! Übung macht den Meister – du kannst jederzeit zurückgehen und wiederholen.', 'success');
+      if(!state.exam.xpGiven){
+        state.exam.xpGiven = 1;
+        awardXP('exam', state.exam.score*5);
+      }
+      return;
+    }
+    const q = state.exam.questions[state.exam.index];
+    root.innerHTML = `
+      <div class="eyebrow">Mission &middot; Abschlussprüfung</div>
+      <h1 class="scene-title">${q.title}</h1>
+      <div class="exam-progress">Aufgabe ${state.exam.index+1} / ${total} &middot; Richtig: ${state.exam.score}</div>
+      <p class="lead">${q.prompt}</p>
+      <div id="exam-body"></div>
+      <p class="lead" id="exam-feedback" style="margin-top:14px;min-height:20px;"></p>
+      <div class="row-wrap" style="margin-top:10px;">
+        <button class="btn primary" id="exam-continue" style="display:none;">Weiter →</button>
+      </div>
+    `;
+    const body = root.querySelector('#exam-body');
+    const feedback = root.querySelector('#exam-feedback');
+    const continueBtn = root.querySelector('#exam-continue');
+    const finishQuestion = (correct)=>{
+      if(correct){
+        state.exam.score++;
+        feedback.textContent = 'Richtig!';
+        setMascot('Sehr gut!', 'success');
+      } else {
+        feedback.textContent = q.reveal ? `Nicht ganz. Richtig war: ${q.reveal}` : 'Nicht ganz. Weiter geht’s!';
+        setMascot('Hör noch einmal genau hin.', 'error');
+      }
+      continueBtn.style.display='inline-flex';
+      continueBtn.onclick = ()=>{ state.exam.index++; this.render(root); };
+    };
+
+    if(q.type==='choice'){
+      if(q.audio) speak(q.audio);
+      const box = document.createElement('div');
+      box.className='row-wrap';
+      q.options.forEach(opt=>{
+        const b=document.createElement('button');
+        b.className='btn';
+        b.textContent=opt;
+        b.onclick=()=>{
+          if(state.exam.locked) return;
+          state.exam.locked=true;
+          [...box.children].forEach(c=>c.disabled=true);
+          const ok = opt===q.answer;
+          b.classList.add(ok?'correct':'wrong');
+          if(!ok){
+            const okBtn=[...box.children].find(c=>c.textContent===q.answer);
+            if(okBtn) okBtn.classList.add('correct');
+          }
+          finishQuestion(ok);
+          state.exam.locked=false;
+        };
+        box.appendChild(b);
+      });
+      if(q.audio){
+        const playBtn=document.createElement('button');
+        playBtn.className='btn'; playBtn.style.marginBottom='16px';
+        playBtn.textContent='🔊 Noch einmal hören';
+        playBtn.onclick=()=>speak(q.audio);
+        body.appendChild(playBtn);
+      }
+      body.appendChild(box);
+    }
+
+    if(q.type==='spell'){
+      const word = q.word;
+      let progress='';
+      const wrap = document.createElement('div');
+      wrap.innerHTML = `
+        <div class="card" style="padding:22px;margin-bottom:20px;">
+          <div id="exam-slots" style="font-family:var(--font-mono);font-size:30px;letter-spacing:.15em;">${word.split('').map(()=>'_').join(' ')}</div>
+        </div>
+        <div class="row-wrap" id="exam-bank"></div>
+      `;
+      body.appendChild(wrap);
+      const slots = wrap.querySelector('#exam-slots');
+      const bank = wrap.querySelector('#exam-bank');
+      shuffle(word.split('')).forEach(c=>{
+        const chip=document.createElement('button');
+        chip.className='chip';
+        chip.textContent=c;
+        chip.onclick=()=>{
+          const expected = word[progress.length];
+          if(c===expected && !chip.classList.contains('matched')){
+            chip.classList.add('matched');
+            progress+=c;
+            slots.textContent = word.split('').map((ch,i)=> i<progress.length?ch:'_').join(' ');
+            if(progress===word){ speak(word); finishQuestion(true); }
+          } else if(!chip.classList.contains('matched')){
+            chip.classList.add('wrong');
+            setTimeout(()=>chip.classList.remove('wrong'),400);
+          }
+        };
+        bank.appendChild(chip);
+      });
+    }
+  }
+},
+
+/* ---------------- 9: ABSCHLUSS ---------------- */
+{
+  id:'final', stage:'ERFOLG',
+  render(root){
+    const examTotal = state.exam.questions ? state.exam.questions.length : 10;
+    root.innerHTML = `
+      <div class="eyebrow">Abschluss</div>
+      <h1 class="scene-title" style="text-align:center;">Geschafft!</h1>
+      <div class="big-badge"><span>ALPHABET<br>PROFI</span></div>
+      <p class="lead" style="text-align:center;margin:0 auto 10px;">Du hast das deutsche Alphabet entdeckt: 26 Grundbuchstaben, 4 Sonderzeichen – 30 Zeichen in Summe.</p>
+      <p class="lead" style="text-align:center;margin:0 auto 22px;">Gesamt-XP: <strong style="color:var(--yellow);">${state.xp}</strong> &middot; Prüfung: <strong style="color:var(--ink);">${state.exam.score}/${examTotal}</strong></p>
+      <div class="grid-2" style="max-width:520px;margin:0 auto 30px;">
+        <div class="card" style="padding:16px;text-align:center;"><div style="font-family:var(--font-mono);font-size:12px;color:var(--paper-dim);">BUCHSTABEN ENTDECKT</div><div style="font-family:var(--font-display);font-size:30px;font-weight:700;color:var(--blue);">${state.discovered.size}/26</div></div>
+        <div class="card" style="padding:16px;text-align:center;"><div style="font-family:var(--font-mono);font-size:12px;color:var(--paper-dim);">GROSS/KLEIN</div><div style="font-family:var(--font-display);font-size:30px;font-weight:700;color:var(--blue);">${state.caseMatched.size}/26</div></div>
+        <div class="card" style="padding:16px;text-align:center;"><div style="font-family:var(--font-mono);font-size:12px;color:var(--paper-dim);">HÖRAUFGABE</div><div style="font-family:var(--font-display);font-size:30px;font-weight:700;color:var(--yellow);">${state.listenScore}/${state.listenTotal}</div></div>
+        <div class="card" style="padding:16px;text-align:center;"><div style="font-family:var(--font-mono);font-size:12px;color:var(--paper-dim);">SPRINT</div><div style="font-family:var(--font-display);font-size:30px;font-weight:700;color:var(--green);">${state.sprintScore}/${state.sprintTotal}</div></div>
+        <div class="card" style="padding:16px;text-align:center;"><div style="font-family:var(--font-mono);font-size:12px;color:var(--paper-dim);">BUCHSTABIER-MISSION</div><div style="font-family:var(--font-display);font-size:30px;font-weight:700;color:var(--red);">${Math.min(state.challengeIndex,state.challengeWords.length)}/${state.challengeWords.length}</div></div>
+        <div class="card" style="padding:16px;text-align:center;"><div style="font-family:var(--font-mono);font-size:12px;color:var(--paper-dim);">ABSCHLUSSPRÜFUNG</div><div style="font-family:var(--font-display);font-size:30px;font-weight:700;color:var(--yellow);">${state.exam.score}/${examTotal}</div></div>
+      </div>
+      <p class="lead" style="text-align:center;font-weight:600;color:var(--ink);margin-bottom:10px;">Das kannst du jetzt:</p>
+      <ul class="goal-list" style="margin-left:auto;margin-right:auto;">
+        <li>Ich kann die 26 Grundbuchstaben erkennen.</li>
+        <li>Ich kann Groß- und Kleinbuchstaben unterscheiden.</li>
+        <li>Ich kann die Buchstabennamen hören und erkennen.</li>
+        <li>Ich kann einfache Buchstaben-Wort-Verbindungen verstehen.</li>
+        <li>Ich kann Ä, Ö, Ü und ß erkennen.</li>
+        <li>Ich kann einfache Wörter buchstabieren.</li>
+      </ul>
+      <div class="row-wrap" style="justify-content:center;">
+        <button class="btn primary" id="next-unit">Nächste Einheit: Begrüßung →</button>
+        <button class="btn ghost" id="restart">Neu starten ↻</button>
+      </div>
+    `;
+    root.querySelector('#restart').onclick=()=>{
+      const xp = state.xp, awarded = state.xpAwarded;
+      state = initialState();
+      state.xp = xp; state.xpAwarded = awarded;
+      updateXPDisplay(false);
+      goTo(0);
+    };
+    root.querySelector('#next-unit').onclick=()=>{
+      switchUnit('greeting');
+    };
+    setMascot('Mission geschafft! Du bist jetzt Alphabet-Profi. 🎉 Bereit für die nächste Einheit?', 'success');
+  }
+}
+
+];
+
+/* ============================================================
+   BEGRÜSSUNG: SZENEN (Einheit 2)
+============================================================ */
+const GREET_SCENES = [
+
+/* ---------------- 1: DIALOG (HÖREN) ---------------- */
+{
+  id:'greet-dialog', stage:'HÖREN',
+  render(root){
+    const g = state.greet;
+    root.innerHTML = `
+      <div class="eyebrow">Hören &middot; Szene 1</div>
+      <h1 class="scene-title">👋 Begrüßung – ein kurzer Dialog</h1>
+      <div class="dialog-hint-box">👀 Hör zu und beobachte</div>
+      <p class="lead" style="text-align:center;margin:0 auto 6px;">Was verstehst du?</p>
+      <div class="card">
+        <div class="dialog-stage">
+          <div class="dialog-person a">
+            <div class="dialog-bubble" id="bubble-a"></div>
+            <div class="dialog-avatar" id="avatar-a">👩</div>
+            <div class="dialog-name">Anna</div>
+          </div>
+          <div class="dialog-person b">
+            <div class="dialog-bubble" id="bubble-b"></div>
+            <div class="dialog-avatar" id="avatar-b">👨</div>
+            <div class="dialog-name">Ali</div>
+          </div>
+        </div>
+      </div>
+      <div class="dialog-status" id="dialog-status">${g.dialogPlayed ? 'Dialog beendet. Du kannst ihn dir gerne noch einmal ansehen.' : 'Klick auf ▶️ Start, um den Dialog zu sehen.'}</div>
+      <div class="dialog-controls">
+        <button class="btn primary" id="d-start">▶️ Start</button>
+        <button class="btn ghost" id="d-pause">⏸️ Pause</button>
+        <button class="btn ghost" id="d-replay">🔄 Nochmal</button>
+        <button class="btn" id="d-listen">🔊 Dialog anhören</button>
+      </div>
+      <div class="comprehension-box card" id="comprehension" style="display:${g.dialogPlayed?'block':'none'};">
+        <div class="q">Was hast du verstanden? 👀</div>
+        <p class="lead" style="margin:6px 0 0;">Sehr gut! Klick unten auf „Weiter“ – als Nächstes findest du heraus, welche Wörter du gehört hast.</p>
+      </div>
+    `;
+    const bubbleA = root.querySelector('#bubble-a');
+    const bubbleB = root.querySelector('#bubble-b');
+    const avatarA = root.querySelector('#avatar-a');
+    const avatarB = root.querySelector('#avatar-b');
+    const statusEl = root.querySelector('#dialog-status');
+    const comprehension = root.querySelector('#comprehension');
+
+    const resetVisual = ()=>{
+      bubbleA.classList.remove('show'); bubbleB.classList.remove('show');
+      avatarA.classList.remove('speaking'); avatarB.classList.remove('speaking');
+    };
+
+    const playFrom = (i)=>{
+      if(g.dialogPaused) return;
+      if(i>=GREET_DIALOG.length){
+        g.dialogPlaying=false; g.dialogPlayed=true; g.dialogNextIndex=0;
+        resetVisual();
+        statusEl.textContent = 'Dialog beendet. Du kannst ihn dir gerne noch einmal ansehen.';
+        comprehension.style.display='block';
+        awardXP('greet-dialog',5);
+        setMascot('Toll zugehört! Was hast du verstanden?', 'success');
+        return;
+      }
+      g.dialogNextIndex = i;
+      const line = GREET_DIALOG[i];
+      const isA = line.who==='a';
+      const bubble = isA?bubbleA:bubbleB;
+      const other = isA?bubbleB:bubbleA;
+      other.classList.remove('show');
+      bubble.textContent = line.text;
+      bubble.classList.add('show');
+      avatarA.classList.toggle('speaking', isA);
+      avatarB.classList.toggle('speaking', !isA);
+      statusEl.textContent = (isA?'Anna':'Ali') + ' spricht …';
+      speak(line.text);
+      const duration = Math.max(1200, line.text.length*95);
+      g.dialogTimer = setTimeout(()=>{ g.dialogNextIndex=i+1; playFrom(i+1); }, duration);
+    };
+
+    const start = ()=>{
+      if(g.dialogPlaying) return;
+      clearTimeout(g.dialogTimer);
+      g.dialogPlaying = true; g.dialogPaused = false;
+      comprehension.style.display='none';
+      playFrom(g.dialogNextIndex||0);
+    };
+    root.querySelector('#d-start').onclick = start;
+    root.querySelector('#d-listen').onclick = start;
+    root.querySelector('#d-pause').onclick = ()=>{
+      g.dialogPaused = true; g.dialogPlaying=false;
+      clearTimeout(g.dialogTimer);
+      try{ speechSynthesis.cancel(); }catch(e){}
+      statusEl.textContent = 'Pausiert. Klick auf ▶️ Start, um weiterzumachen.';
+    };
+    root.querySelector('#d-replay').onclick = ()=>{
+      clearTimeout(g.dialogTimer);
+      g.dialogPaused=false; g.dialogPlaying=true; g.dialogNextIndex=0;
+      resetVisual();
+      comprehension.style.display='none';
+      playFrom(0);
+    };
+    if(!g.dialogPlayed) setMascot('Hallo! Willkommen zur nächsten Einheit. Schau dir zuerst den Dialog an – du brauchst noch keine Vokabelliste!');
+    else setMascot('Willst du den Dialog noch einmal sehen, oder geht es weiter?');
+  }
+},
+
+/* ---------------- 2: WAS HAST DU GEHÖRT? (ENTDECKEN) ---------------- */
+{
+  id:'greet-recognize', stage:'ENTDECKEN',
+  render(root){
+    const g = state.greet;
+    const words = shuffle([...GREET_TRUE_WORDS, ...GREET_DISTRACTORS]);
+    root.innerHTML = `
+      <div class="eyebrow">Entdecken &middot; Szene 2</div>
+      <h1 class="scene-title">Was hast du gehört?</h1>
+      <p class="lead">Klick auf die Wörter und Redemittel, die im Dialog vorkamen.</p>
+      <div class="pill-counter">Gefunden: <b id="rec-count">${g.recognized.size}</b> / ${GREET_TRUE_WORDS.length}</div>
+      <div class="word-grid" id="word-grid"></div>
+      <p class="lead" id="rec-feedback" style="margin-top:16px;min-height:20px;"></p>
+    `;
+    const grid = root.querySelector('#word-grid');
+    const feedback = root.querySelector('#rec-feedback');
+    const countEl = root.querySelector('#rec-count');
+    words.forEach(w=>{
+      const btn = document.createElement('button');
+      const isTrue = GREET_TRUE_WORDS.includes(w);
+      btn.className = 'word-card'+(isTrue && g.recognized.has(w) ? ' correct locked' : '');
+      btn.textContent = w;
+      btn.onclick = ()=>{
+        if(btn.classList.contains('locked')) return;
+        if(isTrue){
+          btn.classList.add('correct','locked');
+          g.recognized.add(w);
+          countEl.textContent = g.recognized.size;
+          feedback.textContent = 'Sehr gut! Du hast es gehört! ⭐';
+          setMascot('Sehr gut! Du hast es gehört! ⭐', 'success');
+          if(g.recognized.size===GREET_TRUE_WORDS.length){
+            awardXP('greet-recognize', 10);
+            setMascot('Perfekt! Du hast alle Redemittel erkannt. 🎉', 'success');
+          }
+        } else {
+          btn.classList.add('wrong');
+          feedback.textContent = 'Hör noch einmal genau hin. 👂';
+          setMascot('Hör noch einmal genau hin. 👂', 'error');
+          setTimeout(()=>btn.classList.remove('wrong'),500);
+        }
+      };
+      grid.appendChild(btn);
+    });
+    setMascot('Welche Wörter hast du im Dialog gehört? Klick sie an!');
+  }
+},
+
+/* ---------------- 3: ENTDECKE DIE BEDEUTUNG (ENTDECKEN) ---------------- */
+{
+  id:'greet-meaning', stage:'ENTDECKEN',
+  render(root){
+    const g = state.greet;
+    root.innerHTML = `
+      <div class="eyebrow">Entdecken &middot; Szene 3</div>
+      <h1 class="scene-title">Entdecke die Bedeutung</h1>
+      <p class="lead">Klick auf eine Karte. Du siehst ein Bild zur Situation und hörst die Aussprache.</p>
+      <div class="pill-counter">Entdeckt: <b id="mean-count">${g.meaningOpen.size}</b> / ${GREET_MEANINGS.length}</div>
+      <div class="meaning-grid" id="meaning-grid"></div>
+    `;
+    const grid = root.querySelector('#meaning-grid');
+    const countEl = root.querySelector('#mean-count');
+    GREET_MEANINGS.forEach(m=>{
+      const card = document.createElement('button');
+      card.className = 'card meaning-card'+(g.meaningOpen.has(m.phrase)?' open':'');
+      card.innerHTML = `
+        <div class="emo">${m.emo}</div>
+        <div class="phrase">${m.phrase}</div>
+        <div class="desc">${m.desc}</div>
+      `;
+      card.onclick = ()=>{
+        speak(m.phrase);
+        card.classList.add('open');
+        if(!g.meaningOpen.has(m.phrase)){
+          g.meaningOpen.add(m.phrase);
+          countEl.textContent = g.meaningOpen.size;
+          if(g.meaningOpen.size===GREET_MEANINGS.length){
+            awardXP('greet-meaning', 10);
+            setMascot('Super! Du kennst jetzt die Bedeutung aller Ausdrücke.', 'success');
+          } else {
+            setMascot('Gut gemacht! Entdecke die nächste Karte.');
+          }
+        }
+      };
+      grid.appendChild(card);
+    });
+    setMascot('Klick auf eine Karte, um die Bedeutung zu entdecken!');
+  }
+},
+
+/* ---------------- 4: BEGRÜSSEN ODER VERABSCHIEDEN? (VERSTEHEN) ---------------- */
+{
+  id:'greet-sort', stage:'VERSTEHEN',
+  render(root){
+    const g = state.greet;
+    root.innerHTML = `
+      <div class="eyebrow">Verstehen &middot; Szene 4</div>
+      <h1 class="scene-title">Begrüßen oder Verabschieden?</h1>
+      <p class="lead">Klick zuerst ein Wort an, dann klick auf den passenden Bereich.</p>
+      <div class="word-grid" id="sort-bank"></div>
+      <div class="zone-grid">
+        <button class="card zone-card" id="zone-begruessen">
+          <h3>👋 BEGRÜSSEN</h3>
+          <div class="zone-list" id="list-begruessen"></div>
+        </button>
+        <button class="card zone-card" id="zone-verabschieden">
+          <h3>🚪 VERABSCHIEDEN</h3>
+          <div class="zone-list" id="list-verabschieden"></div>
+        </button>
+      </div>
+      <p class="lead" id="sort-feedback" style="margin-top:16px;min-height:20px;"></p>
+    `;
+    const bank = root.querySelector('#sort-bank');
+    const feedback = root.querySelector('#sort-feedback');
+    const zoneB = root.querySelector('#zone-begruessen');
+    const zoneV = root.querySelector('#zone-verabschieden');
+    const listB = root.querySelector('#list-begruessen');
+    const listV = root.querySelector('#list-verabschieden');
+
+    const renderBank = ()=>{
+      bank.innerHTML='';
+      GREET_SORT_WORDS.forEach(item=>{
+        if(g.sortPlaced.has(item.w)) return;
+        const chip = document.createElement('button');
+        chip.className = 'word-card'+(g.sortSelected===item.w?' correct':'');
+        chip.textContent = item.w;
+        chip.onclick = ()=>{ g.sortSelected = item.w; renderBank(); };
+        bank.appendChild(chip);
+      });
+      zoneB.classList.toggle('target-active', !!g.sortSelected);
+      zoneV.classList.toggle('target-active', !!g.sortSelected);
+    };
+    const renderZones = ()=>{
+      listB.innerHTML=''; listV.innerHTML='';
+      GREET_SORT_WORDS.filter(i=>g.sortPlaced.has(i.w) && i.cat==='begruessen').forEach(i=>{
+        const t=document.createElement('span'); t.className='tag'; t.textContent=i.w; listB.appendChild(t);
+      });
+      GREET_SORT_WORDS.filter(i=>g.sortPlaced.has(i.w) && i.cat==='verabschieden').forEach(i=>{
+        const t=document.createElement('span'); t.className='tag'; t.textContent=i.w; listV.appendChild(t);
+      });
+    };
+    const tryPlace = (cat)=>{
+      if(!g.sortSelected) { feedback.textContent='Wähle zuerst ein Wort aus.'; return; }
+      const item = GREET_SORT_WORDS.find(i=>i.w===g.sortSelected);
+      if(item.cat===cat){
+        g.sortPlaced.add(item.w);
+        g.sortSelected = null;
+        feedback.textContent = 'Richtig! ⭐';
+        setMascot('Richtig! ⭐', 'success');
+        renderBank(); renderZones();
+        if(g.sortPlaced.size===GREET_SORT_WORDS.length){
+          awardXP('greet-sort', 10);
+          setMascot('Super! Du kennst den Unterschied.', 'success');
+        }
+      } else {
+        feedback.textContent = 'Nicht ganz. Versuch es noch einmal.';
+        setMascot('Nicht ganz. Versuch es noch einmal.', 'error');
+        g.sortSelected = null;
+        renderBank();
+      }
+    };
+    zoneB.onclick = ()=>tryPlace('begruessen');
+    zoneV.onclick = ()=>tryPlace('verabschieden');
+    renderBank(); renderZones();
+    setMascot('Sortiere die Wörter: Begrüßung oder Verabschiedung?');
+  }
+},
+
+/* ---------------- 5: WELCHE BEGRÜSSUNG PASST? (VERSTEHEN) ---------------- */
+{
+  id:'greet-situation', stage:'VERSTEHEN',
+  render(root){
+    const g = state.greet;
+    if(g.situationRound>=GREET_SITUATIONS.length){
+      root.innerHTML = `
+        <div class="eyebrow">Verstehen &middot; Szene 5</div>
+        <h1 class="scene-title">Geschafft!</h1>
+        <p class="lead">Du hast <strong style="color:var(--ink);">${g.situationScore}/${GREET_SITUATIONS.length}</strong> Situationen richtig gelöst.</p>
+      `;
+      setMascot('Gut gemacht! Weiter geht’s mit „Weiter →“.', 'success');
+      return;
+    }
+    const s = GREET_SITUATIONS[g.situationRound];
+    root.innerHTML = `
+      <div class="eyebrow">Verstehen &middot; Szene 5 &middot; ${g.situationRound+1}/${GREET_SITUATIONS.length}</div>
+      <h1 class="scene-title">Welche Begrüßung passt?</h1>
+      <div class="card" style="padding:26px;text-align:center;max-width:420px;margin-bottom:20px;">
+        <div style="font-size:52px;margin-bottom:12px;">${s.emo}</div>
+        <p class="lead" style="margin:0;">${s.text}</p>
+      </div>
+      <div class="row-wrap" id="sit-options"></div>
+      <p class="lead" id="sit-feedback" style="margin-top:16px;min-height:20px;"></p>
+    `;
+    const box = root.querySelector('#sit-options');
+    const feedback = root.querySelector('#sit-feedback');
+    s.options.forEach(opt=>{
+      const b = document.createElement('button');
+      b.className='btn';
+      b.textContent=opt;
+      b.onclick = ()=>{
+        if(g.situationLocked) return;
+        g.situationLocked = true;
+        [...box.children].forEach(c=>c.disabled=true);
+        const ok = opt===s.answer;
+        b.classList.add(ok?'correct':'wrong');
+        if(!ok){
+          const okBtn=[...box.children].find(c=>c.textContent===s.answer);
+          if(okBtn) okBtn.classList.add('correct');
+        }
+        if(ok){ g.situationScore++; feedback.textContent='Richtig! ⭐'; setMascot('Richtig! ⭐','success'); }
+        else { feedback.textContent='Nicht ganz. Richtig ist: '+s.answer; setMascot('Nicht ganz. Hör genau hin.','error'); }
+        setTimeout(()=>{
+          g.situationRound++; g.situationLocked=false;
+          if(g.situationRound===GREET_SITUATIONS.length) awardXP('greet-situation',10);
+          this.render(root);
+        }, 900);
+      };
+      box.appendChild(b);
+    });
+    setMascot('Welche Antwort passt zur Situation?');
+  }
+},
+
+/* ---------------- 6: FORMELL / INFORMELL (VERSTEHEN) ---------------- */
+{
+  id:'greet-formal', stage:'VERSTEHEN',
+  render(root){
+    const g = state.greet;
+    root.innerHTML = `
+      <div class="eyebrow">Verstehen &middot; Szene 6</div>
+      <h1 class="scene-title">Formell oder informell?</h1>
+      <div class="grid-2" style="margin-bottom:24px;">
+        <div class="card" style="padding:20px;text-align:center;">
+          <div style="font-size:34px;margin-bottom:8px;">👭</div>
+          <div style="font-family:var(--font-mono);font-size:12px;color:var(--paper-dim);margin-bottom:8px;">FREUND / FREUNDIN &middot; INFORMELL</div>
+          <div class="lead" style="margin:0;">„Hallo!“ &middot; „Tschüss!“</div>
+        </div>
+        <div class="card" style="padding:20px;text-align:center;">
+          <div style="font-size:34px;margin-bottom:8px;">👩‍🏫</div>
+          <div style="font-family:var(--font-mono);font-size:12px;color:var(--paper-dim);margin-bottom:8px;">LEHRERIN / LEHRER &middot; FORMELL</div>
+          <div class="lead" style="margin:0;">„Guten Morgen!“ &middot; „Auf Wiedersehen!“</div>
+        </div>
+      </div>
+      ${g.formalRound>=GREET_FORMAL.length ? `
+        <p class="lead">Du hast <strong style="color:var(--ink);">${g.formalScore}/${GREET_FORMAL.length}</strong> richtig zugeordnet.</p>
+      ` : `
+        <p class="lead">Ist dieser Ausdruck eher informell (Freund/in) oder formell (Lehrer/in)?</p>
+        <div class="card" style="padding:20px;text-align:center;max-width:320px;margin-bottom:18px;">
+          <div style="font-family:var(--font-display);font-weight:700;font-size:22px;">„${GREET_FORMAL[g.formalRound].text}“</div>
+        </div>
+        <div class="row-wrap" id="formal-options">
+          <button class="btn" id="opt-informell">Freund/in &middot; informell</button>
+          <button class="btn" id="opt-formell">Lehrer/in &middot; formell</button>
+        </div>
+        <p class="lead" id="formal-feedback" style="margin-top:14px;min-height:20px;"></p>
+      `}
+    `;
+    if(g.formalRound<GREET_FORMAL.length){
+      const item = GREET_FORMAL[g.formalRound];
+      const feedback = root.querySelector('#formal-feedback');
+      const options = root.querySelector('#formal-options');
+      const choose = (val, btn)=>{
+        if(g.formalLocked) return;
+        g.formalLocked = true;
+        [...options.children].forEach(c=>c.disabled=true);
+        const ok = val===item.answer;
+        btn.classList.add(ok?'correct':'wrong');
+        if(ok){ g.formalScore++; feedback.textContent='Richtig! ⭐'; setMascot('Richtig! ⭐','success'); }
+        else { feedback.textContent='Nicht ganz.'; setMascot('Nicht ganz. Denk an Freund vs. Lehrer/in.','error'); }
+        setTimeout(()=>{
+          g.formalRound++; g.formalLocked=false;
+          if(g.formalRound===GREET_FORMAL.length) awardXP('greet-formal',10);
+          this.render(root);
+        }, 900);
+      };
+      root.querySelector('#opt-informell').onclick = (e)=>choose('informell', e.target);
+      root.querySelector('#opt-formell').onclick = (e)=>choose('formell', e.target);
+    }
+    setMascot('Freund → eher locker. Lehrerin/Lehrer → eher höflich.');
+  }
+},
+
+/* ---------------- 7: MINI-DIALOG (ÜBEN) ---------------- */
+{
+  id:'greet-minidialog', stage:'ÜBEN',
+  render(root){
+    const g = state.greet;
+    root.innerHTML = `
+      <div class="eyebrow">Üben &middot; Szene 7</div>
+      <h1 class="scene-title">Ergänze den Mini-Dialog</h1>
+      <p class="lead">Wähle die passende Antwort für jede Sprechblase.</p>
+      <div class="card" style="padding:22px;margin-bottom:18px;">
+        <div id="mini-transcript" style="font-family:var(--font-mono);font-size:14px;line-height:2.1;"></div>
+      </div>
+      <div id="mini-options"></div>
+    `;
+    const transcript = root.querySelector('#mini-transcript');
+    const optionsBox = root.querySelector('#mini-options');
+
+    const renderTranscript = ()=>{
+      transcript.innerHTML = GREET_MINIDIALOG.map((line,i)=>{
+        const filled = i<g.minidialogStep;
+        return `<div><b style="color:var(--yellow);">${line.speaker}:</b> ${filled? line.answer : (i===g.minidialogStep? '______' : '…')}</div>`;
+      }).join('');
+    };
+    const renderOptions = ()=>{
+      optionsBox.innerHTML='';
+      if(g.minidialogStep>=GREET_MINIDIALOG.length){
+        optionsBox.innerHTML = `<p class="lead">Sehr gut! Der Dialog ist komplett. ✅</p>`;
+        if(!g.minidialogDone){ g.minidialogDone=true; awardXP('greet-minidialog',10); setMascot('Perfekt! Du hast den Dialog richtig ergänzt.','success'); }
+        return;
+      }
+      const line = GREET_MINIDIALOG[g.minidialogStep];
+      const p = document.createElement('p');
+      p.className='lead'; p.textContent = line.prompt;
+      optionsBox.appendChild(p);
+      const box = document.createElement('div');
+      box.className='row-wrap';
+      shuffle(line.options).forEach(opt=>{
+        const b=document.createElement('button');
+        b.className='btn'; b.textContent=opt;
+        b.onclick=()=>{
+          const ok = opt===line.answer;
+          if(ok){
+            b.classList.add('correct');
+            setMascot('Richtig! ⭐','success');
+            setTimeout(()=>{ g.minidialogStep++; renderTranscript(); renderOptions(); speak(line.answer); },500);
+          } else {
+            b.classList.add('wrong');
+            setMascot('Hör noch einmal genau hin. 👂','error');
+            setTimeout(()=>b.classList.remove('wrong'),450);
+          }
+        };
+        box.appendChild(b);
+      });
+      optionsBox.appendChild(box);
+    };
+    renderTranscript(); renderOptions();
+    setMascot('Ergänze die Lücken – wähle die richtige Antwort!');
+  }
+},
+
+/* ---------------- 8: ROLLENSPIEL (SPRECHEN) ---------------- */
+{
+  id:'greet-roleplay', stage:'SPRECHEN',
+  render(root){
+    const g = state.greet;
+    root.innerHTML = `
+      <div class="eyebrow">Sprechen &middot; Szene 8</div>
+      <h1 class="scene-title">Rollenspiel: Du bist Person B</h1>
+      <p class="lead">Person A spricht zu dir. Wähle deine Antwort und sprich mit!</p>
+      <div class="card">
+        <div class="dialog-stage" style="padding-top:56px;">
+          <div class="dialog-person a">
+            <div class="dialog-bubble" id="rp-bubble-a"></div>
+            <div class="dialog-avatar" id="rp-avatar-a">👩</div>
+            <div class="dialog-name">Person A</div>
+          </div>
+          <div class="dialog-person b">
+            <div class="dialog-bubble" id="rp-bubble-b"></div>
+            <div class="dialog-avatar" id="rp-avatar-b">🧑</div>
+            <div class="dialog-name">Du</div>
+          </div>
+        </div>
+      </div>
+      <div id="rp-options" style="margin-top:18px;"></div>
+    `;
+    const bubbleA = root.querySelector('#rp-bubble-a');
+    const bubbleB = root.querySelector('#rp-bubble-b');
+    const avatarA = root.querySelector('#rp-avatar-a');
+    const avatarB = root.querySelector('#rp-avatar-b');
+    const optionsBox = root.querySelector('#rp-options');
+
+    const showStep = ()=>{
+      if(g.roleplayStep>=GREET_ROLEPLAY.length){
+        optionsBox.innerHTML = `<p class="lead">Super gemacht! Das Gespräch ist zu Ende. ✅</p>`;
+        bubbleA.classList.remove('show'); bubbleB.classList.remove('show');
+        avatarA.classList.remove('speaking'); avatarB.classList.remove('speaking');
+        if(!g.roleplayDone){ g.roleplayDone=true; awardXP('greet-roleplay',10); setMascot('Klasse! Du kannst jetzt ein Gespräch führen.','success'); }
+        return;
+      }
+      const step = GREET_ROLEPLAY[g.roleplayStep];
+      bubbleB.classList.remove('show');
+      bubbleA.textContent = step.a;
+      bubbleA.classList.add('show');
+      avatarA.classList.add('speaking'); avatarB.classList.remove('speaking');
+      speak(step.a);
+      optionsBox.innerHTML='';
+      const box = document.createElement('div');
+      box.className='row-wrap';
+      shuffle(step.options).forEach(opt=>{
+        const b=document.createElement('button');
+        b.className='btn'; b.textContent=opt;
+        b.onclick=()=>{
+          const ok = opt===step.answer;
+          if(ok){
+            b.classList.add('correct');
+            avatarA.classList.remove('speaking'); avatarB.classList.add('speaking');
+            bubbleB.textContent = opt; bubbleB.classList.add('show');
+            speak(opt);
+            setMascot('Richtig! ⭐','success');
+            setTimeout(()=>{ g.roleplayStep++; showStep(); }, 900);
+          } else {
+            b.classList.add('wrong');
+            setMascot('Versuch es noch einmal.','error');
+            setTimeout(()=>b.classList.remove('wrong'),450);
+          }
+        };
+        box.appendChild(b);
+      });
+      optionsBox.appendChild(box);
+    };
+    showStep();
+    setMascot('Du bist jetzt Person B. Antworte auf Person A!');
+  }
+},
+
+/* ---------------- 9: LEXI ALS LERNBEGLEITER (SPRECHEN) ---------------- */
+{
+  id:'greet-lexi', stage:'SPRECHEN',
+  render(root){
+    const g = state.greet;
+    root.innerHTML = `
+      <div class="eyebrow">Sprechen &middot; Szene 9</div>
+      <h1 class="scene-title">Triff Lexi!</h1>
+      <p class="lead">Lexi begrüßt dich – antworte in echten Sätzen.</p>
+      <div class="card" style="padding:22px;" id="chat-log"></div>
+      <div class="row-wrap" id="chat-input-row" style="margin-top:16px;"></div>
+    `;
+    const log = root.querySelector('#chat-log');
+    const inputRow = root.querySelector('#chat-input-row');
+
+    const addLexi = (text)=>{
+      const row = document.createElement('div');
+      row.className='chat-row';
+      row.innerHTML = `<div class="chat-avatar">🤖</div><div class="chat-bubble">${text}</div>`;
+      log.appendChild(row);
+      speak(text);
+    };
+    const addUser = (text)=>{
+      const row = document.createElement('div');
+      row.className='chat-row user';
+      row.innerHTML = `<div class="chat-avatar user">🧑</div><div class="chat-bubble">${text}</div>`;
+      log.appendChild(row);
+    };
+
+    const steps = [
+      ()=>{
+        addLexi('Hallo! Ich heiße Lexi. Wie heißt du?');
+        inputRow.innerHTML = `
+          <input class="text-input" id="name-input" placeholder="Dein Name …" maxlength="20">
+          <button class="btn primary" id="name-go">Antworten</button>
+        `;
+        root.querySelector('#name-go').onclick = ()=>{
+          const val = root.querySelector('#name-input').value.trim();
+          if(!val) return;
+          g.lexiName = val;
+          addUser('Ich heiße '+val+'.');
+          inputRow.innerHTML='';
+          setTimeout(next, 500);
+        };
+      },
+      ()=>{
+        addLexi('Sehr schön, '+ (g.lexiName||'du') +'! 😊');
+        inputRow.innerHTML = `<button class="btn primary" id="bye-go">Tschüss sagen 👋</button>`;
+        root.querySelector('#bye-go').onclick = ()=>{
+          addUser('Tschüss!');
+          inputRow.innerHTML='';
+          setTimeout(next, 500);
+        };
+      },
+      ()=>{
+        addLexi('Tschüss! Bis bald! 👋');
+        inputRow.innerHTML = `<p class="lead">Super gemacht! Klick unten auf „Weiter“.</p>`;
+        if(!state.xpAwarded['greet-lexi']){ awardXP('greet-lexi',10); }
+        setMascot('Du hast dich gerade auf Deutsch vorgestellt! 🎉','success');
+      }
+    ];
+    let idx = 0;
+    const next = ()=>{ if(idx<steps.length){ steps[idx](); idx++; } };
+    next();
+    setMascot('Lexi möchte dich kennenlernen!');
+  }
+},
+
+/* ---------------- 10: MISSION (MISSION) ---------------- */
+{
+  id:'greet-mission', stage:'MISSION',
+  render(root){
+    const g = state.greet;
+    root.innerHTML = `
+      <div class="eyebrow">🎯 Deine Mission</div>
+      <h1 class="scene-title">Du triffst heute eine neue Person</h1>
+      <p class="lead">Begrüße die Person, frag nach dem Namen, sag deinen eigenen Namen und verabschiede dich.</p>
+      <div id="mission-steps"></div>
+    `;
+    const box = root.querySelector('#mission-steps');
+    const renderSteps = ()=>{
+      box.innerHTML='';
+      GREET_MISSION.forEach((step,i)=>{
+        const div = document.createElement('div');
+        const state_ = i<g.missionStep ? 'done' : (i===g.missionStep ? '' : 'pending');
+        div.className = 'card mission-step '+state_;
+        if(i<g.missionStep){
+          div.innerHTML = `<div class="step-label">${step.label} ✓</div><div class="step-prompt">${step.answer}</div>`;
+        } else if(i===g.missionStep){
+          div.innerHTML = `
+            <div class="step-label">${step.label}</div>
+            <div class="step-prompt">${step.prompt}</div>
+            <div class="row-wrap" id="mission-opts"></div>
+          `;
+        } else {
+          div.innerHTML = `<div class="step-label">${step.label}</div><div class="step-prompt">…</div>`;
+        }
+        box.appendChild(div);
+      });
+      if(g.missionStep<GREET_MISSION.length){
+        const step = GREET_MISSION[g.missionStep];
+        const optsBox = root.querySelector('#mission-opts');
+        shuffle(step.options).forEach(opt=>{
+          const b=document.createElement('button');
+          b.className='btn'; b.textContent=opt;
+          b.onclick=()=>{
+            const ok = opt===step.answer;
+            if(ok){
+              b.classList.add('correct');
+              speak(opt);
+              setMascot('Richtig! ⭐','success');
+              setTimeout(()=>{ g.missionStep++; renderSteps(); }, 700);
+            } else {
+              b.classList.add('wrong');
+              setMascot('Versuch es noch einmal.','error');
+              setTimeout(()=>b.classList.remove('wrong'),450);
+            }
+          };
+          optsBox.appendChild(b);
+        });
+      } else if(!g.missionDone){
+        g.missionDone = true;
+        awardXP('greet-mission', 15);
+        setMascot('Mission geschafft! Du hast eine neue Person kennengelernt. 🎉','success');
+      }
+    };
+    renderSteps();
+    setMascot('Bereit für deine erste echte Begegnung auf Deutsch?');
+  }
+},
+
+/* ---------------- 11: ABSCHLUSS (ERFOLG) ---------------- */
+{
+  id:'greet-final', stage:'ERFOLG',
+  render(root){
+    root.innerHTML = `
+      <div class="eyebrow">Abschluss</div>
+      <h1 class="scene-title" style="text-align:center;">🏆 Mission geschafft!</h1>
+      <div class="big-badge"><span>BEGRÜSSUNGS<br>STARTER</span></div>
+      <p class="lead" style="text-align:center;margin:0 auto 10px;">Du kannst jetzt jemanden auf Deutsch begrüßen und dich vorstellen.</p>
+      <p class="lead" style="text-align:center;margin:0 auto 22px;">Gesamt-XP: <strong style="color:var(--yellow);">${state.xp}</strong></p>
+      <p class="lead" style="text-align:center;font-weight:600;color:var(--ink);margin-bottom:10px;">Heute kann ich …</p>
+      <ul class="goal-list" style="margin-left:auto;margin-right:auto;">
+        <li>jemanden begrüßen.</li>
+        <li>mich vorstellen.</li>
+        <li>nach dem Namen fragen.</li>
+        <li>mich verabschieden.</li>
+      </ul>
+      <div class="row-wrap" style="justify-content:center;">
+        <button class="btn ghost" id="back-to-alphabet">🔤 Zur Alphabet-Einheit</button>
+        <button class="btn primary" id="restart-greet">Einheit neu starten ↻</button>
+      </div>
+    `;
+    root.querySelector('#restart-greet').onclick=()=>{
+      const xp = state.xp, awarded = state.xpAwarded;
+      state = initialState();
+      state.xp = xp; state.xpAwarded = awarded;
+      state.unit = 'greeting';
+      updateXPDisplay(false);
+      switchUnit('greeting');
+    };
+    root.querySelector('#back-to-alphabet').onclick=()=>{
+      switchUnit('alphabet');
+    };
+    setMascot('Super gemacht! Du bist jetzt „Begrüßungs-Starter“. 🎉', 'success');
+  }
+}
+
+];
+
+const UNITS = {
+  alphabet:{ title:'Deutsch A1 – Das Alphabet', stages:ALPHA_STAGES, scenes:ALPHA_SCENES },
+  greeting:{ title:'Deutsch A1 – Begrüßung', stages:GREET_STAGES, scenes:GREET_SCENES }
+};
+
+/* ============================================================
+   NAVIGATION / RAIL
+============================================================ */
+function activeScenes(){ return UNITS[state.unit].scenes; }
+function activeStages(){ return UNITS[state.unit].stages; }
+
+function buildStops(){
+  const stopsEl = document.getElementById('stops');
+  stopsEl.innerHTML='';
+  activeStages().forEach(s=>{
+    const d = document.createElement('div');
+    d.className='stop';
+    d.dataset.stage=s;
+    d.innerHTML = `<div class="dot"></div><div>${s}</div>`;
+    stopsEl.appendChild(d);
+  });
+}
+function updateRail(){
+  const scenes = activeScenes();
+  const stages = activeStages();
+  const scene = scenes[state.sceneIndex];
+  const stageIdx = stages.indexOf(scene.stage);
+  document.querySelectorAll('.stop').forEach((el,i)=>{
+    el.classList.toggle('active', i===stageIdx);
+    el.classList.toggle('done', i<stageIdx);
+  });
+  document.getElementById('track-fill').style.width = ((state.sceneIndex)/(scenes.length-1)*100)+'%';
+  document.getElementById('scene-counter').textContent = 'Station '+(state.sceneIndex+1)+' / '+scenes.length;
+  document.getElementById('nav-progress-label').textContent = scene.stage;
+  document.getElementById('rail-title').innerHTML = 'Lernreise &middot; <b>'+UNITS[state.unit].title+'</b>';
+}
+function updateNav(){
+  const scenes = activeScenes();
+  document.getElementById('btn-back').disabled = state.sceneIndex===0;
+  document.getElementById('btn-start-nav').disabled = state.sceneIndex===0;
+  const nextBtn = document.getElementById('btn-next');
+  if(state.sceneIndex === scenes.length-1){
+    nextBtn.textContent = 'Fertig ✓';
+    nextBtn.disabled = true;
+  } else {
+    nextBtn.textContent = 'Weiter →';
+    nextBtn.disabled = false;
+  }
+}
+function goTo(index){
+  const scenes = activeScenes();
+  if(index<0 || index>=scenes.length) return;
+  state.sceneIndex = index;
+  const root = document.getElementById('stage-content');
+  root.innerHTML='';
+  scenes[index].render(root);
+  document.getElementById('stage').scrollTop = 0;
+  updateRail();
+  updateNav();
+}
+function switchUnit(unitId){
+  if(!UNITS[unitId]) return;
+  state.unit = unitId;
+  state.sceneIndex = 0;
+  buildStops();
+  goTo(0);
+}
+document.getElementById('btn-next').onclick = ()=>goTo(state.sceneIndex+1);
+document.getElementById('btn-back').onclick = ()=>goTo(state.sceneIndex-1);
+document.getElementById('btn-start-nav').onclick = ()=>goTo(0);
+document.addEventListener('keydown',(e)=>{
+  if(e.key==='ArrowRight') goTo(state.sceneIndex+1);
+  if(e.key==='ArrowLeft') goTo(state.sceneIndex-1);
+});
+
+buildStops();
+updateXPDisplay(false);
+goTo(0);
+</script>
+</body>
+</html>
