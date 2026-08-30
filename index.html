@@ -1,0 +1,188 @@
+<!DOCTYPE html>
+<html lang="de">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Deutsch mit Abir</title>
+
+<style>
+@import url('https://fonts.googleapis.com/css2?family=Fredoka:wght@400;500;600;700&display=swap');
+
+* {
+  box-sizing: border-box;
+}
+
+body {
+  margin: 0;
+  font-family: 'Fredoka', sans-serif;
+  background: #f8f6f2;
+  color: #39443f;
+}
+
+.hero {
+  text-align: center;
+  padding: 70px 20px 50px;
+  background: linear-gradient(135deg, #e8f1e9, #f8eee8);
+}
+
+.flag {
+  font-size: 45px;
+}
+
+h1 {
+  margin: 15px 0 8px;
+  font-size: 42px;
+  color: #526b5b;
+}
+
+.subtitle {
+  font-size: 20px;
+  color: #68756e;
+}
+
+.container {
+  max-width: 900px;
+  margin: 0 auto;
+  padding: 45px 20px 70px;
+}
+
+.section-title {
+  text-align: center;
+  font-size: 30px;
+  color: #526b5b;
+  margin-bottom: 30px;
+}
+
+.lessons {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+  gap: 22px;
+}
+
+.card {
+  background: white;
+  border-radius: 22px;
+  padding: 28px;
+  box-shadow: 0 8px 25px rgba(70, 80, 70, 0.08);
+  border: 1px solid #e8e5df;
+  transition: transform 0.2s ease, box-shadow 0.2s ease;
+}
+
+.card:hover {
+  transform: translateY(-5px);
+  box-shadow: 0 12px 30px rgba(70, 80, 70, 0.13);
+}
+
+.icon {
+  font-size: 42px;
+}
+
+.card h2 {
+  margin: 15px 0 8px;
+  color: #526b5b;
+  font-size: 23px;
+}
+
+.card p {
+  color: #747d78;
+  line-height: 1.6;
+  min-height: 50px;
+}
+
+.btn {
+  display: inline-block;
+  margin-top: 15px;
+  padding: 12px 22px;
+  border-radius: 14px;
+  background: #8fa99a;
+  color: white;
+  text-decoration: none;
+  font-weight: 600;
+  transition: background 0.2s ease;
+}
+
+.btn:hover {
+  background: #718d7d;
+}
+
+footer {
+  text-align: center;
+  padding: 25px;
+  color: #89918c;
+  font-size: 14px;
+}
+
+@media (max-width: 600px) {
+  h1 {
+    font-size: 34px;
+  }
+
+  .subtitle {
+    font-size: 17px;
+  }
+
+  .container {
+    padding-top: 35px;
+  }
+}
+</style>
+</head>
+
+<body>
+
+<section class="hero">
+  <div class="flag">🇩🇪</div>
+
+  <h1>Deutsch mit Abir</h1>
+
+  <div class="subtitle">
+    Deutsch lernen – einfach, interaktiv und mit Spaß!
+  </div>
+</section>
+
+<main class="container">
+
+  <h2 class="section-title">📚 Meine Lektionen</h2>
+
+  <div class="lessons">
+
+    <div class="card">
+      <div class="icon">🔤</div>
+
+      <h2>Lektion 1 – Buchstaben</h2>
+
+      <p>
+        Lerne die deutschen Buchstaben und ihre Aussprache.
+      </p>
+
+      <a class="btn" href="buchstaben.html">
+        Lektion starten →
+      </a>
+    </div>
+
+
+    <div class="card">
+      <div class="icon">👋</div>
+
+      <h2>Lektion 2 – Begrüßung</h2>
+
+      <p>
+        Lerne, wie du jemanden begrüßt, dich vorstellst
+        und dich verabschiedest.
+      </p>
+
+      <a class="btn" href="begrussung.html">
+        Lektion starten →
+      </a>
+    </div>
+
+  </div>
+
+</main>
+
+<footer>
+  © 2026 Deutsch mit Abir 🇩🇪
+</footer>
+
+</body>
+</html>
