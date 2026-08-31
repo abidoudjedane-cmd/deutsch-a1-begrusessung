@@ -1,0 +1,1113 @@
+<!DOCTYPE html>
+<html lang="de">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1">
+<title>Deutsch A1 – Berufe</title>
+<link rel="preconnect" href="https://fonts.googleapis.com/">
+<link rel="preconnect" href="https://fonts.gstatic.com/" crossorigin="">
+<link href="https://fonts.googleapis.com/css2?family=Fredoka:wght@400;500;600;700&family=Nunito:wght@400;600;700;800&display=swap" rel="stylesheet">
+<style>
+@charset "utf-8";
+
+:root { --cream: #FBF6EC; --paper: #FFFDF9; --ink: #2B2118; --ink-soft: #6b6053; --teal: #2f6f76; --teal-dark: #1f4d52; --teal-light: #eaf3f3; --coral: #e8734a; --coral-dark: #c85a34; --coral-light: #fdece3; --gold: #e8b84b; --gold-dark: #b9871f; --sage: #6f9c85; --sage-dark: #4f7b64; --sage-light: #e9f3ee; --rose: #d9605f; --line: #e7ddc9; --shadow: 0 8px 24px rgba(43,33,24,0.10); --radius: 20px; }
+
+* { box-sizing: border-box; }
+
+html, body { margin: 0px; padding: 0px; }
+
+body { background: radial-gradient(circle at 8% 4%, #fff 0%, transparent 45%),
+      radial-gradient(circle at 92% 96%, #f3ead4 0%, transparent 40%),
+      var(--cream); color: var(--ink); font-family: Nunito, sans-serif; min-height: 100vh; -webkit-font-smoothing: antialiased; padding-bottom: 40px; }
+
+h1, h2, h3, .display { font-family: Fredoka, sans-serif; font-weight: 600; letter-spacing: 0.2px; }
+
+.app { max-width: 720px; margin: 0px auto; padding: 14px 16px 60px; }
+
+.passport { background: var(--paper); border-radius: var(--radius); box-shadow: var(--shadow); padding: 14px 16px 12px; border-bottom: 3px dashed var(--line); position: sticky; top: 8px; z-index: 50; margin-bottom: 18px; }
+
+.passport-top { display: flex; align-items: center; gap: 12px; }
+
+.lexi-wrap { position: relative; flex-shrink: 0; }
+
+.lexi { width: 52px; height: 52px; border-radius: 50%; background: linear-gradient(155deg,#ffd9a8,var(--coral)); display: flex; align-items: center; justify-content: center; font-size: 28px; box-shadow: rgba(200, 90, 52, 0.35) 0px 4px 10px; animation: 3.2s ease-in-out 0s infinite normal none running lexi-float; }
+
+@keyframes lexi-float {
+  0%, 100% { transform: translateY(0px) rotate(-3deg); }
+  50% { transform: translateY(-4px) rotate(3deg); }
+}
+
+.lexi.talking { animation: 0.35s ease-in-out 0s infinite normal none running lexi-talk; }
+
+@keyframes lexi-talk {
+  0%, 100% { transform: scale(1); }
+  50% { transform: scale(1.08); }
+}
+
+.passport-title { flex: 1 1 0%; min-width: 0px; }
+
+.passport-title .eyebrow { font-size: 11px; text-transform: uppercase; letter-spacing: 1.5px; color: var(--teal); font-weight: 800; }
+
+.passport-title h1 { font-size: 17px; margin: 1px 0px 0px; color: var(--ink); }
+
+.xp-pill { flex-shrink: 0; background: linear-gradient(155deg,#fff2cf,var(--gold)); border-radius: 999px; padding: 7px 12px; font-family: Fredoka, sans-serif; font-weight: 600; font-size: 13px; color: rgb(90, 68, 19); box-shadow: rgba(184, 135, 31, 0.35) 0px 3px 8px; display: flex; align-items: center; gap: 4px; white-space: nowrap; }
+
+.progress-track { margin-top: 12px; height: 10px; background: var(--teal-light); border-radius: 999px; overflow: hidden; position: relative; }
+
+.progress-fill { height: 100%; width: 0%; background: linear-gradient(90deg,var(--sage),var(--teal)); border-radius: 999px; transition: width 0.5s cubic-bezier(0.4, 1.4, 0.6, 1); }
+
+.stamps-row { display: flex; justify-content: space-between; margin-top: 7px; gap: 2px; flex-wrap: wrap; }
+
+.stamp-dot { width: 14px; height: 14px; border-radius: 50%; background: var(--teal-light); border: 2px solid var(--line); font-size: 8px; display: flex; align-items: center; justify-content: center; color: transparent; transition: 0.3s; flex-shrink: 0; }
+
+.stamp-dot.done { background: var(--sage); border-color: var(--sage-dark); color: rgb(255, 255, 255); }
+
+.stamp-dot.current { border-color: var(--coral); box-shadow: 0 0 0 3px var(--coral-light); }
+
+.lexi-tip { margin-top: 10px; background: var(--teal-light); border-radius: 14px; padding: 9px 12px; font-size: 13.5px; color: var(--teal-dark); line-height: 1.4; display: none; }
+
+.lexi-tip.show { display: block; }
+
+.lexi-tip b { color: var(--teal-dark); }
+
+.screen { display: none; animation: 0.4s ease 0s 1 normal none running fadein; }
+
+.screen.active { display: block; }
+
+@keyframes fadein {
+  0% { opacity: 0; transform: translateY(8px); }
+  100% { opacity: 1; transform: translateY(0px); }
+}
+
+.card { background: var(--paper); border-radius: var(--radius); box-shadow: var(--shadow); padding: 20px 18px; margin-bottom: 16px; }
+
+.section-title { display: flex; align-items: center; gap: 8px; font-size: 20px; margin: 0px 0px 4px; }
+
+.section-sub { color: var(--ink-soft); font-size: 14px; margin: 0px 0px 16px; }
+
+.group-title { font-family: Fredoka, sans-serif; font-weight: 700; font-size: 13.5px; color: var(--teal-dark); margin: 16px 0px 8px; }
+
+.group-title:first-of-type { margin-top: 0; }
+
+.start-hero { text-align: center; padding: 34px 18px 26px; }
+
+.start-hero .big-lexi { width: 110px; height: 110px; border-radius: 50%; background: linear-gradient(155deg,#ffd9a8,var(--coral)); display: flex; align-items: center; justify-content: center; font-size: 58px; margin: 0px auto 18px; box-shadow: rgba(200, 90, 52, 0.35) 0px 10px 24px; animation: 3.2s ease-in-out 0s infinite normal none running lexi-float; }
+
+.start-hero .lesson-tag { display: inline-block; background: var(--coral-light); color: var(--coral-dark); font-family: Fredoka, sans-serif; font-weight: 600; font-size: 12.5px; padding: 6px 14px; border-radius: 999px; margin-bottom: 10px; }
+
+.start-hero .unit-tag { display: inline-block; background: var(--teal-light); color: var(--teal-dark); font-family: Fredoka, sans-serif; font-weight: 600; font-size: 12px; padding: 5px 12px; border-radius: 999px; margin: 0px 0px 8px 6px; }
+
+.start-hero h1 { font-size: 28px; margin: 0px 0px 6px; color: var(--ink); }
+
+.start-hero .subtitle { color: var(--teal-dark); font-weight: 700; font-family: Fredoka, sans-serif; font-size: 15px; margin: 0px 0px 10px; }
+
+.start-hero p { color: var(--ink-soft); font-size: 15.5px; max-width: 420px; margin: 0px auto 22px; line-height: 1.5; }
+
+.start-badges { display: flex; justify-content: center; gap: 10px; flex-wrap: wrap; margin-bottom: 24px; }
+
+.start-badge { background: var(--cream); border: 1.5px solid var(--line); border-radius: 12px; padding: 8px 12px; font-size: 12.5px; color: var(--ink-soft); font-weight: 700; }
+
+.journey-note { font-family: Fredoka, sans-serif; font-weight: 600; font-size: 13.5px; color: var(--coral-dark); margin: 0px 0px 18px; }
+
+.btn { font-family: Fredoka, sans-serif; font-weight: 600; font-size: 15px; border: none; border-radius: 14px; padding: 13px 22px; cursor: pointer; display: inline-flex; align-items: center; justify-content: center; gap: 7px; transition: transform 0.15s, box-shadow 0.15s, opacity 0.15s; min-height: 46px; }
+
+.btn:active { transform: scale(0.96); }
+
+.btn-primary { background: linear-gradient(155deg,var(--coral),var(--coral-dark)); color: rgb(255, 255, 255); box-shadow: rgba(200, 90, 52, 0.35) 0px 5px 14px; }
+
+.btn-secondary { background: var(--teal-light); color: var(--teal-dark); }
+
+.btn-ghost { background: transparent; color: var(--ink-soft); border: 1.5px solid var(--line); }
+
+.btn-sage { background: linear-gradient(155deg,var(--sage),var(--sage-dark)); color: rgb(255, 255, 255); box-shadow: rgba(79, 123, 100, 0.3) 0px 5px 14px; }
+
+.btn:disabled { opacity: 0.45; cursor: not-allowed; transform: none; }
+
+.btn-block { width: 100%; }
+
+.btn-sm { padding: 8px 14px; font-size: 13px; min-height: 36px; border-radius: 10px; }
+
+.nav-row { display: flex; justify-content: space-between; gap: 10px; margin-top: 6px; }
+
+.nav-row .btn { flex: 1 1 0%; }
+
+.goals-list { list-style: none; margin: 0px; padding: 0px; }
+
+.goals-list li { display: flex; align-items: flex-start; gap: 10px; padding: 11px 4px; border-bottom: 1px solid var(--line); font-size: 15px; }
+
+.goals-list li:last-child { border-bottom: none; }
+
+.goal-check { flex-shrink: 0; width: 26px; height: 26px; border-radius: 50%; background: var(--sage-light); color: var(--sage-dark); display: flex; align-items: center; justify-content: center; font-size: 13px; font-weight: 800; }
+
+.vocab-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 10px; margin-bottom: 6px; }
+
+.vocab-card { background: var(--cream); border: 1.5px solid var(--line); border-radius: 14px; padding: 12px 10px; text-align: center; cursor: pointer; transition: 0.2s; position: relative; }
+
+.vocab-card:active { transform: scale(0.96); }
+
+.vocab-card .vc-icon { font-size: 24px; margin-bottom: 2px; }
+
+.vocab-card .vc-text { font-family: Fredoka, sans-serif; font-weight: 600; font-size: 13.5px; margin-bottom: 2px; }
+
+.vocab-card .vc-meaning { font-size: 11.5px; color: var(--ink-soft); line-height: 1.3; }
+
+.vocab-card.done { background: var(--sage-light); border-color: var(--sage); }
+
+.vocab-card .vc-check { position: absolute; top: 6px; right: 8px; font-size: 12px; color: var(--sage-dark); opacity: 0; }
+
+.vocab-card.done .vc-check { opacity: 1; }
+
+.vc-speaker { font-size: 15px; }
+
+.definition-card { background: linear-gradient(155deg,var(--teal-light),#f7f3e6); border-radius: 16px; padding: 16px; text-align: center; margin-bottom: 16px; }
+
+.definition-card .def-text { font-family: Fredoka, sans-serif; font-weight: 600; font-size: 15px; color: var(--teal-dark); }
+
+.verb-example-row { display: flex; flex-wrap: wrap; gap: 10px; justify-content: center; margin-bottom: 6px; }
+
+.verb-example-chip { background: rgb(255, 255, 255); border: 1.5px solid var(--line); border-radius: 14px; padding: 10px 16px; cursor: pointer; text-align: center; transition: 0.18s; min-width: 96px; }
+
+.verb-example-chip:active { transform: scale(0.95); }
+
+.verb-example-chip .vec-de { font-family: Fredoka, sans-serif; font-weight: 700; font-size: 14px; color: var(--coral-dark); }
+
+.verb-example-chip .vec-en { font-size: 11.5px; color: var(--ink-soft); }
+
+.verb-example-chip.heard { background: var(--sage-light); border-color: var(--sage); }
+
+.match-columns { display: flex; gap: 14px; }
+
+.match-col { flex: 1 1 0%; display: flex; flex-direction: column; gap: 8px; }
+
+.match-chip { background: rgb(255, 255, 255); border: 1.5px solid var(--line); border-radius: 12px; padding: 10px 12px; font-size: 13.5px; font-weight: 700; font-family: Fredoka, sans-serif; text-align: center; cursor: pointer; transition: 0.15s; }
+
+.match-chip.selected { border-color: var(--coral); background: var(--coral-light); transform: scale(1.04); }
+
+.match-chip.matched { background: var(--sage-light); border-color: var(--sage); color: var(--sage-dark); cursor: default; opacity: 0.7; }
+
+.match-chip.wrong-shake { animation: 0.35s ease 0s 1 normal none running shake; }
+
+@keyframes shake {
+  0%, 100% { transform: translateX(0px); }
+  25% { transform: translateX(-5px); }
+  75% { transform: translateX(5px); }
+}
+
+.match-status { text-align: center; font-size: 13px; color: var(--ink-soft); margin-top: 12px; font-family: Fredoka, sans-serif; font-weight: 700; }
+
+.job-place-row { display: flex; align-items: center; justify-content: center; gap: 10px; flex-wrap: wrap; background: rgb(255, 255, 255); border-radius: 14px; padding: 12px 14px; margin-bottom: 10px; font-family: Fredoka, sans-serif; font-weight: 700; font-size: 13.5px; text-align: center; }
+
+.job-place-row .fx { font-size: 18px; color: var(--ink-soft); }
+
+.situation-card { background: var(--cream); border-radius: 14px; padding: 14px; margin-bottom: 12px; }
+
+.situation-text { font-size: 15px; font-weight: 700; font-family: Fredoka, sans-serif; margin-bottom: 10px; }
+
+.mc-options { display: flex; flex-wrap: wrap; gap: 8px; }
+
+.mc-opt { background: rgb(255, 255, 255); border: 1.5px solid var(--line); border-radius: 12px; padding: 9px 14px; font-size: 13.5px; font-weight: 700; cursor: pointer; font-family: Fredoka, sans-serif; }
+
+.mc-opt.correct { background: var(--sage-light); border-color: var(--sage); color: var(--sage-dark); }
+
+.mc-opt.incorrect { background: rgb(251, 227, 224); border-color: var(--rose); color: var(--rose); }
+
+.mc-feedback { margin-top: 8px; font-size: 13px; font-weight: 700; min-height: 18px; }
+
+.mc-feedback.ok { color: var(--sage-dark); }
+
+.mc-feedback.bad { color: var(--rose); }
+
+.detective-card { background: linear-gradient(155deg,var(--teal-light),#f7f3e6); border-radius: 16px; padding: 18px; margin-bottom: 14px; }
+
+.detective-round { font-family: Fredoka, sans-serif; font-weight: 700; font-size: 12.5px; color: var(--teal-dark); text-transform: uppercase; letter-spacing: 1px; margin-bottom: 8px; }
+
+.detective-clue { font-size: 15px; line-height: 1.7; color: var(--ink); }
+
+.detective-clue b { color: var(--coral-dark); }
+
+.detective-options { display: grid; grid-template-columns: repeat(3, 1fr); gap: 10px; margin-top: 4px; }
+
+.detective-opt { background: var(--cream); border: 1.5px solid var(--line); border-radius: 14px; padding: 14px 8px; text-align: center; cursor: pointer; transition: 0.18s; }
+
+.detective-opt:active { transform: scale(0.94); }
+
+.detective-opt .do-emoji { font-size: 26px; margin-bottom: 4px; }
+
+.detective-opt .do-word { font-family: Fredoka, sans-serif; font-weight: 600; font-size: 12px; }
+
+.detective-opt.correct { background: var(--sage-light); border-color: var(--sage); }
+
+.detective-opt.incorrect { background: rgb(251, 227, 224); border-color: var(--rose); }
+
+@media (max-width: 420px) {
+  .vocab-grid { grid-template-columns: 1fr; }
+  .detective-options { grid-template-columns: 1fr; }
+  .start-hero h1 { font-size: 24px; }
+}
+
+.detective-feedback { text-align: center; font-family: Fredoka, sans-serif; font-weight: 700; font-size: 14.5px; min-height: 20px; margin-top: 10px; }
+
+.detective-feedback.ok { color: var(--sage-dark); }
+
+.detective-feedback.bad { color: var(--rose); }
+
+.dialogue-controls { display: flex; gap: 8px; margin-bottom: 14px; flex-wrap: wrap; }
+
+.dialogue-controls .btn { flex: 1 1 0%; min-width: 110px; }
+
+.dialogue-line { display: flex; gap: 10px; align-items: flex-start; background: var(--cream); border-radius: 14px; padding: 10px 12px; margin-bottom: 8px; cursor: pointer; transition: 0.18s; }
+
+.dialogue-line.playing { background: var(--coral-light); border: 1.5px solid var(--coral); }
+
+.dialogue-line .dl-avatar { flex-shrink: 0; width: 34px; height: 34px; border-radius: 50%; display: flex; align-items: center; justify-content: center; font-family: Fredoka, sans-serif; font-weight: 700; font-size: 14px; color: rgb(255, 255, 255); }
+
+.dialogue-line.speakerA .dl-avatar { background: var(--teal); }
+
+.dialogue-line.speakerB .dl-avatar { background: var(--coral); }
+
+.dialogue-line .dl-text { flex: 1 1 0%; font-size: 14.5px; line-height: 1.4; padding-top: 5px; }
+
+.dialogue-line .dl-speaker { font-size: 15px; padding-top: 5px; }
+
+.starter-chip { background: rgb(255, 255, 255); border: 1.5px solid var(--line); border-radius: 12px; padding: 10px 14px; font-size: 14px; font-weight: 700; font-family: Fredoka, sans-serif; color: var(--teal-dark); cursor: pointer; margin-bottom: 8px; display: flex; align-items: center; gap: 8px; }
+
+.speaking-textarea { width: 100%; min-height: 100px; border: 1.5px solid var(--line); border-radius: 12px; padding: 12px; font-family: Nunito, sans-serif; font-size: 14.5px; resize: vertical; background: var(--cream); color: var(--ink); }
+
+.speaking-done { display: none; text-align: center; margin-top: 10px; color: var(--sage-dark); font-family: Fredoka, sans-serif; font-weight: 700; }
+
+.speaking-done.show { display: block; }
+
+.challenge-progress-wrap { margin-bottom: 16px; }
+
+.challenge-progress-label { display: flex; justify-content: space-between; font-size: 12.5px; color: var(--ink-soft); font-weight: 700; margin-bottom: 5px; }
+
+.game-rules-card { background: linear-gradient(155deg, rgb(255, 246, 221), rgb(251, 231, 182)); border-radius: 16px; padding: 16px; margin-bottom: 14px; }
+
+.game-rules-card h3 { margin: 0px 0px 8px; font-size: 16px; color: rgb(90, 68, 19); }
+
+.game-rules-card ol { margin: 0px; padding-left: 18px; color: rgb(90, 68, 19); font-size: 13.5px; line-height: 1.7; }
+
+.card-bank-title { font-family: Fredoka, sans-serif; font-weight: 700; font-size: 13.5px; color: var(--teal-dark); margin: 14px 0px 8px; }
+
+.game-card-grid { display: flex; flex-wrap: wrap; gap: 8px; margin-bottom: 6px; }
+
+.game-card { background: rgb(255, 255, 255); border: 1.5px solid var(--line); border-radius: 12px; padding: 8px 13px; font-size: 13px; font-weight: 700; font-family: Fredoka, sans-serif; cursor: pointer; display: flex; align-items: center; gap: 6px; color: var(--coral-dark); }
+
+.game-example-row { display: flex; align-items: center; justify-content: space-between; gap: 10px; background: var(--cream); border-radius: 12px; padding: 10px 14px; margin-bottom: 8px; font-family: Fredoka, sans-serif; font-weight: 700; font-size: 13.5px; }
+
+.game-example-row .ge-a { color: var(--teal-dark); }
+
+.game-example-row .ge-b { color: var(--coral-dark); }
+
+.info-note { display: flex; gap: 8px; background: linear-gradient(155deg, rgb(255, 246, 221), rgb(251, 231, 182)); border-radius: 12px; padding: 10px 12px; font-size: 13px; color: rgb(90, 68, 19); margin-top: 14px; line-height: 1.4; }
+
+.check-list { display: flex; flex-direction: column; gap: 8px; }
+
+.check-item { display: flex; align-items: center; gap: 10px; background: var(--cream); border: 1.5px solid var(--line); border-radius: 12px; padding: 12px 14px; cursor: pointer; transition: 0.18s; }
+
+.check-item.checked { background: var(--sage-light); border-color: var(--sage); }
+
+.check-box { width: 24px; height: 24px; flex-shrink: 0; border-radius: 7px; border: 2px solid var(--line); display: flex; align-items: center; justify-content: center; font-size: 13px; color: transparent; background: rgb(255, 255, 255); transition: 0.18s; }
+
+.check-item.checked .check-box { background: var(--sage); border-color: var(--sage-dark); color: rgb(255, 255, 255); }
+
+.check-text { font-size: 14.5px; font-weight: 700; font-family: Fredoka, sans-serif; }
+
+.checklist-done { display: none; text-align: center; padding: 14px 0px 4px; }
+
+.checklist-done.show { display: block; }
+
+.mission-hero { text-align: center; padding: 20px 10px 10px; }
+
+.trophy { font-size: 64px; margin-bottom: 6px; animation: 0.6s ease 0s 1 normal none running trophy-pop; }
+
+@keyframes trophy-pop {
+  0% { transform: scale(0) rotate(-20deg); }
+  70% { transform: scale(1.15) rotate(6deg); }
+  100% { transform: scale(1) rotate(0deg); }
+}
+
+.badge-plate { background: linear-gradient(155deg,#fff2cf,var(--gold)); border-radius: 16px; padding: 14px; text-align: center; margin: 16px 0px; box-shadow: rgba(184, 135, 31, 0.3) 0px 6px 16px; }
+
+.badge-plate .badge-name { font-family: Fredoka, sans-serif; font-weight: 700; font-size: 16px; color: rgb(90, 68, 19); letter-spacing: 0.5px; }
+
+.xp-total { text-align: center; font-family: Fredoka, sans-serif; font-size: 34px; color: var(--coral-dark); margin: 10px 0px; }
+
+.xp-total span { font-size: 16px; color: var(--ink-soft); display: block; font-family: Nunito, sans-serif; font-weight: 700; }
+</style>
+</head>
+<body>
+<div class="app">
+
+  <!-- HEADER / PASSPORT -->
+  <div class="passport">
+    <div class="passport-top">
+      <div class="lexi-wrap"><div class="lexi" id="lexiAvatar">🦊</div></div>
+      <div class="passport-title">
+        <div class="eyebrow">Einheit 2 • Lektion 5</div>
+        <h1>Berufe</h1>
+      </div>
+      <div class="xp-pill">⭐ <span id="xpCount">0</span> XP</div>
+    </div>
+    <div class="progress-track"><div class="progress-fill" id="progressFill" style="width:0%;"></div></div>
+    <div class="stamps-row" id="stampsRow"></div>
+    <div class="lexi-tip show" id="lexiTip">Tippe auf „Los geht's!“, um deine Reise zu starten. 🦊</div>
+  </div>
+
+  <!-- 0: START -->
+  <section class="screen active" id="screen-start">
+    <div class="card start-hero">
+      <div class="big-lexi">💼</div>
+      <div class="lesson-tag">Lektion 5 · Berufe</div>
+      <span class="unit-tag">Einheit 2 • Lektion 5</span>
+      <h1>🇩🇪 Lektion 5 – Berufe</h1>
+      <p class="subtitle">Entdecke die Welt der Berufe! 🌟</p>
+      <p>Hallo, ich bin Lexi! Jeder Beruf ist wichtig. Heute lernen wir neue Wörter und entdecken deine Möglichkeiten! 🚀</p>
+      <div class="start-badges">
+        <div class="start-badge">🎧 Hören</div>
+        <div class="start-badge">🗣️ Sprechen</div>
+        <div class="start-badge">🧩 Üben</div>
+        <div class="start-badge">🏆 Anwenden</div>
+      </div>
+      <p class="journey-note">Deine Deutschreise geht weiter! 🚀</p>
+      <button class="btn btn-primary btn-block" data-next>Los geht's! ▶</button>
+    </div>
+  </section>
+
+  <!-- 1: LERNZIELE -->
+  <section class="screen" id="screen-objectives">
+    <div class="card">
+      <h2 class="section-title">🎯 Lernziele</h2>
+      <p class="section-sub">Nach dieser Lektion kann ich …</p>
+      <ul class="goals-list">
+        <li><span class="goal-check">✓</span> wichtige Berufe erkennen und benennen.</li>
+        <li><span class="goal-check">✓</span> maskuline und feminine Formen erkennen.</li>
+        <li><span class="goal-check">✓</span> Berufe mit Arbeitsorten verbinden.</li>
+        <li><span class="goal-check">✓</span> einfache Sätze über Berufe verstehen.</li>
+        <li><span class="goal-check">✓</span> einen Beruf nennen.</li>
+      </ul>
+    </div>
+    <div class="nav-row">
+      <button class="btn btn-ghost" data-prev>◀ Zurück</button>
+      <button class="btn btn-primary" data-next>Weiter ▶</button>
+    </div>
+  </section>
+
+  <!-- 2: WORTSCHATZ -->
+  <section class="screen" id="screen-vocab">
+    <div class="card">
+      <h2 class="section-title">📚 Wortschatz – Berufe</h2>
+      <p class="section-sub">Tippe auf eine Karte, um sie zu hören.</p>
+      <div id="vocabGroups"></div>
+    </div>
+    <div class="nav-row">
+      <button class="btn btn-ghost" data-prev>◀ Zurück</button>
+      <button class="btn btn-primary" data-next>Weiter ▶</button>
+    </div>
+  </section>
+
+  <!-- 3: MASKULIN / FEMININ -->
+  <section class="screen" id="screen-genus">
+    <div class="card">
+      <h2 class="section-title">🔑 der / die – Formen</h2>
+      <div class="definition-card">
+        <div class="def-text">Viele Berufe haben eine männliche und eine weibliche Form.</div>
+      </div>
+      <p class="section-sub">Tippe auf ein Beispiel, um es zu hören:</p>
+      <div class="verb-example-row" id="genusRow"></div>
+    </div>
+    <div class="card">
+      <h2 class="section-title" style="margin-top:0;">🧩 Was passt zusammen?</h2>
+      <p class="section-sub">Verbinde die männliche mit der weiblichen Form.</p>
+      <div class="match-columns">
+        <div class="match-col" id="genusMatchM"></div>
+        <div class="match-col" id="genusMatchF"></div>
+      </div>
+      <div class="match-status" id="genusMatchStatus"></div>
+    </div>
+    <div class="nav-row">
+      <button class="btn btn-ghost" data-prev>◀ Zurück</button>
+      <button class="btn btn-primary" data-next>Weiter ▶</button>
+    </div>
+  </section>
+
+  <!-- 4: BERUF + ARBEITSORT -->
+  <section class="screen" id="screen-workplace">
+    <div class="card">
+      <h2 class="section-title">🏢 Beruf + Arbeitsort</h2>
+      <p class="section-sub">Wer arbeitet wo? Tippe auf eine Zeile, um sie zu hören.</p>
+      <div id="workplaceRows"></div>
+    </div>
+    <div class="card">
+      <h2 class="section-title" style="margin-top:0;">🧩 Übung</h2>
+      <p class="section-sub">Wähle die richtige Antwort.</p>
+      <div id="workplaceQuiz"></div>
+    </div>
+    <div class="nav-row">
+      <button class="btn btn-ghost" data-prev>◀ Zurück</button>
+      <button class="btn btn-primary" data-next>Weiter ▶</button>
+    </div>
+  </section>
+
+  <!-- 5: BERUFE + VERBEN -->
+  <section class="screen" id="screen-verbs">
+    <div class="card">
+      <h2 class="section-title">✏️ Berufe + Verben</h2>
+      <p class="section-sub">Kurze Wiederholung. Tippe auf einen Satz, um ihn zu hören.</p>
+      <div class="verb-example-row" id="verbSentenceRow"></div>
+    </div>
+    <div class="card">
+      <h2 class="section-title" style="margin-top:0;">🧩 Übung</h2>
+      <p class="section-sub">Wähle die richtige Verbform.</p>
+      <div id="verbQuiz"></div>
+    </div>
+    <div class="nav-row">
+      <button class="btn btn-ghost" data-prev>◀ Zurück</button>
+      <button class="btn btn-primary" data-next>Weiter ▶</button>
+    </div>
+  </section>
+
+  <!-- 6: BERUFE-DETEKTIV -->
+  <section class="screen" id="screen-detective">
+    <div class="card">
+      <h2 class="section-title">🕵️ Berufe-Detektiv</h2>
+      <p class="section-sub">Lies die Hinweise. Wer ist das? Wähle die richtige Karte.</p>
+      <div class="detective-card">
+        <div class="detective-round" id="detectiveRoundLabel">Runde 1 / 4</div>
+        <div class="detective-clue" id="detectiveClues"></div>
+      </div>
+      <div class="detective-options" id="detectiveOptions"></div>
+      <div class="detective-feedback" id="detectiveFeedback"></div>
+      <button class="btn btn-secondary btn-block" id="detectiveNextBtn" style="margin-top:12px;display:none;">Nächste Runde ▶</button>
+    </div>
+    <div class="nav-row">
+      <button class="btn btn-ghost" data-prev>◀ Zurück</button>
+      <button class="btn btn-primary" data-next>Weiter ▶</button>
+    </div>
+  </section>
+
+  <!-- 7: DIALOGUE -->
+  <section class="screen" id="screen-dialogue">
+    <div class="card">
+      <h2 class="section-title">💬 Dialog: Was bist du von Beruf?</h2>
+      <p class="section-sub">🔊 Dialog anhören oder tippe auf eine Zeile.</p>
+      <div class="dialogue-controls">
+        <button class="btn btn-secondary" id="dlgPlay">▶ Start</button>
+        <button class="btn btn-ghost" id="dlgPause">⏸ Pause</button>
+        <button class="btn btn-ghost" id="dlgRepeat">🔁 Wiederholen</button>
+      </div>
+      <div id="dialogueList"></div>
+    </div>
+    <div class="nav-row">
+      <button class="btn btn-ghost" data-prev>◀ Zurück</button>
+      <button class="btn btn-primary" data-next>Weiter ▶</button>
+    </div>
+  </section>
+
+  <!-- 8: SPEAKING -->
+  <section class="screen" id="screen-speaking">
+    <div class="card">
+      <h2 class="section-title">🎤 Jetzt bist du dran!</h2>
+      <p class="section-sub">Benutze diese Satzanfänge. Tippe auf einen Satz, um ihn zu hören.</p>
+      <div id="starterList"></div>
+      <p class="section-sub" style="margin-top:14px;">Schreib jetzt 2–4 Sätze über deinen Beruf oder Wunschberuf:</p>
+      <textarea class="speaking-textarea" id="speakingInput" placeholder="Ich bin Studentin. Ich möchte Ärztin werden."></textarea>
+      <button class="btn btn-sage btn-block" id="speakingDoneBtn" style="margin-top:12px;">✓ Fertig</button>
+      <div class="speaking-done" id="speakingDone">🎉 Super! Du hast über deinen Beruf gesprochen!</div>
+    </div>
+    <div class="nav-row">
+      <button class="btn btn-ghost" data-prev>◀ Zurück</button>
+      <button class="btn btn-primary" data-next>Weiter ▶</button>
+    </div>
+  </section>
+
+  <!-- 9: KLASSENZIMMER-SPIEL -->
+  <section class="screen" id="screen-game">
+    <div class="card">
+      <h2 class="section-title">🎴 Berufe-Karten</h2>
+      <p class="section-sub">Schließt den Bildschirm – jetzt spielen wir zusammen!</p>
+      <div class="game-rules-card">
+        <h3>🎭 So funktioniert's</h3>
+        <ol>
+          <li>Teilt die Klasse in zwei Teams.</li>
+          <li>Legt die Berufskarten offen auf den Tisch.</li>
+          <li>Die Lehrkraft stellt eine einfache Frage, z. B. „Wer arbeitet im Krankenhaus?“</li>
+          <li>Die Teams wählen schnell die richtige Berufskarte.</li>
+          <li>Richtige Karte = 1 Punkt ⭐. Bei einem Fehler darf das andere Team es versuchen.</li>
+        </ol>
+      </div>
+      <div class="card-bank-title">🎴 Berufskarten (tippen zum Hören)</div>
+      <div class="game-card-grid" id="gameCardGrid"></div>
+      <div class="card-bank-title">❓ Beispiele</div>
+      <div id="gameExamples"></div>
+      <div class="info-note">💡 <span>Nur Karten – keine Handys, keine Schauspielerei, keine komplizierten Regeln. Hören, verstehen, die richtige Karte wählen!</span></div>
+      <p style="text-align:center;font-family:'Fredoka',sans-serif;font-weight:700;color:var(--coral-dark);margin-top:14px;">🎉 Welches Team hat gewonnen?</p>
+    </div>
+    <div class="nav-row">
+      <button class="btn btn-ghost" data-prev>◀ Zurück</button>
+      <button class="btn btn-primary" data-next>Weiter ▶</button>
+    </div>
+  </section>
+
+  <!-- 10: MINI REVIEW -->
+  <section class="screen" id="screen-review">
+    <div class="card">
+      <h2 class="section-title">🔥 Mini-Wiederholung</h2>
+      <p class="section-sub">Ein bisschen von allem!</p>
+      <div class="challenge-progress-wrap">
+        <div class="challenge-progress-label"><span>Dein Fortschritt</span><span id="reviewProgressText">0/5</span></div>
+        <div class="progress-track"><div class="progress-fill" id="reviewProgressFill" style="width:0%;"></div></div>
+      </div>
+      <div id="reviewMixedList"></div>
+      <div id="reviewResult" style="display:none;text-align:center;padding:16px 0 4px;">
+        <div style="font-size:40px;" id="reviewEmoji">🏆</div>
+        <div style="font-family:'Fredoka',sans-serif;font-weight:700;font-size:17px;color:var(--sage-dark);" id="reviewMsg"></div>
+      </div>
+    </div>
+    <div class="nav-row">
+      <button class="btn btn-ghost" data-prev>◀ Zurück</button>
+      <button class="btn btn-primary" data-next>Weiter ▶</button>
+    </div>
+  </section>
+
+  <!-- 11: CHECKLIST -->
+  <section class="screen" id="screen-checklist">
+    <div class="card">
+      <h2 class="section-title">🌟 Du kennst jetzt viele Berufe!</h2>
+      <p class="section-sub">Tippe jeden Punkt an, den du schon kannst.</p>
+      <div class="check-list" id="checkList"></div>
+      <div class="checklist-done" id="checklistDone">
+        <div style="font-size:36px;">🎉</div>
+        <div style="font-family:'Fredoka',sans-serif;font-weight:700;font-size:17px;color:var(--sage-dark);">Lektion 5 geschafft!</div>
+        <div style="color:var(--ink-soft);font-size:13.5px;margin-top:4px;">Du lernst Schritt für Schritt! 💪🇩🇪</div>
+        <div style="color:var(--ink-soft);font-size:13.5px;margin-top:2px;">Bereit für die nächste Lektion? 🚀</div>
+      </div>
+    </div>
+    <div class="nav-row">
+      <button class="btn btn-ghost" data-prev>◀ Zurück</button>
+      <button class="btn btn-primary" data-next>Weiter ▶</button>
+    </div>
+  </section>
+
+  <!-- 12: MISSION GESCHAFFT -->
+  <section class="screen" id="screen-mission">
+    <div class="card mission-hero">
+      <div class="trophy">🏆</div>
+      <h1 style="margin:0;">MISSION GESCHAFFT!</h1>
+      <p style="color:var(--ink-soft);">🌟 Du kennst jetzt viele Berufe auf Deutsch!</p>
+      <ul class="goals-list" style="text-align:left;">
+        <li><span class="goal-check">✓</span> wichtige Berufe erkennen und benennen.</li>
+        <li><span class="goal-check">✓</span> maskuline und feminine Formen erkennen.</li>
+        <li><span class="goal-check">✓</span> Berufe mit Arbeitsorten verbinden.</li>
+        <li><span class="goal-check">✓</span> einfache Sätze über Berufe verstehen.</li>
+        <li><span class="goal-check">✓</span> einen Beruf nennen.</li>
+      </ul>
+      <div class="xp-total"><span>Gesamtpunkte</span>⭐ <span id="missionXP">0</span> XP</div>
+      <div class="badge-plate">
+        <div style="font-size:26px;">🎖️</div>
+        <div class="badge-name">BERUFE-PROFI</div>
+      </div>
+      <button class="btn btn-sage btn-block" id="restartBtn">🔁 Lektion wiederholen</button>
+    </div>
+  </section>
+
+</div>
+
+<script>
+/* ===================== DATA ===================== */
+const vocabGroups = [
+  { title: 'Gruppe 1', items: [
+    { icon:'👩‍⚕️', de:'die Ärztin / der Arzt', en:'the doctor', speak:'die Ärztin. der Arzt.' },
+    { icon:'👩‍🏫', de:'die Lehrerin / der Lehrer', en:'the teacher', speak:'die Lehrerin. der Lehrer.' },
+    { icon:'👨‍🍳', de:'die Köchin / der Koch', en:'the cook', speak:'die Köchin. der Koch.' },
+    { icon:'👮', de:'die Polizistin / der Polizist', en:'the police officer', speak:'die Polizistin. der Polizist.' }
+  ]},
+  { title: 'Gruppe 2', items: [
+    { icon:'👩‍🔧', de:'die Mechanikerin / der Mechaniker', en:'the mechanic', speak:'die Mechanikerin. der Mechaniker.' },
+    { icon:'👩‍💼', de:'die Verkäuferin / der Verkäufer', en:'the salesperson', speak:'die Verkäuferin. der Verkäufer.' },
+    { icon:'👩‍⚕️', de:'die Krankenschwester', en:'the nurse', speak:'die Krankenschwester.' },
+    { icon:'👨‍🚒', de:'der Feuerwehrmann', en:'the firefighter', speak:'der Feuerwehrmann.' }
+  ]},
+  { title: 'Gruppe 3', items: [
+    { icon:'👩‍💻', de:'die Programmiererin / der Programmierer', en:'the programmer', speak:'die Programmiererin. der Programmierer.' },
+    { icon:'👩‍💇', de:'die Friseurin / der Friseur', en:'the hairdresser', speak:'die Friseurin. der Friseur.' },
+    { icon:'👩‍⚖️', de:'die Anwältin / der Anwalt', en:'the lawyer', speak:'die Anwältin. der Anwalt.' },
+    { icon:'👩‍🎨', de:'die Künstlerin / der Künstler', en:'the artist', speak:'die Künstlerin. der Künstler.' },
+    { icon:'👩‍🏫', de:'die Studentin / der Student', en:'the student', speak:'die Studentin. der Student.' }
+  ]}
+];
+
+const genusPairs = [
+  { id:'g1', m:'der Lehrer', f:'die Lehrerin' },
+  { id:'g2', m:'der Koch', f:'die Köchin' },
+  { id:'g3', m:'der Arzt', f:'die Ärztin' },
+  { id:'g4', m:'der Verkäufer', f:'die Verkäuferin' }
+];
+
+const workplacePairs = [
+  { icon:'👩‍⚕️', job:'Ärztin', place:'🏥 Krankenhaus', placeName:'Krankenhaus' },
+  { icon:'👩‍🏫', job:'Lehrerin', place:'🏫 Schule', placeName:'Schule' },
+  { icon:'👨‍🍳', job:'Koch', place:'🍽️ Restaurant', placeName:'Restaurant' },
+  { icon:'👮', job:'Polizist', place:'🚓 Polizeistation', placeName:'Polizeistation' },
+  { icon:'👩‍💼', job:'Verkäuferin', place:'🏪 Geschäft', placeName:'Geschäft' },
+  { icon:'👩‍🔧', job:'Mechaniker', place:'🔧 Werkstatt', placeName:'Werkstatt' },
+  { icon:'👩‍💇', job:'Friseurin', place:'💇 Friseursalon', placeName:'Friseursalon' }
+];
+
+const workplaceQuizData = [
+  { q:'Wer arbeitet im Krankenhaus? 🏥', opts:['Ärztin','Koch','Lehrerin'], correct:'Ärztin' },
+  { q:'Wer arbeitet in der Schule? 🏫', opts:['Koch','Lehrerin','Mechaniker'], correct:'Lehrerin' },
+  { q:'Wer arbeitet im Restaurant? 🍽️', opts:['Polizist','Friseurin','Koch'], correct:'Koch' },
+  { q:'Wer arbeitet im Geschäft? 🏪', opts:['Verkäuferin','Ärztin','Anwalt'], correct:'Verkäuferin' }
+];
+
+const verbSentences = [
+  'Die Ärztin arbeitet im Krankenhaus.',
+  'Der Koch arbeitet im Restaurant.',
+  'Die Lehrerin arbeitet in der Schule.',
+  'Der Koch kocht.',
+  'Die Studentin lernt.',
+  'Die Ärztin hilft.'
+];
+
+const verbQuizData = [
+  { q:'Der Koch ___ im Restaurant.', opts:['arbeitet','arbeiten','arbeitest'], correct:'arbeitet' },
+  { q:'Die Studentin ___ Deutsch.', opts:['lernt','lernen','lernst'], correct:'lernt' },
+  { q:'Die Ärztin ___ Menschen.', opts:['helfe','hilft','helfen'], correct:'hilft' },
+  { q:'Der Koch ___ jeden Tag.', opts:['kocht','kochen','kochst'], correct:'kocht' }
+];
+
+const detectiveRounds = [
+  { clues:['Ich arbeite im Krankenhaus.','Ich helfe Menschen.'], opts:[
+      {icon:'👩‍⚕️',word:'Ärztin'},{icon:'👨‍🍳',word:'Koch'},{icon:'👩‍🏫',word:'Lehrerin'}], correct:'Ärztin' },
+  { clues:['Ich arbeite in der Schule.','Ich helfe Kindern beim Lernen.'], opts:[
+      {icon:'👮',word:'Polizist'},{icon:'👩‍🏫',word:'Lehrerin'},{icon:'👩‍💇',word:'Friseurin'}], correct:'Lehrerin' },
+  { clues:['Ich arbeite im Restaurant.','Ich koche jeden Tag.'], opts:[
+      {icon:'👨‍🍳',word:'Koch'},{icon:'👩‍⚖️',word:'Anwältin'},{icon:'👩‍💻',word:'Programmiererin'}], correct:'Koch' },
+  { clues:['Ich arbeite in der Werkstatt.','Ich repariere Autos.'], opts:[
+      {icon:'👩‍🔧',word:'Mechanikerin'},{icon:'👮',word:'Polizist'},{icon:'👩‍🎨',word:'Künstlerin'}], correct:'Mechanikerin' }
+];
+
+const dialogueLines = [
+  { speaker:'A', text:'Was bist du von Beruf?' },
+  { speaker:'B', text:'Ich bin Lehrerin.' },
+  { speaker:'A', text:'Wo arbeitest du?' },
+  { speaker:'B', text:'Ich arbeite in einer Schule.' },
+  { speaker:'A', text:'Was bist du von Beruf?' },
+  { speaker:'B', text:'Ich bin Koch.' },
+  { speaker:'A', text:'Wo arbeitest du?' },
+  { speaker:'B', text:'Ich arbeite in einem Restaurant.' }
+];
+
+const speakingStarters = [
+  'Ich bin Schüler.',
+  'Ich bin Studentin.',
+  'Ich bin Lehrer.',
+  'Ich bin Verkäuferin.',
+  'Ich möchte Ärztin werden.',
+  'Ich möchte Lehrer werden.'
+];
+
+const gameCards = ['👩‍⚕️ Ärztin','👨‍🍳 Koch','👩‍🏫 Lehrerin','👮 Polizist','👩‍🔧 Mechanikerin','👩‍💼 Verkäuferin','👩‍💇 Friseurin','👨‍🚒 Feuerwehrmann'];
+
+const gameExampleData = [
+  { q:'🏥 Wer arbeitet im Krankenhaus?', a:'👩‍⚕️ Ärztin' },
+  { q:'🏫 Wer arbeitet in der Schule?', a:'👩‍🏫 Lehrerin' },
+  { q:'🍽️ Wer arbeitet im Restaurant?', a:'👨‍🍳 Koch' },
+  { q:'🏪 Wer arbeitet im Geschäft?', a:'👩‍💼 Verkäuferin' }
+];
+
+const reviewQuizData = [
+  { q:'Wer arbeitet im Krankenhaus? 🏥', opts:['die Ärztin','der Koch','die Lehrerin'], correct:'die Ärztin' },
+  { q:'Wie sagt man „the teacher“?', opts:['der Arzt','der Lehrer','der Koch'], correct:'der Lehrer' },
+  { q:'Der Koch ___ im Restaurant.', opts:['arbeitet','arbeiten','arbeitest'], correct:'arbeitet' },
+  { q:'Was ist die weibliche Form von „der Koch“?', opts:['die Köchin','die Kochin','die Kochfrau'], correct:'die Köchin' },
+  { q:'Die Studentin ___ Deutsch.', opts:['lernt','lernen','lernst'], correct:'lernt' }
+];
+
+const checklistItems = [
+  'Ich kenne wichtige Berufe.',
+  'Ich kann Berufe verstehen.',
+  'Ich kenne einige Arbeitsorte.',
+  'Ich kann einfache Sätze über Berufe verstehen.',
+  'Ich kann einen Beruf nennen.'
+];
+
+const praiseWords = ['Super! 🎉','Genau!','Sehr gut! 👏','Toll gemacht!'];
+const tryAgainWords = ['Fast! Versuch es noch einmal. 💪','Nicht ganz, probier es nochmal!'];
+
+/* ===================== STATE ===================== */
+let xp = 0;
+const screens = ['screen-start','screen-objectives','screen-vocab','screen-genus','screen-workplace','screen-verbs','screen-detective','screen-dialogue','screen-speaking','screen-game','screen-review','screen-checklist','screen-mission'];
+let currentScreen = 0;
+
+/* ===================== SPEECH ===================== */
+let germanVoice = null;
+function pickVoice(){
+  const voices = speechSynthesis.getVoices();
+  germanVoice = voices.find(v => v.lang && v.lang.toLowerCase().startsWith('de')) || null;
+}
+if ('speechSynthesis' in window) {
+  pickVoice();
+  speechSynthesis.onvoiceschanged = pickVoice;
+}
+function speak(text, onEnd){
+  if (!('speechSynthesis' in window)) { if (onEnd) onEnd(); return; }
+  speechSynthesis.cancel();
+  const u = new SpeechSynthesisUtterance(text);
+  u.lang = 'de-DE';
+  if (germanVoice) u.voice = germanVoice;
+  u.rate = 0.92;
+  const lexi = document.getElementById('lexiAvatar');
+  lexi.classList.add('talking');
+  u.onend = () => { lexi.classList.remove('talking'); if (onEnd) onEnd(); };
+  u.onerror = () => { lexi.classList.remove('talking'); if (onEnd) onEnd(); };
+  speechSynthesis.speak(u);
+}
+
+/* ===================== NAVIGATION / PROGRESS ===================== */
+function renderStamps(){
+  const row = document.getElementById('stampsRow');
+  row.innerHTML = screens.map((s,i) => `<div class="stamp-dot" id="stamp-${i}"></div>`).join('');
+}
+function updateHeader(){
+  screens.forEach((s,i) => {
+    const dot = document.getElementById('stamp-'+i);
+    dot.className = 'stamp-dot' + (i < currentScreen ? ' done' : '') + (i === currentScreen ? ' current' : '');
+  });
+  const pct = Math.round((currentScreen / (screens.length - 1)) * 100);
+  document.getElementById('progressFill').style.width = pct + '%';
+  document.getElementById('xpCount').textContent = xp;
+  document.getElementById('missionXP').textContent = xp;
+}
+function showScreen(i){
+  document.getElementById(screens[currentScreen]).classList.remove('active');
+  currentScreen = Math.max(0, Math.min(screens.length - 1, i));
+  document.getElementById(screens[currentScreen]).classList.add('active');
+  updateHeader();
+  window.scrollTo({ top: 0, behavior: 'smooth' });
+  const tip = document.getElementById('lexiTip');
+  tip.classList.remove('show');
+}
+function addXP(n){ xp += n; document.getElementById('xpCount').textContent = xp; document.getElementById('missionXP').textContent = xp; }
+
+document.querySelectorAll('[data-next]').forEach(b => b.addEventListener('click', () => showScreen(currentScreen + 1)));
+document.querySelectorAll('[data-prev]').forEach(b => b.addEventListener('click', () => showScreen(currentScreen - 1)));
+document.getElementById('restartBtn').addEventListener('click', () => location.reload());
+
+/* ===================== VOCAB ===================== */
+function renderVocab(){
+  const wrap = document.getElementById('vocabGroups');
+  wrap.innerHTML = vocabGroups.map((g,gi) => `
+    <div class="group-title">${g.title}</div>
+    <div class="vocab-grid">
+      ${g.items.map((it,ii) => `
+        <div class="vocab-card" id="vc-${gi}-${ii}">
+          <div class="vc-check">✓</div>
+          <div class="vc-icon">${it.icon}</div>
+          <div class="vc-text"><span class="vc-speaker">🔊</span> ${it.de}</div>
+          <div class="vc-meaning">${it.en}</div>
+        </div>`).join('')}
+    </div>`).join('');
+  vocabGroups.forEach((g,gi) => g.items.forEach((it,ii) => {
+    const el = document.getElementById(`vc-${gi}-${ii}`);
+    el.addEventListener('click', () => {
+      speak(it.speak);
+      if (!el.classList.contains('done')) { el.classList.add('done'); addXP(2); }
+    });
+  }));
+}
+
+/* ===================== GENUS (masc/fem) ===================== */
+let genusSelectedM = null, genusSelectedF = null, genusMatchedCount = 0;
+function renderGenus(){
+  const row = document.getElementById('genusRow');
+  row.innerHTML = genusPairs.map(p => `
+    <div class="verb-example-chip" data-speak="${p.m}, ${p.f}">
+      <div class="vec-de">🔊 ${p.m} → ${p.f}</div>
+    </div>`).join('');
+  row.querySelectorAll('.verb-example-chip').forEach(chip => {
+    chip.addEventListener('click', () => { speak(chip.dataset.speak); chip.classList.add('heard'); });
+  });
+
+  const shuffledF = [...genusPairs].sort(() => Math.random() - 0.5);
+  document.getElementById('genusMatchM').innerHTML = genusPairs.map(p => `<div class="match-chip" data-id="${p.id}" data-side="m">${p.m}</div>`).join('');
+  document.getElementById('genusMatchF').innerHTML = shuffledF.map(p => `<div class="match-chip" data-id="${p.id}" data-side="f">${p.f}</div>`).join('');
+  genusSelectedM = null; genusSelectedF = null; genusMatchedCount = 0;
+  document.getElementById('genusMatchStatus').textContent = '';
+
+  document.querySelectorAll('#screen-genus .match-chip').forEach(chip => {
+    chip.addEventListener('click', () => {
+      if (chip.classList.contains('matched')) return;
+      const side = chip.dataset.side;
+      if (side === 'm') {
+        if (genusSelectedM) genusSelectedM.classList.remove('selected');
+        genusSelectedM = chip; chip.classList.add('selected');
+      } else {
+        if (genusSelectedF) genusSelectedF.classList.remove('selected');
+        genusSelectedF = chip; chip.classList.add('selected');
+      }
+      if (genusSelectedM && genusSelectedF) {
+        if (genusSelectedM.dataset.id === genusSelectedF.dataset.id) {
+          genusSelectedM.classList.add('matched'); genusSelectedF.classList.add('matched');
+          genusSelectedM.classList.remove('selected'); genusSelectedF.classList.remove('selected');
+          speak(genusSelectedM.textContent + ', ' + genusSelectedF.textContent);
+          genusMatchedCount++;
+          addXP(3);
+          document.getElementById('genusMatchStatus').textContent = praiseWords[Math.floor(Math.random()*praiseWords.length)];
+          if (genusMatchedCount === genusPairs.length) {
+            document.getElementById('genusMatchStatus').textContent = '🎉 Alle Paare gefunden!';
+          }
+          genusSelectedM = null; genusSelectedF = null;
+        } else {
+          genusSelectedM.classList.add('wrong-shake'); genusSelectedF.classList.add('wrong-shake');
+          document.getElementById('genusMatchStatus').textContent = tryAgainWords[Math.floor(Math.random()*tryAgainWords.length)];
+          const m = genusSelectedM, f = genusSelectedF;
+          setTimeout(() => { m.classList.remove('selected','wrong-shake'); f.classList.remove('selected','wrong-shake'); }, 400);
+          genusSelectedM = null; genusSelectedF = null;
+        }
+      }
+    });
+  });
+}
+
+/* ===================== WORKPLACE ===================== */
+function renderWorkplace(){
+  const wrap = document.getElementById('workplaceRows');
+  wrap.innerHTML = workplacePairs.map(p => `
+    <div class="job-place-row" data-speak="Die ${p.job} arbeitet im ${p.placeName}.">
+      <span>${p.icon} ${p.job}</span><span class="fx">→</span><span>${p.place}</span>
+    </div>`).join('');
+  wrap.querySelectorAll('.job-place-row').forEach(r => r.addEventListener('click', () => speak(r.dataset.speak)));
+  renderMC('workplaceQuiz', workplaceQuizData, 'wp', 3);
+}
+
+/* ===================== VERBS ===================== */
+function renderVerbs(){
+  const wrap = document.getElementById('verbSentenceRow');
+  wrap.innerHTML = verbSentences.map(s => `<div class="verb-example-chip" data-speak="${s}"><div class="vec-de">🔊 ${s}</div></div>`).join('');
+  wrap.querySelectorAll('.verb-example-chip').forEach(chip => chip.addEventListener('click', () => { speak(chip.dataset.speak); chip.classList.add('heard'); }));
+  renderMC('verbQuiz', verbQuizData, 'vb', 3);
+}
+
+/* ===================== GENERIC MULTIPLE CHOICE ===================== */
+function renderMC(containerId, data, prefix, xpEach){
+  const wrap = document.getElementById(containerId);
+  wrap.innerHTML = data.map((item, i) => `
+    <div class="situation-card">
+      <div class="situation-text">${item.q}</div>
+      <div class="mc-options">
+        ${item.opts.map(o => `<button class="mc-opt" data-opt="${o}">${o}</button>`).join('')}
+      </div>
+      <div class="mc-feedback" id="${prefix}fb-${i}"></div>
+    </div>`).join('');
+  data.forEach((item, i) => {
+    const card = wrap.children[i];
+    const fb = card.querySelector(`#${prefix}fb-${i}`);
+    let answered = false;
+    card.querySelectorAll('.mc-opt').forEach(btn => {
+      btn.addEventListener('click', () => {
+        if (answered) return;
+        answered = true;
+        const chosen = btn.dataset.opt;
+        speak(chosen);
+        if (chosen === item.correct) {
+          btn.classList.add('correct');
+          fb.textContent = praiseWords[Math.floor(Math.random()*praiseWords.length)];
+          fb.className = 'mc-feedback ok';
+          addXP(xpEach);
+        } else {
+          btn.classList.add('incorrect');
+          card.querySelectorAll('.mc-opt').forEach(b => { if (b.dataset.opt === item.correct) b.classList.add('correct'); });
+          fb.textContent = 'Richtig ist: „' + item.correct + '“';
+          fb.className = 'mc-feedback bad';
+        }
+      });
+    });
+  });
+}
+
+/* ===================== DETECTIVE ===================== */
+let detectiveRound = 0;
+function renderDetectiveRound(){
+  const round = detectiveRounds[detectiveRound];
+  document.getElementById('detectiveRoundLabel').textContent = `Runde ${detectiveRound+1} / ${detectiveRounds.length}`;
+  document.getElementById('detectiveClues').innerHTML = round.clues.map(c => `<div>„<b>${c}</b>“</div>`).join('') + '<div style="margin-top:6px;">Wer bin ich?</div>';
+  const optsWrap = document.getElementById('detectiveOptions');
+  optsWrap.innerHTML = round.opts.map(o => `<div class="detective-opt" data-word="${o.word}"><div class="do-emoji">${o.icon}</div><div class="do-word">${o.word}</div></div>`).join('');
+  document.getElementById('detectiveFeedback').textContent = '';
+  document.getElementById('detectiveFeedback').className = 'detective-feedback';
+  document.getElementById('detectiveNextBtn').style.display = 'none';
+  speak(round.clues.join(' '));
+
+  let answered = false;
+  optsWrap.querySelectorAll('.detective-opt').forEach(opt => {
+    opt.addEventListener('click', () => {
+      if (answered) return;
+      answered = true;
+      speak(opt.dataset.word);
+      const fb = document.getElementById('detectiveFeedback');
+      if (opt.dataset.word === round.correct) {
+        opt.classList.add('correct');
+        fb.textContent = '🎉 Genau! Du bist ein echter Berufe-Detektiv!';
+        fb.className = 'detective-feedback ok';
+        addXP(4);
+      } else {
+        opt.classList.add('incorrect');
+        optsWrap.querySelectorAll('.detective-opt').forEach(o => { if (o.dataset.word === round.correct) o.classList.add('correct'); });
+        fb.textContent = 'Fast! Versuch es noch einmal. 💪';
+        fb.className = 'detective-feedback bad';
+      }
+      if (detectiveRound < detectiveRounds.length - 1) {
+        document.getElementById('detectiveNextBtn').style.display = 'inline-flex';
+      } else {
+        fb.textContent += ' Alle Runden geschafft! 🏆';
+      }
+    });
+  });
+}
+document.getElementById('detectiveNextBtn').addEventListener('click', () => {
+  detectiveRound = Math.min(detectiveRound + 1, detectiveRounds.length - 1);
+  renderDetectiveRound();
+});
+
+/* ===================== DIALOGUE ===================== */
+let dlgPlaying = false, dlgIndex = 0;
+function renderDialogue(){
+  const wrap = document.getElementById('dialogueList');
+  wrap.innerHTML = dialogueLines.map((l,i) => `
+    <div class="dialogue-line speaker${l.speaker}" id="dl-${i}">
+      <div class="dl-avatar">${l.speaker}</div>
+      <div class="dl-text">${l.text}</div>
+      <div class="dl-speaker">🔊</div>
+    </div>`).join('');
+  dialogueLines.forEach((l,i) => {
+    document.getElementById('dl-'+i).addEventListener('click', () => {
+      dlgPlaying = false;
+      highlightLine(i);
+      speak(l.text, () => clearHighlight());
+    });
+  });
+}
+function highlightLine(i){
+  document.querySelectorAll('.dialogue-line').forEach(el => el.classList.remove('playing'));
+  const el = document.getElementById('dl-'+i);
+  if (el) el.classList.add('playing');
+}
+function clearHighlight(){ document.querySelectorAll('.dialogue-line').forEach(el => el.classList.remove('playing')); }
+function playDialogueFrom(i){
+  if (i >= dialogueLines.length || !dlgPlaying) { clearHighlight(); return; }
+  dlgIndex = i;
+  highlightLine(i);
+  speak(dialogueLines[i].text, () => { if (dlgPlaying) playDialogueFrom(i+1); });
+}
+document.getElementById('dlgPlay').addEventListener('click', () => { dlgPlaying = true; playDialogueFrom(dlgIndex); });
+document.getElementById('dlgPause').addEventListener('click', () => { dlgPlaying = false; speechSynthesis.cancel(); clearHighlight(); });
+document.getElementById('dlgRepeat').addEventListener('click', () => { dlgPlaying = true; dlgIndex = 0; playDialogueFrom(0); });
+
+/* ===================== SPEAKING ===================== */
+function renderSpeaking(){
+  const wrap = document.getElementById('starterList');
+  wrap.innerHTML = speakingStarters.map(s => `<div class="starter-chip"><span>🔊</span><span>${s}</span></div>`).join('');
+  wrap.querySelectorAll('.starter-chip').forEach((chip,i) => chip.addEventListener('click', () => speak(speakingStarters[i])));
+}
+document.getElementById('speakingDoneBtn').addEventListener('click', () => {
+  document.getElementById('speakingDone').classList.add('show');
+  addXP(3);
+});
+
+/* ===================== GAME SCREEN ===================== */
+function renderGame(){
+  const grid = document.getElementById('gameCardGrid');
+  grid.innerHTML = gameCards.map(c => `<div class="game-card">${c}</div>`).join('');
+  grid.querySelectorAll('.game-card').forEach(card => card.addEventListener('click', () => speak(card.textContent.trim())));
+
+  const ex = document.getElementById('gameExamples');
+  ex.innerHTML = gameExampleData.map(g => `<div class="game-example-row" data-speak="${g.q} ${g.a}"><span class="ge-a">${g.q}</span><span class="ge-b">→ ${g.a}</span></div>`).join('');
+  ex.querySelectorAll('.game-example-row').forEach(r => r.addEventListener('click', () => speak(r.dataset.speak)));
+}
+
+/* ===================== MINI REVIEW ===================== */
+let reviewAnsweredCount = 0;
+function renderReview(){
+  const wrap = document.getElementById('reviewMixedList');
+  const shuffled = [...reviewQuizData].sort(() => Math.random() - 0.5);
+  wrap.innerHTML = shuffled.map((item,i) => `
+    <div class="situation-card">
+      <div class="situation-text">${item.q}</div>
+      <div class="mc-options">${item.opts.map(o => `<button class="mc-opt" data-opt="${o}">${o}</button>`).join('')}</div>
+      <div class="mc-feedback" id="rvfb-${i}"></div>
+    </div>`).join('');
+  reviewAnsweredCount = 0;
+  document.getElementById('reviewProgressText').textContent = `0/${shuffled.length}`;
+  document.getElementById('reviewProgressFill').style.width = '0%';
+  document.getElementById('reviewResult').style.display = 'none';
+
+  shuffled.forEach((item,i) => {
+    const card = wrap.children[i];
+    const fb = card.querySelector(`#rvfb-${i}`);
+    let answered = false;
+    card.querySelectorAll('.mc-opt').forEach(btn => {
+      btn.addEventListener('click', () => {
+        if (answered) return;
+        answered = true;
+        speak(btn.dataset.opt);
+        if (btn.dataset.opt === item.correct) {
+          btn.classList.add('correct');
+          fb.textContent = praiseWords[Math.floor(Math.random()*praiseWords.length)];
+          fb.className = 'mc-feedback ok';
+          addXP(3);
+        } else {
+          btn.classList.add('incorrect');
+          card.querySelectorAll('.mc-opt').forEach(b => { if (b.dataset.opt === item.correct) b.classList.add('correct'); });
+          fb.textContent = 'Richtig ist: „' + item.correct + '“';
+          fb.className = 'mc-feedback bad';
+        }
+        reviewAnsweredCount++;
+        document.getElementById('reviewProgressText').textContent = `${reviewAnsweredCount}/${shuffled.length}`;
+        document.getElementById('reviewProgressFill').style.width = Math.round((reviewAnsweredCount/shuffled.length)*100) + '%';
+        if (reviewAnsweredCount === shuffled.length) {
+          document.getElementById('reviewResult').style.display = 'block';
+          document.getElementById('reviewMsg').textContent = 'Super gemacht! Du kennst viele Berufe! 🎉';
+        }
+      });
+    });
+  });
+}
+
+/* ===================== CHECKLIST ===================== */
+function renderChecklist(){
+  const wrap = document.getElementById('checkList');
+  wrap.innerHTML = checklistItems.map((t,i) => `
+    <div class="check-item" id="check-${i}">
+      <div class="check-box">✓</div>
+      <div class="check-text">${t}</div>
+    </div>`).join('');
+  checklistItems.forEach((t,i) => {
+    document.getElementById('check-'+i).addEventListener('click', () => {
+      const el = document.getElementById('check-'+i);
+      const wasChecked = el.classList.contains('checked');
+      el.classList.toggle('checked');
+      if (!wasChecked) addXP(1);
+      const allChecked = checklistItems.every((_,j) => document.getElementById('check-'+j).classList.contains('checked'));
+      document.getElementById('checklistDone').classList.toggle('show', allChecked);
+    });
+  });
+}
+
+/* ===================== INIT ===================== */
+renderStamps();
+renderVocab();
+renderGenus();
+renderWorkplace();
+renderVerbs();
+renderDetectiveRound();
+renderDialogue();
+renderSpeaking();
+renderGame();
+renderReview();
+renderChecklist();
+updateHeader();
+</script>
+</body>
+</html>
