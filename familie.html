@@ -1,0 +1,1819 @@
+<!DOCTYPE html>
+<html lang="de">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1">
+<title>Deutsch A1 – Meine Familie</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Fredoka:wght@400;500;600;700&family=Nunito:wght@400;600;700;800&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --cream:#FBF6EC;
+    --paper:#FFFDF9;
+    --ink:#2B2118;
+    --ink-soft:#6b6053;
+    --teal:#2f6f76;
+    --teal-dark:#1f4d52;
+    --teal-light:#eaf3f3;
+    --coral:#e8734a;
+    --coral-dark:#c85a34;
+    --coral-light:#fdece3;
+    --gold:#e8b84b;
+    --gold-dark:#b9871f;
+    --sage:#6f9c85;
+    --sage-dark:#4f7b64;
+    --sage-light:#e9f3ee;
+    --rose:#d9605f;
+    --line:#e7ddc9;
+    --shadow: 0 8px 24px rgba(43,33,24,0.10);
+    --radius:20px;
+  }
+  *{box-sizing:border-box;}
+  html,body{margin:0;padding:0;}
+  body{
+    background:
+      radial-gradient(circle at 8% 4%, #fff 0%, transparent 45%),
+      radial-gradient(circle at 92% 96%, #f3ead4 0%, transparent 40%),
+      var(--cream);
+    color:var(--ink);
+    font-family:'Nunito', sans-serif;
+    min-height:100vh;
+    -webkit-font-smoothing:antialiased;
+    padding-bottom:40px;
+  }
+  h1,h2,h3,.display{
+    font-family:'Fredoka', sans-serif;
+    font-weight:600;
+    letter-spacing:0.2px;
+  }
+  .app{
+    max-width:720px;
+    margin:0 auto;
+    padding:14px 16px 60px;
+  }
+  /* ---------- HEADER / PASSPORT ---------- */
+  .passport{
+    background:var(--paper);
+    border-radius:var(--radius);
+    box-shadow:var(--shadow);
+    padding:14px 16px 12px;
+    border-bottom:3px dashed var(--line);
+    position:sticky;
+    top:8px;
+    z-index:50;
+    margin-bottom:18px;
+  }
+  .passport-top{
+    display:flex;
+    align-items:center;
+    gap:12px;
+  }
+  .lexi-wrap{
+    position:relative;
+    flex-shrink:0;
+  }
+  .lexi{
+    width:52px;height:52px;
+    border-radius:50%;
+    background:linear-gradient(155deg,#ffd9a8,var(--coral));
+    display:flex;align-items:center;justify-content:center;
+    font-size:28px;
+    box-shadow:0 4px 10px rgba(200,90,52,0.35);
+    animation:lexi-float 3.2s ease-in-out infinite;
+  }
+  @keyframes lexi-float{
+    0%,100%{transform:translateY(0) rotate(-3deg);}
+    50%{transform:translateY(-4px) rotate(3deg);}
+  }
+  .lexi.talking{animation:lexi-talk 0.35s ease-in-out infinite;}
+  @keyframes lexi-talk{
+    0%,100%{transform:scale(1);}
+    50%{transform:scale(1.08);}
+  }
+  .passport-title{flex:1;min-width:0;}
+  .passport-title .eyebrow{
+    font-size:11px;
+    text-transform:uppercase;
+    letter-spacing:1.5px;
+    color:var(--teal);
+    font-weight:800;
+  }
+  .passport-title h1{
+    font-size:17px;
+    margin:1px 0 0;
+    color:var(--ink);
+  }
+  .xp-pill{
+    flex-shrink:0;
+    background:linear-gradient(155deg,#fff2cf,var(--gold));
+    border-radius:999px;
+    padding:7px 12px;
+    font-family:'Fredoka',sans-serif;
+    font-weight:600;
+    font-size:13px;
+    color:#5a4413;
+    box-shadow:0 3px 8px rgba(184,135,31,0.35);
+    display:flex;align-items:center;gap:4px;
+    white-space:nowrap;
+  }
+  .progress-track{
+    margin-top:12px;
+    height:10px;
+    background:var(--teal-light);
+    border-radius:999px;
+    overflow:hidden;
+    position:relative;
+  }
+  .progress-fill{
+    height:100%;
+    width:0%;
+    background:linear-gradient(90deg,var(--sage),var(--teal));
+    border-radius:999px;
+    transition:width .5s cubic-bezier(.4,1.4,.6,1);
+  }
+  .stamps-row{
+    display:flex;
+    justify-content:space-between;
+    margin-top:7px;
+    gap:2px;
+    flex-wrap:wrap;
+  }
+  .stamp-dot{
+    width:14px;height:14px;
+    border-radius:50%;
+    background:var(--teal-light);
+    border:2px solid var(--line);
+    font-size:8px;
+    display:flex;align-items:center;justify-content:center;
+    color:transparent;
+    transition:all .3s;
+    flex-shrink:0;
+  }
+  .stamp-dot.done{
+    background:var(--sage);
+    border-color:var(--sage-dark);
+    color:#fff;
+  }
+  .stamp-dot.current{
+    border-color:var(--coral);
+    box-shadow:0 0 0 3px var(--coral-light);
+  }
+  .lexi-tip{
+    margin-top:10px;
+    background:var(--teal-light);
+    border-radius:14px;
+    padding:9px 12px;
+    font-size:13.5px;
+    color:var(--teal-dark);
+    line-height:1.4;
+    display:none;
+  }
+  .lexi-tip.show{display:block;}
+  .lexi-tip b{color:var(--teal-dark);}
+
+  /* ---------- SCREENS ---------- */
+  .screen{display:none;animation:fadein .4s ease;}
+  .screen.active{display:block;}
+  @keyframes fadein{from{opacity:0;transform:translateY(8px);}to{opacity:1;transform:translateY(0);}}
+
+  .card{
+    background:var(--paper);
+    border-radius:var(--radius);
+    box-shadow:var(--shadow);
+    padding:20px 18px;
+    margin-bottom:16px;
+  }
+  .section-title{
+    display:flex;align-items:center;gap:8px;
+    font-size:20px;
+    margin:0 0 4px;
+  }
+  .section-sub{
+    color:var(--ink-soft);
+    font-size:14px;
+    margin:0 0 16px;
+  }
+
+  /* ---------- START SCREEN ---------- */
+  .start-hero{
+    text-align:center;
+    padding:34px 18px 26px;
+  }
+  .start-hero .big-lexi{
+    width:110px;height:110px;
+    border-radius:50%;
+    background:linear-gradient(155deg,#ffd9a8,var(--coral));
+    display:flex;align-items:center;justify-content:center;
+    font-size:58px;
+    margin:0 auto 18px;
+    box-shadow:0 10px 24px rgba(200,90,52,0.35);
+    animation:lexi-float 3.2s ease-in-out infinite;
+  }
+  .start-hero .lesson-tag{
+    display:inline-block;
+    background:var(--coral-light);
+    color:var(--coral-dark);
+    font-family:'Fredoka',sans-serif;
+    font-weight:600;
+    font-size:12.5px;
+    padding:6px 14px;
+    border-radius:999px;
+    margin-bottom:10px;
+  }
+  .start-hero .unit-tag{
+    display:inline-block;
+    background:var(--teal-light);
+    color:var(--teal-dark);
+    font-family:'Fredoka',sans-serif;
+    font-weight:600;
+    font-size:12px;
+    padding:5px 12px;
+    border-radius:999px;
+    margin:0 0 8px 6px;
+  }
+  .start-hero h1{
+    font-size:28px;
+    margin:0 0 6px;
+    color:var(--ink);
+  }
+  .start-hero .subtitle{
+    color:var(--teal-dark);
+    font-weight:700;
+    font-family:'Fredoka',sans-serif;
+    font-size:15px;
+    margin:0 0 10px;
+  }
+  .start-hero p{
+    color:var(--ink-soft);
+    font-size:15.5px;
+    max-width:420px;
+    margin:0 auto 22px;
+    line-height:1.5;
+  }
+  .start-badges{
+    display:flex;justify-content:center;gap:10px;flex-wrap:wrap;
+    margin-bottom:24px;
+  }
+  .start-badge{
+    background:var(--cream);
+    border:1.5px solid var(--line);
+    border-radius:12px;
+    padding:8px 12px;
+    font-size:12.5px;
+    color:var(--ink-soft);
+    font-weight:700;
+  }
+  .journey-note{
+    font-family:'Fredoka',sans-serif;
+    font-weight:600;
+    font-size:13.5px;
+    color:var(--coral-dark);
+    margin:0 0 18px;
+  }
+
+  /* ---------- BUTTONS ---------- */
+  .btn{
+    font-family:'Fredoka',sans-serif;
+    font-weight:600;
+    font-size:15px;
+    border:none;
+    border-radius:14px;
+    padding:13px 22px;
+    cursor:pointer;
+    display:inline-flex;align-items:center;justify-content:center;gap:7px;
+    transition:transform .15s, box-shadow .15s, opacity .15s;
+    min-height:46px;
+  }
+  .btn:active{transform:scale(0.96);}
+  .btn-primary{
+    background:linear-gradient(155deg,var(--coral),var(--coral-dark));
+    color:#fff;
+    box-shadow:0 5px 14px rgba(200,90,52,0.35);
+  }
+  .btn-secondary{
+    background:var(--teal-light);
+    color:var(--teal-dark);
+  }
+  .btn-ghost{
+    background:transparent;
+    color:var(--ink-soft);
+    border:1.5px solid var(--line);
+  }
+  .btn-sage{
+    background:linear-gradient(155deg,var(--sage),var(--sage-dark));
+    color:#fff;
+    box-shadow:0 5px 14px rgba(79,123,100,0.3);
+  }
+  .btn:disabled{opacity:.45;cursor:not-allowed;transform:none;}
+  .btn-block{width:100%;}
+  .btn-sm{padding:8px 14px;font-size:13px;min-height:36px;border-radius:10px;}
+
+  .nav-row{
+    display:flex;justify-content:space-between;gap:10px;
+    margin-top:6px;
+  }
+  .nav-row .btn{flex:1;}
+
+  /* ---------- LERNZIELE ---------- */
+  .goals-list{list-style:none;margin:0;padding:0;}
+  .goals-list li{
+    display:flex;align-items:flex-start;gap:10px;
+    padding:11px 4px;
+    border-bottom:1px solid var(--line);
+    font-size:15px;
+  }
+  .goals-list li:last-child{border-bottom:none;}
+  .goal-check{
+    flex-shrink:0;
+    width:26px;height:26px;
+    border-radius:50%;
+    background:var(--sage-light);
+    color:var(--sage-dark);
+    display:flex;align-items:center;justify-content:center;
+    font-size:13px;font-weight:800;
+  }
+
+  /* ---------- WARM-UP ICON GRID ---------- */
+  .icon-grid{
+    display:grid;
+    grid-template-columns:repeat(3,1fr);
+    gap:10px;
+    margin-bottom:16px;
+  }
+  .icon-tile{
+    background:var(--cream);
+    border:1.5px solid var(--line);
+    border-radius:14px;
+    padding:14px 8px;
+    text-align:center;
+    cursor:pointer;
+    transition:all .18s;
+  }
+  .icon-tile:active{transform:scale(0.94);}
+  .icon-tile .ic-emoji{font-size:26px;margin-bottom:4px;}
+  .icon-tile .ic-word{font-family:'Fredoka',sans-serif;font-weight:600;font-size:12px;line-height:1.3;}
+  .icon-tile.chosen{background:var(--sage-light);border-color:var(--sage);}
+  .warmup-feedback{
+    text-align:center;
+    font-family:'Fredoka',sans-serif;
+    font-weight:700;
+    font-size:15px;
+    color:var(--sage-dark);
+    min-height:22px;
+    margin-top:4px;
+  }
+  @media (max-width:420px){ .icon-grid{grid-template-columns:repeat(2,1fr);} }
+
+  /* ---------- FAMILY SCENE ---------- */
+  .family-scene{
+    background:linear-gradient(155deg,var(--teal-light),#f7f3e6);
+    border-radius:16px;
+    padding:18px;
+    text-align:center;
+    margin-bottom:16px;
+    font-size:44px;
+    letter-spacing:6px;
+  }
+  .family-scene .scene-caption{
+    font-size:13.5px;
+    font-family:'Fredoka',sans-serif;
+    font-weight:600;
+    color:var(--teal-dark);
+    letter-spacing:0;
+    margin-top:8px;
+  }
+
+  /* ---------- DEFINITION CARD ---------- */
+  .definition-card{
+    background:linear-gradient(155deg,var(--teal-light),#f7f3e6);
+    border-radius:16px;
+    padding:16px;
+    text-align:center;
+    margin-bottom:16px;
+  }
+  .definition-card .def-text{
+    font-family:'Fredoka',sans-serif;
+    font-weight:600;
+    font-size:16px;
+    color:var(--teal-dark);
+  }
+  .verb-example-row{
+    display:flex;flex-wrap:wrap;gap:10px;
+    justify-content:center;
+  }
+  .verb-example-chip{
+    background:#fff;
+    border:1.5px solid var(--line);
+    border-radius:14px;
+    padding:10px 16px;
+    cursor:pointer;
+    text-align:center;
+    transition:all .18s;
+    min-width:96px;
+  }
+  .verb-example-chip:active{transform:scale(0.95);}
+  .verb-example-chip .vec-de{font-family:'Fredoka',sans-serif;font-weight:700;font-size:15px;color:var(--coral-dark);}
+  .verb-example-chip .vec-en{font-size:11.5px;color:var(--ink-soft);}
+  .verb-example-chip.heard{background:var(--sage-light);border-color:var(--sage);}
+
+  /* ---------- VOCAB CARDS ---------- */
+  .vocab-grid{
+    display:grid;
+    grid-template-columns:1fr 1fr;
+    gap:10px;
+  }
+  .vocab-card{
+    background:var(--cream);
+    border:1.5px solid var(--line);
+    border-radius:14px;
+    padding:12px 10px;
+    text-align:center;
+    cursor:pointer;
+    transition:all .2s;
+    position:relative;
+  }
+  .vocab-card:active{transform:scale(0.96);}
+  .vocab-card .vc-icon{font-size:24px;margin-bottom:2px;}
+  .vocab-card .vc-text{
+    font-family:'Fredoka',sans-serif;
+    font-weight:600;
+    font-size:14.5px;
+    margin-bottom:2px;
+  }
+  .vocab-card .vc-meaning{
+    font-size:11.5px;
+    color:var(--ink-soft);
+    line-height:1.3;
+  }
+  .vocab-card.done{
+    background:var(--sage-light);
+    border-color:var(--sage);
+  }
+  .vocab-card .vc-check{
+    position:absolute;top:6px;right:8px;
+    font-size:12px;color:var(--sage-dark);
+    opacity:0;
+  }
+  .vocab-card.done .vc-check{opacity:1;}
+  .vc-speaker{font-size:15px;}
+
+  /* ---------- FAMILY TREE ---------- */
+  .family-tree{
+    display:flex;flex-direction:column;align-items:center;
+    margin-bottom:14px;
+  }
+  .tree-row{
+    display:flex;gap:22px;justify-content:center;flex-wrap:wrap;
+  }
+  .tree-connector{
+    width:2px;height:18px;
+    background:var(--line);
+    margin:2px auto;
+  }
+  .tree-node{
+    background:var(--cream);
+    border:1.5px solid var(--line);
+    border-radius:16px;
+    padding:12px 14px;
+    text-align:center;
+    cursor:pointer;
+    transition:all .18s;
+    min-width:84px;
+  }
+  .tree-node:active{transform:scale(0.94);}
+  .tree-node .tn-icon{font-size:30px;}
+  .tree-node .tn-label{font-family:'Fredoka',sans-serif;font-weight:600;font-size:11.5px;margin-top:4px;color:var(--ink-soft);}
+  .tree-node.active{background:var(--coral-light);border-color:var(--coral);}
+  .tree-node.done{border-color:var(--sage);}
+  .tree-detail{
+    margin-top:14px;
+    background:linear-gradient(155deg,var(--teal-light),#f7f3e6);
+    border-radius:14px;
+    padding:14px;
+    text-align:center;
+    display:none;
+  }
+  .tree-detail.show{display:block;}
+  .tree-detail .td-de{font-family:'Fredoka',sans-serif;font-weight:700;font-size:19px;color:var(--teal-dark);}
+  .tree-detail .td-en{font-size:13.5px;color:var(--ink-soft);margin-top:2px;}
+  .tree-detail .td-speak{
+    margin-top:10px;
+    display:inline-flex;align-items:center;gap:6px;
+    background:#fff;border:1.5px solid var(--line);border-radius:999px;
+    padding:8px 16px;cursor:pointer;font-family:'Fredoka',sans-serif;font-weight:700;font-size:13px;color:var(--coral-dark);
+  }
+
+  /* ---------- CHIP BANK / MC (shared) ---------- */
+  .chip-bank{
+    display:flex;flex-wrap:wrap;gap:8px;
+    margin-bottom:16px;
+  }
+  .chip{
+    background:#fff;
+    border:1.5px solid var(--line);
+    border-radius:999px;
+    padding:9px 15px;
+    font-size:13.5px;
+    font-weight:700;
+    font-family:'Fredoka',sans-serif;
+    cursor:pointer;
+    transition:all .15s;
+  }
+  .chip.heard{background:var(--sage-light);border-color:var(--sage);color:var(--sage-dark);}
+
+  .situation-card{
+    background:var(--cream);
+    border-radius:14px;
+    padding:14px;
+    margin-bottom:12px;
+  }
+  .situation-text{
+    font-size:15px;
+    font-weight:700;
+    font-family:'Fredoka',sans-serif;
+    margin-bottom:10px;
+  }
+  .mc-options{display:flex;flex-wrap:wrap;gap:8px;}
+  .mc-opt{
+    background:#fff;
+    border:1.5px solid var(--line);
+    border-radius:12px;
+    padding:9px 14px;
+    font-size:13.5px;
+    font-weight:700;
+    cursor:pointer;
+    font-family:'Fredoka',sans-serif;
+  }
+  .mc-opt.correct{background:var(--sage-light);border-color:var(--sage);color:var(--sage-dark);}
+  .mc-opt.incorrect{background:#fbe3e0;border-color:var(--rose);color:var(--rose);}
+  .mc-feedback{
+    margin-top:8px;font-size:13px;font-weight:700;min-height:18px;
+  }
+  .mc-feedback.ok{color:var(--sage-dark);}
+  .mc-feedback.bad{color:var(--rose);}
+
+  /* ---------- MATCHING ---------- */
+  .match-columns{display:flex;gap:14px;}
+  .match-col{flex:1;display:flex;flex-direction:column;gap:8px;}
+  .match-chip{
+    background:#fff;
+    border:1.5px solid var(--line);
+    border-radius:12px;
+    padding:10px 12px;
+    font-size:13.5px;
+    font-weight:700;
+    font-family:'Fredoka',sans-serif;
+    text-align:center;
+    cursor:pointer;
+    transition:all .15s;
+  }
+  .match-chip.selected{border-color:var(--coral);background:var(--coral-light);transform:scale(1.04);}
+  .match-chip.matched{background:var(--sage-light);border-color:var(--sage);color:var(--sage-dark);cursor:default;opacity:.7;}
+  .match-chip.wrong-shake{animation:shake .35s;}
+  @keyframes shake{
+    0%,100%{transform:translateX(0);}
+    25%{transform:translateX(-5px);}
+    75%{transform:translateX(5px);}
+  }
+  .match-status{text-align:center;font-size:13px;color:var(--ink-soft);margin-top:12px;}
+
+  /* ---------- FILL BLANK ---------- */
+  .fill-line{
+    font-size:14.5px;
+    margin-bottom:8px;
+    line-height:1.6;
+    padding:8px 10px;
+    border-radius:10px;
+    background:var(--cream);
+  }
+  .blank-slot{
+    display:inline-block;
+    min-width:64px;
+    padding:2px 8px;
+    border-bottom:2.5px solid var(--coral);
+    font-weight:800;
+    color:var(--coral-dark);
+    text-align:center;
+  }
+  .blank-slot.empty{color:transparent;background:repeating-linear-gradient(90deg,var(--ink-soft) 0 4px, transparent 4px 8px);height:2px;}
+  .fill-options{display:flex;gap:8px;flex-wrap:wrap;margin:0 0 14px 4px;}
+
+  /* ---------- DIALOGUE ---------- */
+  .dialogue-controls{
+    display:flex;gap:8px;margin-bottom:14px;flex-wrap:wrap;
+  }
+  .dialogue-controls .btn{flex:1;min-width:110px;}
+  .dialogue-line{
+    display:flex;gap:10px;align-items:flex-start;
+    background:var(--cream);
+    border-radius:14px;
+    padding:10px 12px;
+    margin-bottom:8px;
+    cursor:pointer;
+    transition:all .18s;
+  }
+  .dialogue-line.playing{background:var(--coral-light);border:1.5px solid var(--coral);}
+  .dialogue-line .dl-avatar{
+    flex-shrink:0;width:34px;height:34px;border-radius:50%;
+    display:flex;align-items:center;justify-content:center;
+    font-family:'Fredoka',sans-serif;font-weight:700;font-size:14px;color:#fff;
+  }
+  .dialogue-line.speakerA .dl-avatar{background:var(--teal);}
+  .dialogue-line.speakerB .dl-avatar{background:var(--coral);}
+  .dialogue-line .dl-text{flex:1;font-size:14.5px;line-height:1.4;padding-top:5px;}
+  .dialogue-line .dl-speaker{font-size:15px;padding-top:5px;}
+
+  /* ---------- READING ---------- */
+  .reading-text{
+    background:var(--cream);
+    border-radius:14px;
+    padding:16px;
+    font-size:15px;
+    line-height:1.8;
+    margin-bottom:16px;
+  }
+
+  /* ---------- SPEAKING ---------- */
+  .starter-chip{
+    background:#fff;
+    border:1.5px solid var(--line);
+    border-radius:12px;
+    padding:10px 14px;
+    font-size:14px;
+    font-weight:700;
+    font-family:'Fredoka',sans-serif;
+    color:var(--teal-dark);
+    cursor:pointer;
+    margin-bottom:8px;
+    display:flex;align-items:center;gap:8px;
+  }
+  .speaking-textarea{
+    width:100%;
+    min-height:100px;
+    border:1.5px solid var(--line);
+    border-radius:12px;
+    padding:12px;
+    font-family:'Nunito',sans-serif;
+    font-size:14.5px;
+    resize:vertical;
+    background:var(--cream);
+    color:var(--ink);
+  }
+  .speaking-done{
+    display:none;
+    text-align:center;
+    margin-top:10px;
+    color:var(--sage-dark);
+    font-family:'Fredoka',sans-serif;
+    font-weight:700;
+  }
+  .speaking-done.show{display:block;}
+
+  /* ---------- REVIEW PROGRESS ---------- */
+  .challenge-progress-wrap{margin-bottom:16px;}
+  .challenge-progress-label{
+    display:flex;justify-content:space-between;
+    font-size:12.5px;color:var(--ink-soft);font-weight:700;margin-bottom:5px;
+  }
+
+  /* ---------- GAME ---------- */
+  .game-rules-card{
+    background:linear-gradient(155deg,#fff6dd,#fbe7b6);
+    border-radius:16px;
+    padding:16px;
+    margin-bottom:14px;
+  }
+  .game-rules-card h3{margin:0 0 8px;font-size:16px;color:#5a4413;}
+  .game-rules-card ol{margin:0;padding-left:18px;color:#5a4413;font-size:13.5px;line-height:1.7;}
+  .card-bank-title{font-family:'Fredoka',sans-serif;font-weight:700;font-size:13.5px;color:var(--teal-dark);margin:14px 0 8px;}
+  .game-card-grid{display:flex;flex-wrap:wrap;gap:8px;margin-bottom:6px;}
+  .game-card{
+    background:#fff;
+    border:1.5px solid var(--line);
+    border-radius:12px;
+    padding:8px 13px;
+    font-size:13px;
+    font-weight:700;
+    font-family:'Fredoka',sans-serif;
+    cursor:pointer;
+    display:flex;align-items:center;gap:6px;
+  }
+  .game-card.family{color:var(--coral-dark);}
+  .game-card.verb{color:var(--teal-dark);}
+  .formula-row{
+    display:flex;align-items:center;justify-content:center;gap:10px;
+    flex-wrap:wrap;
+    background:#fff;
+    border-radius:14px;
+    padding:14px;
+    margin-top:12px;
+    font-family:'Fredoka',sans-serif;
+    font-weight:700;
+    font-size:14px;
+    text-align:center;
+  }
+  .formula-row .fx{font-size:20px;color:var(--ink-soft);}
+  .info-note{
+    display:flex;gap:8px;
+    background:linear-gradient(155deg,#fff6dd,#fbe7b6);
+    border-radius:12px;
+    padding:10px 12px;
+    font-size:13px;
+    color:#5a4413;
+    margin-top:14px;
+    line-height:1.4;
+  }
+
+  /* ---------- CHECKLIST ---------- */
+  .check-list{display:flex;flex-direction:column;gap:8px;}
+  .check-item{
+    display:flex;align-items:center;gap:10px;
+    background:var(--cream);
+    border:1.5px solid var(--line);
+    border-radius:12px;
+    padding:12px 14px;
+    cursor:pointer;
+    transition:all .18s;
+  }
+  .check-item.checked{background:var(--sage-light);border-color:var(--sage);}
+  .check-box{
+    width:24px;height:24px;flex-shrink:0;
+    border-radius:7px;
+    border:2px solid var(--line);
+    display:flex;align-items:center;justify-content:center;
+    font-size:13px;color:transparent;
+    background:#fff;
+    transition:all .18s;
+  }
+  .check-item.checked .check-box{background:var(--sage);border-color:var(--sage-dark);color:#fff;}
+  .check-text{font-size:14.5px;font-weight:700;font-family:'Fredoka',sans-serif;}
+  .checklist-done{
+    display:none;
+    text-align:center;
+    padding:14px 0 4px;
+  }
+  .checklist-done.show{display:block;}
+
+  /* ---------- MISSION ---------- */
+  .mission-hero{text-align:center;padding:20px 10px 10px;}
+  .trophy{font-size:64px;margin-bottom:6px;animation:trophy-pop .6s ease;}
+  @keyframes trophy-pop{
+    0%{transform:scale(0) rotate(-20deg);}
+    70%{transform:scale(1.15) rotate(6deg);}
+    100%{transform:scale(1) rotate(0);}
+  }
+  .badge-plate{
+    background:linear-gradient(155deg,#fff2cf,var(--gold));
+    border-radius:16px;
+    padding:14px;
+    text-align:center;
+    margin:16px 0;
+    box-shadow:0 6px 16px rgba(184,135,31,0.3);
+  }
+  .badge-plate .badge-name{
+    font-family:'Fredoka',sans-serif;font-weight:700;font-size:16px;color:#5a4413;letter-spacing:0.5px;
+  }
+  .xp-total{
+    text-align:center;
+    font-family:'Fredoka',sans-serif;
+    font-size:34px;
+    color:var(--coral-dark);
+    margin:10px 0;
+  }
+  .xp-total span{font-size:16px;color:var(--ink-soft);display:block;font-family:'Nunito',sans-serif;font-weight:700;}
+
+  @media (max-width:420px){
+    .vocab-grid{grid-template-columns:1fr;}
+    .start-hero h1{font-size:24px;}
+    .family-scene{font-size:32px;letter-spacing:4px;}
+  }
+</style>
+</head>
+<body>
+<div class="app">
+
+  <!-- HEADER / PASSPORT -->
+  <div class="passport">
+    <div class="passport-top">
+      <div class="lexi-wrap"><div class="lexi" id="lexiAvatar">🦊</div></div>
+      <div class="passport-title">
+        <div class="eyebrow">Einheit 2 • Lektion 4</div>
+        <h1>Meine Familie</h1>
+      </div>
+      <div class="xp-pill">⭐ <span id="xpCount">0</span> XP</div>
+    </div>
+    <div class="progress-track"><div class="progress-fill" id="progressFill"></div></div>
+    <div class="stamps-row" id="stampsRow"></div>
+    <div class="lexi-tip" id="lexiTip"></div>
+  </div>
+
+  <!-- 0: START -->
+  <section class="screen active" id="screen-start">
+    <div class="card start-hero">
+      <div class="big-lexi">🦊</div>
+      <div class="lesson-tag">Lektion 4 · Familie</div>
+      <span class="unit-tag">Einheit 2 • Lektion 4</span>
+      <h1>🇩🇪 Lektion 4 – Meine Familie</h1>
+      <p class="subtitle">Sprich über deine Familie! 👨‍👩‍👧‍👦</p>
+      <p>Hallo, ich bin Lexi! Heute lernen wir zusammen die wichtigsten Familienwörter, bauen einen Familienstammbaum und sprechen über deine eigene Familie. Bereit? 💪</p>
+      <div class="start-badges">
+        <div class="start-badge">🎧 Hören</div>
+        <div class="start-badge">🗣️ Sprechen</div>
+        <div class="start-badge">🧩 Üben</div>
+        <div class="start-badge">🏆 Anwenden</div>
+      </div>
+      <p class="journey-note">Deine Deutschreise geht weiter! 🚀</p>
+      <button class="btn btn-primary btn-block" onclick="goTo(1)">Los geht's! ▶</button>
+    </div>
+  </section>
+
+  <!-- 1: LERNZIELE -->
+  <section class="screen" id="screen-objectives">
+    <div class="card">
+      <h2 class="section-title">🎯 Lernziele</h2>
+      <p class="section-sub">Nach dieser Lektion kann ich …</p>
+      <ul class="goals-list">
+        <li><span class="goal-check">✓</span> wichtige Familienwörter erkennen und benutzen.</li>
+        <li><span class="goal-check">✓</span> mein und meine richtig benutzen.</li>
+        <li><span class="goal-check">✓</span> einfache Sätze über meine Familie bilden.</li>
+        <li><span class="goal-check">✓</span> Familienmitglieder mit Verben verbinden.</li>
+        <li><span class="goal-check">✓</span> über meine Familie sprechen.</li>
+      </ul>
+    </div>
+    <div class="nav-row">
+      <button class="btn btn-ghost" onclick="goTo(0)">◀ Zurück</button>
+      <button class="btn btn-primary" onclick="goTo(2)">Weiter ▶</button>
+    </div>
+  </section>
+
+  <!-- 2: WARM-UP -->
+  <section class="screen" id="screen-warmup">
+    <div class="card">
+      <h2 class="section-title">☀️ Meine Familie</h2>
+      <p class="section-sub">Wer ist das? Was macht die Familie? Tippe auf einen Satz, um ihn zu hören.</p>
+      <div class="family-scene">
+        👴👵👨👩👦👧
+        <div class="scene-caption">Das ist eine Familie.</div>
+      </div>
+      <div class="icon-grid" id="warmupGrid"></div>
+      <div class="warmup-feedback" id="warmupFeedback"></div>
+    </div>
+    <div class="nav-row">
+      <button class="btn btn-ghost" onclick="goTo(1)">◀ Zurück</button>
+      <button class="btn btn-primary" onclick="goTo(3)">Weiter ▶</button>
+    </div>
+  </section>
+
+  <!-- 3: WORTSCHATZ -->
+  <section class="screen" id="screen-vocab">
+    <div class="card">
+      <h2 class="section-title">📚 Wortschatz – Familie</h2>
+      <p class="section-sub">Tippe auf eine Karte, um sie zu hören.</p>
+      <div class="vocab-grid" id="vocabGrid"></div>
+    </div>
+    <div class="nav-row">
+      <button class="btn btn-ghost" onclick="goTo(2)">◀ Zurück</button>
+      <button class="btn btn-primary" onclick="goTo(4)">Weiter ▶</button>
+    </div>
+  </section>
+
+  <!-- 4: FAMILY TREE -->
+  <section class="screen" id="screen-tree">
+    <div class="card">
+      <h2 class="section-title">🌳 Der Familienstammbaum</h2>
+      <p class="section-sub">Tippe auf eine Person im Stammbaum.</p>
+      <div class="family-tree" id="familyTree"></div>
+      <div class="tree-detail" id="treeDetail">
+        <div class="td-de" id="treeDetailDe"></div>
+        <div class="td-en" id="treeDetailEn"></div>
+        <div class="td-speak" onclick="speak(state.treeCurrentDe||'')">🔊 Anhören</div>
+      </div>
+    </div>
+    <div class="nav-row">
+      <button class="btn btn-ghost" onclick="goTo(3)">◀ Zurück</button>
+      <button class="btn btn-primary" onclick="goTo(5)">Weiter ▶</button>
+    </div>
+  </section>
+
+  <!-- 5: MEIN / MEINE -->
+  <section class="screen" id="screen-meinmeine">
+    <div class="card">
+      <h2 class="section-title">🔑 mein / meine</h2>
+      <div class="definition-card">
+        <div class="def-text">mein → der- / das-Wörter &nbsp;·&nbsp; meine → die-Wörter</div>
+      </div>
+      <p class="section-sub">Tippe auf ein Beispiel, um es zu hören:</p>
+      <div class="verb-example-row" id="meinMeineRow"></div>
+    </div>
+    <div class="card">
+      <h2 class="section-title" style="margin-top:0;">🧩 Übung</h2>
+      <p class="section-sub">Wähle mein oder meine.</p>
+      <div id="meinMeinePracticeList"></div>
+    </div>
+    <div class="nav-row">
+      <button class="btn btn-ghost" onclick="goTo(4)">◀ Zurück</button>
+      <button class="btn btn-primary" onclick="goTo(6)">Weiter ▶</button>
+    </div>
+  </section>
+
+  <!-- 6: VERB REVIEW -->
+  <section class="screen" id="screen-verbreview">
+    <div class="card">
+      <h2 class="section-title">✏️ Familie + Verben</h2>
+      <p class="section-sub">Wähle die richtige Verbform.</p>
+      <div id="verbReviewList"></div>
+    </div>
+    <div class="nav-row">
+      <button class="btn btn-ghost" onclick="goTo(5)">◀ Zurück</button>
+      <button class="btn btn-primary" onclick="goTo(7)">Weiter ▶</button>
+    </div>
+  </section>
+
+  <!-- 7: DIALOGUE -->
+  <section class="screen" id="screen-dialogue">
+    <div class="card">
+      <h2 class="section-title">💬 Dialog: Hast du Geschwister?</h2>
+      <p class="section-sub">🔊 Dialog anhören oder tippe auf eine Zeile.</p>
+      <div class="dialogue-controls">
+        <button class="btn btn-secondary" onclick="playDialogue()">▶ Start</button>
+        <button class="btn btn-ghost" onclick="pauseDialogue()">⏸ Pause</button>
+        <button class="btn btn-ghost" onclick="repeatDialogue()">🔁 Wiederholen</button>
+      </div>
+      <div id="dialogueList"></div>
+    </div>
+    <div class="nav-row">
+      <button class="btn btn-ghost" onclick="goTo(6)">◀ Zurück</button>
+      <button class="btn btn-primary" onclick="goTo(8)">Weiter ▶</button>
+    </div>
+  </section>
+
+  <!-- 8: VERSTEHEN -->
+  <section class="screen" id="screen-reading">
+    <div class="card">
+      <h2 class="section-title">📖 Verstehen – Die Familie Müller</h2>
+      <p class="section-sub">Lies den Text. Tippe 🔊, um ihn zu hören.</p>
+      <div class="reading-text" id="readingText"></div>
+      <button class="btn btn-secondary btn-block" onclick="speak(READING_TEXT)" style="margin-bottom:16px;">🔊 Text anhören</button>
+      <h2 class="section-title">❓ Fragen zum Text</h2>
+      <div id="readingQuestions"></div>
+    </div>
+    <div class="nav-row">
+      <button class="btn btn-ghost" onclick="goTo(7)">◀ Zurück</button>
+      <button class="btn btn-primary" onclick="goTo(9)">Weiter ▶</button>
+    </div>
+  </section>
+
+  <!-- 9: SPEAKING -->
+  <section class="screen" id="screen-speaking">
+    <div class="card">
+      <h2 class="section-title">🎤 Jetzt bist du dran!</h2>
+      <p class="section-sub">Benutze diese Satzanfänge und sprich über deine Familie. Tippe auf einen Satz, um ihn zu hören.</p>
+      <div id="starterList"></div>
+      <p class="section-sub" style="margin-top:14px;">Schreib jetzt 3–5 Sätze über deine eigene Familie:</p>
+      <textarea class="speaking-textarea" id="speakingInput" placeholder="Das ist meine Familie. Meine Mutter heißt ..."></textarea>
+      <button class="btn btn-sage btn-block" style="margin-top:12px;" onclick="finishSpeaking()">✓ Fertig</button>
+      <div class="speaking-done" id="speakingDone">🎉 Super! Du hast über deine Familie gesprochen!</div>
+    </div>
+    <div class="nav-row">
+      <button class="btn btn-ghost" onclick="goTo(8)">◀ Zurück</button>
+      <button class="btn btn-primary" onclick="goTo(10)">Weiter ▶</button>
+    </div>
+  </section>
+
+  <!-- 10: MINI REVIEW -->
+  <section class="screen" id="screen-review">
+    <div class="card">
+      <h2 class="section-title">🔥 Mini-Wiederholung</h2>
+      <p class="section-sub">Verbinde jedes Familienwort mit seiner Bedeutung.</p>
+      <div class="match-columns">
+        <div class="match-col" id="reviewMatchDe"></div>
+        <div class="match-col" id="reviewMatchEn"></div>
+      </div>
+      <div class="match-status" id="reviewMatchStatus"></div>
+    </div>
+    <div class="card">
+      <div class="challenge-progress-wrap">
+        <div class="challenge-progress-label"><span>Dein Fortschritt</span><span id="reviewProgressText">0/5</span></div>
+        <div class="progress-track"><div class="progress-fill" id="reviewProgressFill"></div></div>
+      </div>
+      <div id="reviewMixedList"></div>
+      <div id="reviewResult" style="display:none;text-align:center;padding:16px 0 4px;">
+        <div style="font-size:40px;" id="reviewEmoji">🏆</div>
+        <div style="font-family:'Fredoka',sans-serif;font-weight:700;font-size:17px;color:var(--sage-dark);" id="reviewMsg"></div>
+      </div>
+    </div>
+    <div class="nav-row">
+      <button class="btn btn-ghost" onclick="goTo(9)">◀ Zurück</button>
+      <button class="btn btn-primary" onclick="goTo(11)">Weiter ▶</button>
+    </div>
+  </section>
+
+  <!-- 11: KLASSENZIMMER-SPIEL -->
+  <section class="screen" id="screen-game">
+    <div class="card">
+      <h2 class="section-title">🎴 Familien-Karten-Challenge</h2>
+      <p class="section-sub">Schließt den Bildschirm – jetzt spielen wir zusammen!</p>
+      <div class="game-rules-card">
+        <h3>🎭 So funktioniert's</h3>
+        <ol>
+          <li>Teilt die Klasse in zwei Teams.</li>
+          <li>Ein Schüler zieht eine FAMILIENKARTE und eine VERBKARTE.</li>
+          <li>Der Schüler bildet einen einfachen Satz mit beiden Karten.</li>
+          <li>Richtiger Satz = 1 Punkt.</li>
+          <li>Bei einem Fehler darf das andere Team korrigieren und den Punkt gewinnen.</li>
+        </ol>
+      </div>
+      <div class="formula-row">
+        <span>🎴 Familienkarte</span><span class="fx">+</span><span>🎴 Verbkarte</span><span class="fx">=</span><span>💬 Ein Satz!</span>
+      </div>
+      <div class="formula-row" style="background:var(--sage-light);">
+        <span>👩 Mutter</span><span class="fx">+</span><span>💼 arbeiten</span><span class="fx">→</span><span>„Meine Mutter arbeitet.“</span>
+      </div>
+      <div class="card-bank-title">🎴 Familienkarten (tippen zum Hören)</div>
+      <div class="game-card-grid" id="gameFamilyCards"></div>
+      <div class="card-bank-title">🎴 Verbkarten (tippen zum Hören)</div>
+      <div class="game-card-grid" id="gameVerbCards"></div>
+      <div class="info-note">💡 <span>Nur Karten – keine Schauspielerei, kein Zeichnen, keine Handys nötig. Schnell, einfach und für alle A1-Lerner geeignet!</span></div>
+    </div>
+    <div class="nav-row">
+      <button class="btn btn-ghost" onclick="goTo(10)">◀ Zurück</button>
+      <button class="btn btn-primary" onclick="goTo(12)">Weiter ▶</button>
+    </div>
+  </section>
+
+  <!-- 12: CHECKLIST -->
+  <section class="screen" id="screen-checklist">
+    <div class="card">
+      <h2 class="section-title">🌟 Was kannst du jetzt?</h2>
+      <p class="section-sub">Tippe jeden Punkt an, den du schon kannst.</p>
+      <div class="check-list" id="checkList"></div>
+      <div class="checklist-done" id="checklistDone">
+        <div style="font-size:36px;">🎉</div>
+        <div style="font-family:'Fredoka',sans-serif;font-weight:700;font-size:17px;color:var(--sage-dark);">Fantastisch! Du hast Lektion 4 geschafft!</div>
+        <div style="color:var(--ink-soft);font-size:13.5px;margin-top:4px;">Du wirst jeden Tag besser! 💪🇩🇪</div>
+        <div style="color:var(--ink-soft);font-size:13.5px;margin-top:2px;">Bereit für die nächste Lektion? 🚀</div>
+      </div>
+    </div>
+    <div class="nav-row">
+      <button class="btn btn-ghost" onclick="goTo(11)">◀ Zurück</button>
+      <button class="btn btn-primary" onclick="goTo(13)">Weiter ▶</button>
+    </div>
+  </section>
+
+  <!-- 13: MISSION GESCHAFFT -->
+  <section class="screen" id="screen-mission">
+    <div class="card mission-hero">
+      <div class="trophy">🏆</div>
+      <h1 style="margin:0;">MISSION GESCHAFFT!</h1>
+      <p style="color:var(--ink-soft);">🌟 Du kannst jetzt über deine Familie sprechen!</p>
+      <ul class="goals-list" style="text-align:left;">
+        <li><span class="goal-check">✓</span> wichtige Familienwörter benutzen.</li>
+        <li><span class="goal-check">✓</span> mein und meine benutzen.</li>
+        <li><span class="goal-check">✓</span> einfache Sätze über meine Familie bilden.</li>
+        <li><span class="goal-check">✓</span> Familienmitglieder mit Verben verbinden.</li>
+        <li><span class="goal-check">✓</span> über meine Familie sprechen.</li>
+      </ul>
+      <div class="xp-total"><span>Gesamtpunkte</span>⭐ <span id="missionXP">0</span> XP</div>
+      <div class="badge-plate">
+        <div style="font-size:26px;">🎖️</div>
+        <div class="badge-name">FAMILIEN-PROFI</div>
+      </div>
+      <button class="btn btn-sage btn-block" onclick="restartLesson()">🔁 Lektion wiederholen</button>
+    </div>
+  </section>
+
+</div>
+
+<script>
+/* ============================================================
+   DATA
+   ============================================================ */
+const WARMUP_SENTENCES = [
+  {id:'w1', icon:'👨‍👩‍👧‍👦', text:'Die Familie wohnt in Berlin.'},
+  {id:'w2', icon:'👩', text:'Die Mutter arbeitet.'},
+  {id:'w3', icon:'👦', text:'Der Sohn lernt Deutsch.'},
+  {id:'w4', icon:'👧', text:'Die Kinder spielen.'},
+  {id:'w5', icon:'👨', text:'Der Vater spricht Deutsch.'},
+  {id:'w6', icon:'🍽️', text:'Wir essen zusammen.'}
+];
+const WARMUP_FEEDBACK = ['Super! 🎉','Genau!','Sehr gut!','Du kennst dieses Verb schon! 💪'];
+
+const FAMILY_VOCAB = [
+  {id:'familie', icon:'👨‍👩‍👧‍👦', de:'die Familie', en:'the family'},
+  {id:'mutter', icon:'👩', de:'die Mutter', en:'the mother'},
+  {id:'vater', icon:'👨', de:'der Vater', en:'the father'},
+  {id:'eltern', icon:'👪', de:'die Eltern', en:'the parents'},
+  {id:'bruder', icon:'👦', de:'der Bruder', en:'the brother'},
+  {id:'schwester', icon:'👧', de:'die Schwester', en:'the sister'},
+  {id:'kind', icon:'🧒', de:'das Kind', en:'the child'},
+  {id:'sohn', icon:'👦', de:'der Sohn', en:'the son'},
+  {id:'tochter', icon:'👧', de:'die Tochter', en:'the daughter'},
+  {id:'grossmutter', icon:'👵', de:'die Großmutter', en:'the grandmother'},
+  {id:'grossvater', icon:'👴', de:'der Großvater', en:'the grandfather'}
+];
+const byVocabId = id => FAMILY_VOCAB.find(v=>v.id===id);
+
+const TREE_PEOPLE = [
+  {row:1, id:'gv', icon:'👴', de:'der Großvater', en:'the grandfather'},
+  {row:1, id:'gm', icon:'👵', de:'die Großmutter', en:'the grandmother'},
+  {row:2, id:'va', icon:'👨', de:'der Vater', en:'the father'},
+  {row:2, id:'mu', icon:'👩', de:'die Mutter', en:'the mother'},
+  {row:3, id:'so', icon:'👦', de:'der Sohn', en:'the son'},
+  {row:3, id:'to', icon:'👧', de:'die Tochter', en:'the daughter'}
+];
+
+const MEIN_MEINE_EXAMPLES = [
+  {de:'mein Vater', en:'my father'},
+  {de:'mein Bruder', en:'my brother'},
+  {de:'mein Sohn', en:'my son'},
+  {de:'meine Mutter', en:'my mother'},
+  {de:'meine Schwester', en:'my sister'},
+  {de:'meine Tochter', en:'my daughter'},
+  {de:'meine Familie', en:'my family'},
+  {de:'meine Eltern', en:'my parents'}
+];
+
+const MEIN_MEINE_PRACTICE = [
+  {id:'mm1', text:'Das ist ___ Mutter.', options:['mein','meine'], correct:'meine'},
+  {id:'mm2', text:'Das ist ___ Bruder.', options:['mein','meine'], correct:'mein'},
+  {id:'mm3', text:'Das ist ___ Schwester.', options:['mein','meine'], correct:'meine'},
+  {id:'mm4', text:'Das ist ___ Vater.', options:['mein','meine'], correct:'mein'},
+  {id:'mm5', text:'Das ist ___ Familie.', options:['mein','meine'], correct:'meine'}
+];
+
+const VERB_REVIEW = [
+  {id:'vr1', text:'Meine Mutter ___ in einem Hotel.', options:['arbeiten','arbeitet','arbeitest'], correct:'arbeitet'},
+  {id:'vr2', text:'Mein Bruder ___ Deutsch.', options:['lerne','lernt','lernen'], correct:'lernt'},
+  {id:'vr3', text:'Meine Schwester ___ ein Buch.', options:['lese','liest','lesen'], correct:'liest'},
+  {id:'vr4', text:'Wir ___ zusammen.', options:['esse','isst','essen'], correct:'essen'}
+];
+
+const DIALOGUE_LINES = [
+  {id:'d1', speaker:'A', text:'Hast du Geschwister?'},
+  {id:'d2', speaker:'B', text:'Ja, ich habe einen Bruder und eine Schwester.'},
+  {id:'d3', speaker:'A', text:'Wie heißt dein Bruder?'},
+  {id:'d4', speaker:'B', text:'Er heißt Adam.'},
+  {id:'d5', speaker:'A', text:'Was macht er?'},
+  {id:'d6', speaker:'B', text:'Er lernt Deutsch.'},
+  {id:'d7', speaker:'A', text:'Und deine Schwester?'},
+  {id:'d8', speaker:'B', text:'Sie arbeitet in einem Hotel.'}
+];
+
+const READING_TEXT = 'Das ist die Familie Müller. Die Familie wohnt in Hamburg. Der Vater arbeitet. Die Mutter spricht Deutsch. Der Sohn lernt Deutsch. Die Tochter liest ein Buch. Am Abend essen alle zusammen.';
+
+const READING_QUESTIONS = [
+  {id:'r1', text:'Wo wohnt die Familie?', options:['in Berlin','in Hamburg','in München'], correct:'in Hamburg'},
+  {id:'r2', text:'Wer arbeitet?', options:['die Tochter','der Vater','der Sohn'], correct:'der Vater'},
+  {id:'r3', text:'Wer lernt Deutsch?', options:['die Mutter','der Sohn','die Tochter'], correct:'der Sohn'},
+  {id:'r4', text:'Was machen sie am Abend?', options:['Sie schlafen.','Sie essen zusammen.','Sie spielen Fußball.'], correct:'Sie essen zusammen.'}
+];
+
+const SPEAKING_STARTERS = [
+  'Das ist meine Familie.',
+  'Ich habe ...',
+  'Meine Mutter heißt ...',
+  'Mein Vater heißt ...',
+  'Ich habe einen Bruder / eine Schwester.',
+  'Meine Mutter arbeitet ...',
+  'Mein Bruder lernt ...',
+  'Wir wohnen in ...'
+];
+
+const REVIEW_MATCH_PAIRS = [
+  {id:'rm1', de:'die Mutter', en:'the mother'},
+  {id:'rm2', de:'der Vater', en:'the father'},
+  {id:'rm3', de:'der Bruder', en:'the brother'},
+  {id:'rm4', de:'die Schwester', en:'the sister'},
+  {id:'rm5', de:'die Großmutter', en:'the grandmother'},
+  {id:'rm6', de:'der Großvater', en:'the grandfather'}
+];
+
+const REVIEW_MIXED = [
+  {id:'rx1', text:'Das ist ___ Familie.', options:['mein','meine'], correct:'meine'},
+  {id:'rx2', text:'Meine Familie ___ in Algerien.', options:['wohnt','wohnst','wohnen'], correct:'wohnt'},
+  {id:'rx3', text:'Wer ist das? 👵', options:['die Mutter','die Großmutter','die Tochter'], correct:'die Großmutter'},
+  {id:'rx4', text:'Wie sagt man "the son"?', options:['der Sohn','der Bruder','das Kind'], correct:'der Sohn'},
+  {id:'rx5', text:'Mein Vater ___ Deutsch.', options:['spreche','sprichst','spricht'], correct:'spricht'}
+];
+
+const GAME_FAMILY_CARDS = [
+  {icon:'👩', text:'Mutter'},{icon:'👨', text:'Vater'},{icon:'👦', text:'Bruder'},
+  {icon:'👧', text:'Schwester'},{icon:'👴', text:'Großvater'},{icon:'👵', text:'Großmutter'},
+  {icon:'👦', text:'Sohn'},{icon:'👧', text:'Tochter'},{icon:'👨‍👩‍👧', text:'Familie'}
+];
+const GAME_VERB_CARDS = ['wohnen','arbeiten','lernen','sprechen','essen','trinken','spielen','lesen','sein','haben'];
+
+const CHECKLIST_ITEMS = [
+  'Ich kenne wichtige Familienwörter.',
+  'Ich kann mein und meine benutzen.',
+  'Ich kann einfache Sätze über meine Familie bilden.',
+  'Ich kann Familienmitglieder mit Verben verbinden.',
+  'Ich kann über meine Familie sprechen.'
+];
+
+const LEXI_TIPS = [
+  "Tippe auf „Los geht's!“, um deine Reise zu starten. 🦊",
+  'Lies dir in Ruhe durch, was du gleich lernen wirst.',
+  'Wer ist das? Was macht die Familie? Tippe auf einen Satz!',
+  'Tippe auf eine Karte, um jedes Wort zu hören.',
+  'Tippe auf eine Person im Stammbaum.',
+  'mein für der/das-Wörter, meine für die-Wörter.',
+  'Wähle die richtige Verbform.',
+  'Höre dir den Dialog an oder tippe auf eine Zeile.',
+  'Lies den Text und beantworte die Fragen.',
+  'Jetzt bist du dran – sprich über deine Familie! 🎤',
+  'Verbinde und wähle – zeig, was du gelernt hast!',
+  'Bereitet euch auf das Kartenspiel vor!',
+  'Hake ab, was du schon kannst.',
+  'Super gemacht! Du bist ein Familien-Profi. 🎉'
+];
+
+const SCREENS = ['start','objectives','warmup','vocab','tree','meinmeine','verbreview','dialogue','reading','speaking','review','game','checklist','mission'];
+
+/* ============================================================
+   STATE
+   ============================================================ */
+let state = {
+  screenIndex:0,
+  maxReached:0,
+  totalXP:0,
+  xpFlags:new Set(),
+  treeCurrentDe:null,
+  meinMeineAnswered:{},
+  verbReviewAnswered:{},
+  dialoguePlaying:false,
+  dialogueIndex:0,
+  readingAnswered:{},
+  speakingDone:false,
+  reviewMatchSelectedDe:null,
+  reviewMatchedPairs:{},
+  reviewMixedAnswered:{},
+  reviewMixedScore:0,
+  checklistChecked:{}
+};
+
+/* ============================================================
+   SPEECH
+   ============================================================ */
+function speak(text, onend){
+  if(!text) return;
+  if(!('speechSynthesis' in window)){ if(onend) onend(); return; }
+  window.speechSynthesis.cancel();
+  const u = new SpeechSynthesisUtterance(text);
+  u.lang = 'de-DE';
+  u.rate = 0.92;
+  u.pitch = 1.0;
+  if(onend) u.onend = onend;
+  u.onerror = function(){ if(onend) onend(); };
+  window.speechSynthesis.speak(u);
+  pulseLexi();
+}
+function stopSpeaking(){
+  if('speechSynthesis' in window) window.speechSynthesis.cancel();
+}
+
+/* ============================================================
+   XP / NAV / HEADER
+   ============================================================ */
+function award(flagId, amount){
+  if(!state.xpFlags.has(flagId)){
+    state.xpFlags.add(flagId);
+    state.totalXP += amount;
+    renderHeader();
+    pulseLexi();
+  }
+}
+function pulseLexi(){
+  const el = document.getElementById('lexiAvatar');
+  el.classList.add('talking');
+  setTimeout(()=>el.classList.remove('talking'), 500);
+}
+function renderHeader(){
+  document.getElementById('xpCount').textContent = state.totalXP;
+  const pct = Math.round((state.screenIndex/(SCREENS.length-1))*100);
+  document.getElementById('progressFill').style.width = pct+'%';
+  const row = document.getElementById('stampsRow');
+  row.innerHTML='';
+  SCREENS.forEach((s,i)=>{
+    const d = document.createElement('div');
+    d.className = 'stamp-dot' + (i<state.screenIndex?' done':'') + (i===state.screenIndex?' current':'');
+    d.textContent = i<state.screenIndex ? '✓' : '';
+    row.appendChild(d);
+  });
+  const tip = document.getElementById('lexiTip');
+  tip.textContent = LEXI_TIPS[state.screenIndex] || '';
+  tip.classList.add('show');
+}
+function goTo(index){
+  stopSpeaking();
+  state.dialoguePlaying = false;
+  document.querySelectorAll('.screen').forEach(s=>s.classList.remove('active'));
+  document.getElementById('screen-'+SCREENS[index]).classList.add('active');
+  state.screenIndex = index;
+  if(index > state.maxReached) state.maxReached = index;
+  renderHeader();
+  window.scrollTo({top:0, behavior:'smooth'});
+  if(index===13){ document.getElementById('missionXP').textContent = state.totalXP; }
+}
+
+/* ============================================================
+   WARM-UP
+   ============================================================ */
+function renderWarmup(){
+  const grid = document.getElementById('warmupGrid');
+  grid.innerHTML='';
+  WARMUP_SENTENCES.forEach(a=>{
+    const tile = document.createElement('div');
+    tile.className = 'icon-tile';
+    tile.id = 'wu-'+a.id;
+    tile.innerHTML = `<div class="ic-emoji">${a.icon}</div><div class="ic-word">${a.text}</div>`;
+    tile.onclick = ()=>{
+      speak(a.text);
+      tile.classList.add('chosen');
+      const fb = WARMUP_FEEDBACK[Math.floor(Math.random()*WARMUP_FEEDBACK.length)];
+      document.getElementById('warmupFeedback').textContent = fb;
+      award('warmup-'+a.id, 1);
+    };
+    grid.appendChild(tile);
+  });
+}
+
+/* ============================================================
+   VOCAB
+   ============================================================ */
+function renderVocab(){
+  const grid = document.getElementById('vocabGrid');
+  grid.innerHTML='';
+  FAMILY_VOCAB.forEach(v=>{
+    const card = document.createElement('div');
+    card.className = 'vocab-card';
+    card.id = 'vc-'+v.id;
+    card.innerHTML = `<div class="vc-check">✓</div><div class="vc-icon">${v.icon}</div><div class="vc-text"><span class="vc-speaker">🔊</span> ${v.de}</div><div class="vc-meaning">${v.en}</div>`;
+    card.onclick = ()=>{
+      speak(v.de);
+      card.classList.add('done');
+      award('vocab-'+v.id, 2);
+    };
+    grid.appendChild(card);
+  });
+}
+
+/* ============================================================
+   FAMILY TREE
+   ============================================================ */
+function renderFamilyTree(){
+  const wrap = document.getElementById('familyTree');
+  wrap.innerHTML='';
+  [1,2,3].forEach(rowNum=>{
+    if(rowNum>1){
+      const conn = document.createElement('div');
+      conn.className = 'tree-connector';
+      wrap.appendChild(conn);
+    }
+    const row = document.createElement('div');
+    row.className = 'tree-row';
+    TREE_PEOPLE.filter(p=>p.row===rowNum).forEach(p=>{
+      const node = document.createElement('div');
+      node.className = 'tree-node';
+      node.id = 'tree-'+p.id;
+      node.innerHTML = `<div class="tn-icon">${p.icon}</div><div class="tn-label">${p.de.split(' ').pop()}</div>`;
+      node.onclick = ()=>{
+        document.querySelectorAll('.tree-node').forEach(n=>n.classList.remove('active'));
+        node.classList.add('active');
+        node.classList.add('done');
+        document.getElementById('treeDetailDe').textContent = p.de;
+        document.getElementById('treeDetailEn').textContent = p.en;
+        document.getElementById('treeDetail').classList.add('show');
+        state.treeCurrentDe = p.de;
+        speak(p.de);
+        award('tree-'+p.id, 2);
+      };
+      row.appendChild(node);
+    });
+    wrap.appendChild(row);
+  });
+}
+
+/* ============================================================
+   MEIN / MEINE
+   ============================================================ */
+function renderMeinMeine(){
+  const row = document.getElementById('meinMeineRow');
+  row.innerHTML='';
+  MEIN_MEINE_EXAMPLES.forEach((ex,i)=>{
+    const chip = document.createElement('div');
+    chip.className = 'verb-example-chip';
+    chip.innerHTML = `<div class="vec-de">🔊 ${ex.de}</div><div class="vec-en">${ex.en}</div>`;
+    chip.onclick = ()=>{
+      speak(ex.de);
+      chip.classList.add('heard');
+      award('mm-ex-'+i, 1);
+    };
+    row.appendChild(chip);
+  });
+}
+function renderMeinMeinePractice(){
+  const list = document.getElementById('meinMeinePracticeList');
+  list.innerHTML='';
+  MEIN_MEINE_PRACTICE.forEach(q=>{
+    const card = document.createElement('div');
+    card.className = 'situation-card';
+    const optsHtml = q.options.map(o=>`<button class="mc-opt" data-opt="${o}">${o}</button>`).join('');
+    card.innerHTML = `<div class="situation-text">${q.text}</div><div class="mc-options">${optsHtml}</div><div class="mc-feedback" id="mmfb-${q.id}"></div>`;
+    list.appendChild(card);
+    card.querySelectorAll('.mc-opt').forEach(btn=>{
+      btn.onclick = ()=>{
+        if(state.meinMeineAnswered[q.id]) return;
+        const chosen = btn.getAttribute('data-opt');
+        const fb = document.getElementById('mmfb-'+q.id);
+        if(chosen === q.correct){
+          btn.classList.add('correct');
+          fb.textContent = q.correct+' ✅ Genau!';
+          fb.className = 'mc-feedback ok';
+          state.meinMeineAnswered[q.id] = true;
+          award('mm-'+q.id, 5);
+          speak(q.text.replace('___', q.correct));
+        } else {
+          btn.classList.add('incorrect');
+          fb.textContent = 'Versuch es noch einmal!';
+          fb.className = 'mc-feedback bad';
+          setTimeout(()=>btn.classList.remove('incorrect'), 450);
+        }
+      };
+    });
+  });
+}
+
+/* ============================================================
+   VERB REVIEW
+   ============================================================ */
+function renderVerbReview(){
+  const list = document.getElementById('verbReviewList');
+  list.innerHTML='';
+  VERB_REVIEW.forEach(q=>{
+    const card = document.createElement('div');
+    card.className = 'situation-card';
+    const optsHtml = q.options.map(o=>`<button class="mc-opt" data-opt="${o}">${o}</button>`).join('');
+    card.innerHTML = `<div class="situation-text">${q.text}</div><div class="mc-options">${optsHtml}</div><div class="mc-feedback" id="vrfb-${q.id}"></div>`;
+    list.appendChild(card);
+    card.querySelectorAll('.mc-opt').forEach(btn=>{
+      btn.onclick = ()=>{
+        if(state.verbReviewAnswered[q.id]) return;
+        const chosen = btn.getAttribute('data-opt');
+        const fb = document.getElementById('vrfb-'+q.id);
+        if(chosen === q.correct){
+          btn.classList.add('correct');
+          fb.textContent = q.correct+' ✅ Genau!';
+          fb.className = 'mc-feedback ok';
+          state.verbReviewAnswered[q.id] = true;
+          award('vr-'+q.id, 5);
+          speak(q.text.replace('___', q.correct));
+        } else {
+          btn.classList.add('incorrect');
+          fb.textContent = 'Versuch es noch einmal!';
+          fb.className = 'mc-feedback bad';
+          setTimeout(()=>btn.classList.remove('incorrect'), 450);
+        }
+      };
+    });
+  });
+}
+
+/* ============================================================
+   DIALOGUE
+   ============================================================ */
+function renderDialogue(){
+  const list = document.getElementById('dialogueList');
+  list.innerHTML='';
+  DIALOGUE_LINES.forEach((l,i)=>{
+    const row = document.createElement('div');
+    row.className = 'dialogue-line speaker'+l.speaker;
+    row.id = 'dl-'+l.id;
+    row.innerHTML = `<div class="dl-avatar">${l.speaker}</div><div class="dl-text">${l.text}</div><div class="dl-speaker">🔊</div>`;
+    row.onclick = ()=>{
+      state.dialoguePlaying = false;
+      highlightDialogueLine(i);
+      speak(l.text, ()=>{ row.classList.remove('playing'); });
+      award('dl-'+l.id, 1);
+    };
+    list.appendChild(row);
+  });
+}
+function highlightDialogueLine(i){
+  document.querySelectorAll('.dialogue-line').forEach(el=>el.classList.remove('playing'));
+  const el = document.getElementById('dl-'+DIALOGUE_LINES[i].id);
+  if(el) el.classList.add('playing');
+}
+function playDialogue(){
+  if(state.dialoguePlaying) return;
+  state.dialoguePlaying = true;
+  playDialogueFrom(state.dialogueIndex || 0);
+}
+function playDialogueFrom(i){
+  if(!state.dialoguePlaying || i>=DIALOGUE_LINES.length){
+    state.dialoguePlaying = false;
+    state.dialogueIndex = 0;
+    document.querySelectorAll('.dialogue-line').forEach(el=>el.classList.remove('playing'));
+    if(i>=DIALOGUE_LINES.length) award('dialogue-complete', 6);
+    return;
+  }
+  state.dialogueIndex = i;
+  highlightDialogueLine(i);
+  speak(DIALOGUE_LINES[i].text, ()=>{
+    if(state.dialoguePlaying) playDialogueFrom(i+1);
+  });
+}
+function pauseDialogue(){
+  state.dialoguePlaying = false;
+  stopSpeaking();
+}
+function repeatDialogue(){
+  state.dialogueIndex = 0;
+  state.dialoguePlaying = true;
+  playDialogueFrom(0);
+}
+
+/* ============================================================
+   READING
+   ============================================================ */
+function renderReadingText(){
+  document.getElementById('readingText').textContent = READING_TEXT;
+}
+function renderReadingQuestions(){
+  const list = document.getElementById('readingQuestions');
+  list.innerHTML='';
+  READING_QUESTIONS.forEach(q=>{
+    const card = document.createElement('div');
+    card.className = 'situation-card';
+    const optsHtml = q.options.map(o=>`<button class="mc-opt" data-opt="${o}">${o}</button>`).join('');
+    card.innerHTML = `<div class="situation-text">${q.text}</div><div class="mc-options">${optsHtml}</div><div class="mc-feedback" id="rqfb-${q.id}"></div>`;
+    list.appendChild(card);
+    card.querySelectorAll('.mc-opt').forEach(btn=>{
+      btn.onclick = ()=>{
+        if(state.readingAnswered[q.id]) return;
+        const chosen = btn.getAttribute('data-opt');
+        const fb = document.getElementById('rqfb-'+q.id);
+        if(chosen === q.correct){
+          btn.classList.add('correct');
+          fb.textContent = 'Richtig! 🎉';
+          fb.className = 'mc-feedback ok';
+          state.readingAnswered[q.id] = true;
+          award('rq-'+q.id, 5);
+        } else {
+          btn.classList.add('incorrect');
+          fb.textContent = 'Versuch es noch einmal!';
+          fb.className = 'mc-feedback bad';
+          setTimeout(()=>btn.classList.remove('incorrect'), 450);
+        }
+      };
+    });
+  });
+}
+
+/* ============================================================
+   SPEAKING
+   ============================================================ */
+function renderStarters(){
+  const list = document.getElementById('starterList');
+  list.innerHTML='';
+  SPEAKING_STARTERS.forEach((s,i)=>{
+    const chip = document.createElement('div');
+    chip.className = 'starter-chip';
+    chip.innerHTML = `<span>🔊</span><span>${s}</span>`;
+    chip.onclick = ()=>{ speak(s); award('starter-'+i, 1); };
+    list.appendChild(chip);
+  });
+}
+function finishSpeaking(){
+  const val = document.getElementById('speakingInput').value.trim();
+  if(val.length>0){
+    award('speaking-done', 8);
+    document.getElementById('speakingDone').classList.add('show');
+  } else {
+    document.getElementById('speakingInput').focus();
+  }
+}
+
+/* ============================================================
+   MINI REVIEW – MATCHING
+   ============================================================ */
+function shuffle(arr){
+  const a = arr.slice();
+  for(let i=a.length-1;i>0;i--){
+    const j = Math.floor(Math.random()*(i+1));
+    [a[i],a[j]]=[a[j],a[i]];
+  }
+  return a;
+}
+function renderReviewMatching(){
+  const colDe = document.getElementById('reviewMatchDe');
+  const colEn = document.getElementById('reviewMatchEn');
+  colDe.innerHTML=''; colEn.innerHTML='';
+  const deOrder = shuffle(REVIEW_MATCH_PAIRS);
+  const enOrder = shuffle(REVIEW_MATCH_PAIRS);
+  deOrder.forEach(pair=>{
+    const chip = document.createElement('div');
+    chip.className = 'match-chip';
+    chip.id = 'rmatchde-'+pair.id;
+    chip.textContent = pair.de;
+    if(state.reviewMatchedPairs[pair.id]) chip.classList.add('matched');
+    chip.onclick = ()=>{
+      if(state.reviewMatchedPairs[pair.id]) return;
+      speak(pair.de);
+      document.querySelectorAll('[id^="rmatchde-"]').forEach(c=>c.classList.remove('selected'));
+      chip.classList.add('selected');
+      state.reviewMatchSelectedDe = pair.id;
+      document.getElementById('reviewMatchStatus').textContent = 'Jetzt wähle die passende Bedeutung.';
+    };
+    colDe.appendChild(chip);
+  });
+  enOrder.forEach(pair=>{
+    const chip = document.createElement('div');
+    chip.className = 'match-chip';
+    chip.id = 'rmatchen-'+pair.id;
+    chip.textContent = pair.en;
+    if(state.reviewMatchedPairs[pair.id]) chip.classList.add('matched');
+    chip.onclick = ()=>{
+      if(state.reviewMatchedPairs[pair.id]) return;
+      const selId = state.reviewMatchSelectedDe;
+      if(!selId){ document.getElementById('reviewMatchStatus').textContent = 'Wähle zuerst ein deutsches Wort.'; return; }
+      if(selId === pair.id){
+        state.reviewMatchedPairs[pair.id] = true;
+        state.reviewMatchSelectedDe = null;
+        award('rmatch-'+pair.id, 3);
+        document.getElementById('reviewMatchStatus').textContent = 'Richtig! 🎉';
+        renderReviewMatching();
+        checkReviewMatchComplete();
+      } else {
+        chip.classList.add('wrong-shake');
+        setTimeout(()=>chip.classList.remove('wrong-shake'), 400);
+        document.getElementById('reviewMatchStatus').textContent = 'Das passt nicht – versuch es noch einmal!';
+      }
+    };
+    colEn.appendChild(chip);
+  });
+}
+function checkReviewMatchComplete(){
+  const allDone = REVIEW_MATCH_PAIRS.every(p=>state.reviewMatchedPairs[p.id]);
+  if(allDone) document.getElementById('reviewMatchStatus').textContent = 'Super! Alle Wörter verbunden! 🏆';
+}
+
+/* ============================================================
+   MINI REVIEW – MIXED MC
+   ============================================================ */
+function renderReviewMixed(){
+  const list = document.getElementById('reviewMixedList');
+  list.innerHTML='';
+  document.getElementById('reviewResult').style.display='none';
+  state.reviewMixedAnswered = {};
+  state.reviewMixedScore = 0;
+  updateReviewProgress();
+  const questions = shuffle(REVIEW_MIXED);
+  questions.forEach(q=>{
+    const card = document.createElement('div');
+    card.className = 'situation-card';
+    const opts = shuffle(q.options);
+    const optsHtml = opts.map(o=>`<button class="mc-opt" data-opt="${o}">${o}</button>`).join('');
+    card.innerHTML = `<div class="situation-text">${q.text}</div><div class="mc-options">${optsHtml}</div><div class="mc-feedback" id="rxfb-${q.id}"></div>`;
+    list.appendChild(card);
+    card.querySelectorAll('.mc-opt').forEach(btn=>{
+      btn.onclick = ()=>{
+        if(state.reviewMixedAnswered[q.id]) return;
+        const chosen = btn.getAttribute('data-opt');
+        const fb = document.getElementById('rxfb-'+q.id);
+        state.reviewMixedAnswered[q.id] = true;
+        if(chosen === q.correct){
+          btn.classList.add('correct');
+          fb.textContent = 'Richtig! 🎉';
+          fb.className = 'mc-feedback ok';
+          state.reviewMixedScore++;
+          award('rx-'+q.id, 4);
+        } else {
+          btn.classList.add('incorrect');
+          fb.textContent = 'Die richtige Antwort war: '+q.correct;
+          fb.className = 'mc-feedback bad';
+        }
+        card.querySelectorAll('.mc-opt').forEach(b=>b.disabled=true);
+        updateReviewProgress();
+        checkReviewMixedComplete();
+      };
+    });
+  });
+}
+function updateReviewProgress(){
+  const answered = Object.keys(state.reviewMixedAnswered).length;
+  const pct = Math.round((answered/REVIEW_MIXED.length)*100);
+  document.getElementById('reviewProgressFill').style.width = pct+'%';
+  document.getElementById('reviewProgressText').textContent = answered+'/'+REVIEW_MIXED.length;
+}
+function checkReviewMixedComplete(){
+  const answered = Object.keys(state.reviewMixedAnswered).length;
+  if(answered < REVIEW_MIXED.length) return;
+  const score = state.reviewMixedScore;
+  const total = REVIEW_MIXED.length;
+  let msg, emoji;
+  if(score===total){ msg='Wow! Du bist ein Familien-Profi! 🏆'; emoji='🏆'; }
+  else if(score>=total-1){ msg='Sehr gut! Fast perfekt! 🌟'; emoji='🌟'; }
+  else if(score>=Math.ceil(total/2)){ msg='Gut gemacht! Noch ein bisschen üben! 💪'; emoji='💪'; }
+  else { msg='Weiter so! Übung macht den Meister! 🌱'; emoji='🌱'; }
+  document.getElementById('reviewEmoji').textContent = emoji;
+  document.getElementById('reviewMsg').textContent = score+'/'+total+' – '+msg;
+  document.getElementById('reviewResult').style.display='block';
+}
+
+/* ============================================================
+   GAME PREP
+   ============================================================ */
+function renderGameCards(){
+  const famBank = document.getElementById('gameFamilyCards');
+  famBank.innerHTML='';
+  GAME_FAMILY_CARDS.forEach(c=>{
+    const chip = document.createElement('div');
+    chip.className = 'game-card family';
+    chip.innerHTML = `<span>${c.icon}</span><span>${c.text}</span>`;
+    chip.onclick = ()=>speak(c.text);
+    famBank.appendChild(chip);
+  });
+  const verbBank = document.getElementById('gameVerbCards');
+  verbBank.innerHTML='';
+  GAME_VERB_CARDS.forEach(v=>{
+    const chip = document.createElement('div');
+    chip.className = 'game-card verb';
+    chip.innerHTML = `<span>🎴</span><span>${v}</span>`;
+    chip.onclick = ()=>speak(v);
+    verbBank.appendChild(chip);
+  });
+}
+
+/* ============================================================
+   CHECKLIST
+   ============================================================ */
+function renderChecklist(){
+  const list = document.getElementById('checkList');
+  list.innerHTML='';
+  document.getElementById('checklistDone').classList.remove('show');
+  CHECKLIST_ITEMS.forEach((text,i)=>{
+    const item = document.createElement('div');
+    item.className = 'check-item';
+    item.id = 'check-'+i;
+    if(state.checklistChecked[i]) item.classList.add('checked');
+    item.innerHTML = `<div class="check-box">✓</div><div class="check-text">${text}</div>`;
+    item.onclick = ()=>{
+      state.checklistChecked[i] = !state.checklistChecked[i];
+      item.classList.toggle('checked');
+      if(state.checklistChecked[i]) award('check-'+i, 2);
+      checkAllChecked();
+    };
+    list.appendChild(item);
+  });
+  checkAllChecked();
+}
+function checkAllChecked(){
+  const allChecked = CHECKLIST_ITEMS.every((_,i)=>state.checklistChecked[i]);
+  document.getElementById('checklistDone').classList.toggle('show', allChecked);
+}
+
+/* ============================================================
+   RESTART
+   ============================================================ */
+function restartLesson(){
+  stopSpeaking();
+  state = {
+    screenIndex:0, maxReached:0, totalXP:0, xpFlags:new Set(),
+    treeCurrentDe:null, meinMeineAnswered:{}, verbReviewAnswered:{},
+    dialoguePlaying:false, dialogueIndex:0, readingAnswered:{}, speakingDone:false,
+    reviewMatchSelectedDe:null, reviewMatchedPairs:{}, reviewMixedAnswered:{},
+    reviewMixedScore:0, checklistChecked:{}
+  };
+  document.getElementById('speakingInput').value='';
+  document.getElementById('speakingDone').classList.remove('show');
+  document.getElementById('treeDetail').classList.remove('show');
+  renderAll();
+  goTo(0);
+}
+
+/* ============================================================
+   INIT
+   ============================================================ */
+function renderAll(){
+  renderWarmup();
+  renderVocab();
+  renderFamilyTree();
+  renderMeinMeine();
+  renderMeinMeinePractice();
+  renderVerbReview();
+  renderDialogue();
+  renderReadingText();
+  renderReadingQuestions();
+  renderStarters();
+  renderReviewMatching();
+  renderReviewMixed();
+  renderGameCards();
+  renderChecklist();
+  renderHeader();
+}
+renderAll();
+</script>
+</body>
+</html>
