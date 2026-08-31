@@ -3,196 +3,426 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
 <title>Deutsch mit Abir</title>
 
 <style>
 @import url('https://fonts.googleapis.com/css2?family=Fredoka:wght@400;500;600;700&display=swap');
 
 * {
-  box-sizing: border-box;
+    box-sizing: border-box;
 }
 
 body {
-  margin: 0;
-  font-family: 'Fredoka', sans-serif;
-  background: #f8f6f2;
-  color: #39443f;
+    margin: 0;
+    font-family: 'Fredoka', sans-serif;
+    background: #f8f6f2;
+    color: #39443f;
 }
 
 .hero {
-  text-align: center;
-  padding: 70px 20px 50px;
-  background: linear-gradient(135deg, #e8f1e9, #f8eee8);
+    text-align: center;
+    padding: 65px 20px 50px;
+    background: linear-gradient(135deg, #e8f1e9, #f8eee8);
 }
 
 .flag {
-  font-size: 45px;
+    font-size: 45px;
 }
 
 h1 {
-  margin: 15px 0 8px;
-  font-size: 42px;
-  color: #526b5b;
+    margin: 15px 0 8px;
+    font-size: 42px;
+    color: #526b5b;
 }
 
 .subtitle {
-  font-size: 20px;
-  color: #68756e;
+    font-size: 19px;
+    color: #68756e;
 }
 
 .container {
-  max-width: 900px;
-  margin: 0 auto;
-  padding: 45px 20px 70px;
+    max-width: 950px;
+    margin: auto;
+    padding: 45px 20px 70px;
 }
 
-.section-title {
-  text-align: center;
-  font-size: 30px;
-  color: #526b5b;
-  margin-bottom: 30px;
+/* UNIT */
+
+.unit {
+    background: white;
+    border-radius: 26px;
+    padding: 30px;
+    margin-bottom: 35px;
+    box-shadow: 0 8px 25px rgba(70,80,70,0.08);
+    border: 1px solid #e8e5df;
 }
+
+.unit-header {
+    text-align: center;
+    margin-bottom: 28px;
+}
+
+.unit-number {
+    font-size: 15px;
+    font-weight: 600;
+    color: #8fa99a;
+    letter-spacing: 1px;
+    text-transform: uppercase;
+}
+
+.unit-title {
+    font-size: 32px;
+    color: #526b5b;
+    margin: 8px 0;
+}
+
+.unit-description {
+    color: #747d78;
+    font-size: 16px;
+}
+
+/* LESSONS */
 
 .lessons {
-  display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
-  gap: 22px;
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
+    gap: 18px;
 }
 
 .card {
-  background: white;
-  border-radius: 22px;
-  padding: 28px;
-  box-shadow: 0 8px 25px rgba(70, 80, 70, 0.08);
-  border: 1px solid #e8e5df;
-  transition: transform 0.2s ease, box-shadow 0.2s ease;
+    background: #faf9f6;
+    border-radius: 20px;
+    padding: 24px;
+    border: 1px solid #e8e5df;
+    transition: transform 0.2s ease, box-shadow 0.2s ease;
 }
 
 .card:hover {
-  transform: translateY(-5px);
-  box-shadow: 0 12px 30px rgba(70, 80, 70, 0.13);
+    transform: translateY(-4px);
+    box-shadow: 0 8px 20px rgba(70,80,70,0.10);
 }
 
 .icon {
-  font-size: 42px;
+    font-size: 38px;
 }
 
-.card h2 {
-  margin: 15px 0 8px;
-  color: #526b5b;
-  font-size: 23px;
+.card h3 {
+    color: #526b5b;
+    font-size: 21px;
+    margin: 12px 0 8px;
 }
 
 .card p {
-  color: #747d78;
-  line-height: 1.6;
-  min-height: 50px;
+    color: #747d78;
+    line-height: 1.5;
+    min-height: 48px;
 }
 
 .btn {
-  display: inline-block;
-  margin-top: 15px;
-  padding: 12px 22px;
-  border-radius: 14px;
-  background: #8fa99a;
-  color: white;
-  text-decoration: none;
-  font-weight: 600;
-  transition: background 0.2s ease;
+    display: inline-block;
+    margin-top: 12px;
+    padding: 11px 18px;
+    border-radius: 13px;
+    background: #8fa99a;
+    color: white;
+    text-decoration: none;
+    font-weight: 600;
+    transition: background 0.2s ease;
 }
 
 .btn:hover {
-  background: #718d7d;
+    background: #718d7d;
+}
+
+/* COMING SOON */
+
+.coming-soon {
+    opacity: 0.75;
+    background: #f7f5f1;
+}
+
+.lock {
+    font-size: 38px;
+}
+
+.coming-text {
+    color: #89918c;
+}
+
+/* MOTIVATION */
+
+.motivation {
+    text-align: center;
+    padding: 35px 20px;
+    margin-top: 10px;
+    border-radius: 24px;
+    background: linear-gradient(135deg, #eef5ef, #fbf0e9);
+}
+
+.motivation h2 {
+    color: #526b5b;
+    margin-bottom: 8px;
+}
+
+.motivation p {
+    color: #68756e;
 }
 
 footer {
-  text-align: center;
-  padding: 25px;
-  color: #89918c;
-  font-size: 14px;
+    text-align: center;
+    padding: 25px;
+    color: #89918c;
+    font-size: 14px;
 }
 
 @media (max-width: 600px) {
-  h1 {
-    font-size: 34px;
-  }
 
-  .subtitle {
-    font-size: 17px;
-  }
+    h1 {
+        font-size: 34px;
+    }
 
-  .container {
-    padding-top: 35px;
-  }
+    .unit {
+        padding: 22px;
+    }
+
+    .unit-title {
+        font-size: 27px;
+    }
 }
 </style>
 </head>
 
 <body>
 
+<!-- HEADER -->
+
 <section class="hero">
-  <div class="flag">🇩🇪</div>
 
-  <h1>Deutsch mit Abir</h1>
+    <div class="flag">🇩🇪</div>
 
-  <div class="subtitle">
-    Deutsch lernen – einfach, interaktiv und mit Spaß!
-  </div>
+    <h1>Deutsch mit Abir</h1>
+
+    <div class="subtitle">
+        Deutsch lernen – Schritt für Schritt, mit Spaß und Motivation!
+    </div>
+
 </section>
+
 
 <main class="container">
 
-  <h2 class="section-title">📚 Meine Lektionen</h2>
 
-  <div class="lessons">
+<!-- EINHEIT 1 -->
 
-    <div class="card">
-      <div class="icon">🔤</div>
+<section class="unit">
 
-      <h2>Lektion 1 – Buchstaben</h2>
+    <div class="unit-header">
 
-      <p>
-        Lerne die deutschen Buchstaben und ihre Aussprache.
-      </p>
+        <div class="unit-number">
+            Einheit 1
+        </div>
 
-      <a class="btn" href="buchstaben.html">
-        Lektion starten →
-      </a>
+        <div class="unit-title">
+            🌱 Grundlagen
+        </div>
+
+        <div class="unit-description">
+            Die ersten Schritte auf deiner Deutschreise.
+        </div>
+
     </div>
 
 
-    <div class="card">
-      <div class="icon">👋</div>
+    <div class="lessons">
 
-      <h2>Lektion 2 – Begrüßung</h2>
 
-      <p>
-        Lerne, wie du jemanden begrüßt, dich vorstellst
-        und dich verabschiedest.
-      </p>
+        <!-- BUCHSTABEN -->
 
-      <a class="btn" href="begrussung.html">
-        Lektion starten →
-      </a> 
-      <div class="card">
-  <div class="icon">🧩</div>
-  <h2>Lektion 3 – Grundlegende Verben</h2>
-  <p>
-    Lerne wichtige deutsche Verben und bilde einfache Sätze.
-  </p>
-  <a class="btn" href="verben.html">
-    Lektion starten →
-  </a>
-</div>
+        <div class="card">
+
+            <div class="icon">🔤</div>
+
+            <h3>
+                Lektion 1 – Buchstaben
+            </h3>
+
+            <p>
+                Lerne die deutschen Buchstaben und ihre Aussprache.
+            </p>
+
+            <a class="btn" href="buchstaben.html">
+                Lektion starten →
+            </a>
+
+        </div>
+
+
+        <!-- BEGRÜSSUNG -->
+
+        <div class="card">
+
+            <div class="icon">👋</div>
+
+            <h3>
+                Lektion 2 – Begrüßung
+            </h3>
+
+            <p>
+                Begrüße andere, stelle dich vor und verabschiede dich.
+            </p>
+
+            <a class="btn" href="begrussung.html">
+                Lektion starten →
+            </a>
+
+        </div>
+
+
+        <!-- VERBEN -->
+
+        <div class="card">
+
+            <div class="icon">🧩</div>
+
+            <h3>
+                Lektion 3 – Grundlegende Verben
+            </h3>
+
+            <p>
+                Lerne wichtige Verben und bilde deine ersten Sätze.
+            </p>
+
+            <a class="btn" href="verben.html">
+                Lektion starten →
+            </a>
+
+        </div>
+
     </div>
 
-  </div>
+</section>
+
+
+
+<!-- EINHEIT 2 -->
+
+<section class="unit">
+
+    <div class="unit-header">
+
+        <div class="unit-number">
+            Einheit 2
+        </div>
+
+        <div class="unit-title">
+            🏠 Alltag
+        </div>
+
+        <div class="unit-description">
+            Deutsch für dein tägliches Leben.
+        </div>
+
+    </div>
+
+
+    <div class="lessons">
+
+
+        <!-- FAMILIE -->
+
+        <div class="card coming-soon">
+
+            <div class="lock">👨‍👩‍👧</div>
+
+            <h3>
+                Lektion 4 – Familie
+            </h3>
+
+            <p class="coming-text">
+                Lerne Wörter und Sätze rund um die Familie.
+            </p>
+
+            <span class="btn">
+                Bald verfügbar
+            </span>
+
+        </div>
+
+
+        <!-- BERUFE -->
+
+        <div class="card coming-soon">
+
+            <div class="lock">💼</div>
+
+            <h3>
+                Lektion 5 – Berufe
+            </h3>
+
+            <p class="coming-text">
+                Lerne wichtige Berufe auf Deutsch.
+            </p>
+
+            <span class="btn">
+                Bald verfügbar
+            </span>
+
+        </div>
+
+
+        <!-- ZAHLEN -->
+
+        <div class="card coming-soon">
+
+            <div class="lock">🔢</div>
+
+            <h3>
+                Lektion 6 – Zahlen
+            </h3>
+
+            <p class="coming-text">
+                Lerne die Zahlen und übe sie spielerisch.
+            </p>
+
+            <span class="btn">
+                Bald verfügbar
+            </span>
+
+        </div>
+
+    </div>
+
+</section>
+
+
+
+<!-- MOTIVATION -->
+
+<section class="motivation">
+
+    <h2>
+        🌟 Schritt für Schritt!
+    </h2>
+
+    <p>
+        Jede Lektion bringt dich deinem Deutschziel näher.
+    </p>
+
+    <p>
+        Du lernst. Du übst. Du schaffst es! 💪🇩🇪
+    </p>
+
+</section>
+
 
 </main>
 
+
 <footer>
-  © 2026 Deutsch mit Abir 🇩🇪
+    © 2026 Deutsch mit Abir 🇩🇪
 </footer>
+
 
 </body>
 </html>
