@@ -1,0 +1,952 @@
+<!DOCTYPE html>
+<html lang="de">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1">
+<title>Deutsch A1 – Die Zahlen</title>
+<link rel="preconnect" href="https://fonts.googleapis.com/">
+<link rel="preconnect" href="https://fonts.gstatic.com/" crossorigin="">
+<link href="https://fonts.googleapis.com/css2?family=Fredoka:wght@400;500;600;700&family=Nunito:wght@400;600;700;800&display=swap" rel="stylesheet">
+<style>
+@charset "utf-8";
+
+:root { --cream: #FBF6EC; --paper: #FFFDF9; --ink: #2B2118; --ink-soft: #6b6053; --teal: #2f6f76; --teal-dark: #1f4d52; --teal-light: #eaf3f3; --coral: #e8734a; --coral-dark: #c85a34; --coral-light: #fdece3; --gold: #e8b84b; --gold-dark: #b9871f; --sage: #6f9c85; --sage-dark: #4f7b64; --sage-light: #e9f3ee; --rose: #d9605f; --line: #e7ddc9; --shadow: 0 8px 24px rgba(43,33,24,0.10); --radius: 20px; }
+
+* { box-sizing: border-box; }
+
+html, body { margin: 0px; padding: 0px; }
+
+body { background: radial-gradient(circle at 8% 4%, #fff 0%, transparent 45%),
+      radial-gradient(circle at 92% 96%, #f3ead4 0%, transparent 40%),
+      var(--cream); color: var(--ink); font-family: Nunito, sans-serif; min-height: 100vh; -webkit-font-smoothing: antialiased; padding-bottom: 40px; }
+
+h1, h2, h3, .display { font-family: Fredoka, sans-serif; font-weight: 600; letter-spacing: 0.2px; }
+
+.app { max-width: 720px; margin: 0px auto; padding: 14px 16px 60px; }
+
+/* ===== PASSPORT / HEADER (shared) ===== */
+.passport { background: var(--paper); border-radius: var(--radius); box-shadow: var(--shadow); padding: 14px 16px 12px; border-bottom: 3px dashed var(--line); position: sticky; top: 8px; z-index: 50; margin-bottom: 18px; }
+.passport-top { display: flex; align-items: center; gap: 12px; }
+.lexi-wrap { position: relative; flex-shrink: 0; }
+.lexi { width: 52px; height: 52px; border-radius: 50%; background: linear-gradient(155deg,#ffd9a8,var(--coral)); display: flex; align-items: center; justify-content: center; font-size: 28px; box-shadow: rgba(200, 90, 52, 0.35) 0px 4px 10px; animation: 3.2s ease-in-out 0s infinite normal none running lexi-float; }
+@keyframes lexi-float { 0%, 100% { transform: translateY(0px) rotate(-3deg); } 50% { transform: translateY(-4px) rotate(3deg); } }
+.lexi.talking { animation: 0.35s ease-in-out 0s infinite normal none running lexi-talk; }
+@keyframes lexi-talk { 0%, 100% { transform: scale(1); } 50% { transform: scale(1.08); } }
+.passport-title { flex: 1 1 0%; min-width: 0px; }
+.passport-title .eyebrow { font-size: 11px; text-transform: uppercase; letter-spacing: 1.5px; color: var(--teal); font-weight: 800; }
+.passport-title h1 { font-size: 17px; margin: 1px 0px 0px; color: var(--ink); }
+.xp-pill { flex-shrink: 0; background: linear-gradient(155deg,#fff2cf,var(--gold)); border-radius: 999px; padding: 7px 12px; font-family: Fredoka, sans-serif; font-weight: 600; font-size: 13px; color: rgb(90, 68, 19); box-shadow: rgba(184, 135, 31, 0.35) 0px 3px 8px; display: flex; align-items: center; gap: 4px; white-space: nowrap; }
+.progress-track { margin-top: 12px; height: 10px; background: var(--teal-light); border-radius: 999px; overflow: hidden; position: relative; }
+.progress-fill { height: 100%; width: 0%; background: linear-gradient(90deg,var(--sage),var(--teal)); border-radius: 999px; transition: width 0.5s cubic-bezier(0.4, 1.4, 0.6, 1); }
+.stamps-row { display: flex; justify-content: space-between; margin-top: 7px; gap: 2px; flex-wrap: wrap; }
+.stamp-dot { width: 14px; height: 14px; border-radius: 50%; background: var(--teal-light); border: 2px solid var(--line); font-size: 8px; display: flex; align-items: center; justify-content: center; color: transparent; transition: 0.3s; flex-shrink: 0; }
+.stamp-dot.done { background: var(--sage); border-color: var(--sage-dark); color: rgb(255, 255, 255); }
+.stamp-dot.current { border-color: var(--coral); box-shadow: 0 0 0 3px var(--coral-light); }
+.lexi-tip { margin-top: 10px; background: var(--teal-light); border-radius: 14px; padding: 9px 12px; font-size: 13.5px; color: var(--teal-dark); line-height: 1.4; display: none; }
+.lexi-tip.show { display: block; }
+
+.screen { display: none; animation: 0.4s ease 0s 1 normal none running fadein; }
+.screen.active { display: block; }
+@keyframes fadein { 0% { opacity: 0; transform: translateY(8px); } 100% { opacity: 1; transform: translateY(0px); } }
+
+.card { background: var(--paper); border-radius: var(--radius); box-shadow: var(--shadow); padding: 20px 18px; margin-bottom: 16px; }
+.section-title { display: flex; align-items: center; gap: 8px; font-size: 20px; margin: 0px 0px 4px; }
+.section-sub { color: var(--ink-soft); font-size: 14px; margin: 0px 0px 16px; }
+
+.start-hero { text-align: center; padding: 34px 18px 26px; }
+.start-hero .big-lexi { width: 110px; height: 110px; border-radius: 50%; background: linear-gradient(155deg,#ffd9a8,var(--coral)); display: flex; align-items: center; justify-content: center; font-size: 58px; margin: 0px auto 18px; box-shadow: rgba(200, 90, 52, 0.35) 0px 10px 24px; animation: 3.2s ease-in-out 0s infinite normal none running lexi-float; }
+.start-hero .lesson-tag { display: inline-block; background: var(--coral-light); color: var(--coral-dark); font-family: Fredoka, sans-serif; font-weight: 600; font-size: 12.5px; padding: 6px 14px; border-radius: 999px; margin-bottom: 10px; }
+.start-hero .unit-tag { display: inline-block; background: var(--teal-light); color: var(--teal-dark); font-family: Fredoka, sans-serif; font-weight: 600; font-size: 12px; padding: 5px 12px; border-radius: 999px; margin: 0px 0px 8px 6px; }
+.start-hero h1 { font-size: 26px; margin: 10px 0px 6px; color: var(--ink); }
+.start-hero .subtitle { color: var(--teal-dark); font-weight: 700; font-family: Fredoka, sans-serif; font-size: 15px; margin: 0px 0px 10px; }
+.start-hero p { color: var(--ink-soft); font-size: 15.5px; max-width: 420px; margin: 0px auto 22px; line-height: 1.5; }
+.start-badges { display: flex; justify-content: center; gap: 10px; flex-wrap: wrap; margin-bottom: 24px; }
+.start-badge { background: var(--cream); border: 1.5px solid var(--line); border-radius: 12px; padding: 8px 12px; font-size: 12.5px; color: var(--ink-soft); font-weight: 700; }
+.journey-note { font-family: Fredoka, sans-serif; font-weight: 600; font-size: 13.5px; color: var(--coral-dark); margin: 0px 0px 18px; }
+
+.btn { font-family: Fredoka, sans-serif; font-weight: 600; font-size: 15px; border: none; border-radius: 14px; padding: 13px 22px; cursor: pointer; display: inline-flex; align-items: center; justify-content: center; gap: 7px; transition: transform 0.15s, box-shadow 0.15s, opacity 0.15s; min-height: 46px; }
+.btn:active { transform: scale(0.96); }
+.btn-primary { background: linear-gradient(155deg,var(--coral),var(--coral-dark)); color: rgb(255, 255, 255); box-shadow: rgba(200, 90, 52, 0.35) 0px 5px 14px; }
+.btn-secondary { background: var(--teal-light); color: var(--teal-dark); }
+.btn-ghost { background: transparent; color: var(--ink-soft); border: 1.5px solid var(--line); }
+.btn-sage { background: linear-gradient(155deg,var(--sage),var(--sage-dark)); color: rgb(255, 255, 255); box-shadow: rgba(79, 123, 100, 0.3) 0px 5px 14px; }
+.btn:disabled { opacity: 0.45; cursor: not-allowed; transform: none; }
+.btn-block { width: 100%; }
+.btn-sm { padding: 8px 14px; font-size: 13px; min-height: 36px; border-radius: 10px; }
+.nav-row { display: flex; justify-content: space-between; gap: 10px; margin-top: 6px; }
+.nav-row .btn { flex: 1 1 0%; }
+
+.goals-list { list-style: none; margin: 0px; padding: 0px; }
+.goals-list li { display: flex; align-items: flex-start; gap: 10px; padding: 11px 4px; border-bottom: 1px solid var(--line); font-size: 15px; }
+.goals-list li:last-child { border-bottom: none; }
+.goal-check { flex-shrink: 0; width: 26px; height: 26px; border-radius: 50%; background: var(--sage-light); color: var(--sage-dark); display: flex; align-items: center; justify-content: center; font-size: 13px; font-weight: 800; }
+
+.challenge-progress-wrap { margin-bottom: 16px; }
+.challenge-progress-label { display: flex; justify-content: space-between; font-size: 12.5px; color: var(--ink-soft); font-weight: 700; margin-bottom: 5px; }
+
+.situation-card { background: var(--cream); border-radius: 14px; padding: 14px; margin-bottom: 12px; }
+.situation-text { font-size: 15px; font-weight: 700; font-family: Fredoka, sans-serif; margin-bottom: 10px; }
+.mc-options { display: flex; flex-wrap: wrap; gap: 8px; }
+.mc-opt { background: rgb(255, 255, 255); border: 1.5px solid var(--line); border-radius: 12px; padding: 9px 14px; font-size: 13.5px; font-weight: 700; cursor: pointer; font-family: Fredoka, sans-serif; }
+.mc-opt.correct { background: var(--sage-light); border-color: var(--sage); color: var(--sage-dark); }
+.mc-opt.incorrect { background: rgb(251, 227, 224); border-color: var(--rose); color: var(--rose); }
+.mc-feedback { margin-top: 8px; font-size: 13px; font-weight: 700; min-height: 18px; }
+.mc-feedback.ok { color: var(--sage-dark); }
+.mc-feedback.bad { color: var(--rose); }
+
+.info-note { display: flex; gap: 8px; background: linear-gradient(155deg, rgb(255, 246, 221), rgb(251, 231, 182)); border-radius: 12px; padding: 10px 12px; font-size: 13px; color: rgb(90, 68, 19); margin-top: 14px; line-height: 1.4; }
+
+.speaking-done { display: none; text-align: center; margin-top: 10px; color: var(--sage-dark); font-family: Fredoka, sans-serif; font-weight: 700; }
+.speaking-done.show { display: block; }
+
+.mission-hero { text-align: center; padding: 20px 10px 10px; }
+.trophy { font-size: 64px; margin-bottom: 6px; animation: 0.6s ease 0s 1 normal none running trophy-pop; }
+@keyframes trophy-pop { 0% { transform: scale(0) rotate(-20deg); } 70% { transform: scale(1.15) rotate(6deg); } 100% { transform: scale(1) rotate(0deg); } }
+.badge-plate { background: linear-gradient(155deg,#fff2cf,var(--gold)); border-radius: 16px; padding: 14px; text-align: center; margin: 16px 0px; box-shadow: rgba(184, 135, 31, 0.3) 0px 6px 16px; }
+.badge-plate .badge-name { font-family: Fredoka, sans-serif; font-weight: 700; font-size: 16px; color: rgb(90, 68, 19); letter-spacing: 0.5px; }
+.xp-total { text-align: center; font-family: Fredoka, sans-serif; font-size: 34px; color: var(--coral-dark); margin: 10px 0px; }
+.xp-total span { font-size: 16px; color: var(--ink-soft); display: block; font-family: Nunito, sans-serif; font-weight: 700; }
+
+@keyframes shake { 0%, 100% { transform: translateX(0px); } 25% { transform: translateX(-5px); } 75% { transform: translateX(5px); } }
+.wrong-shake { animation: 0.35s ease 0s 1 normal none running shake; }
+
+/* ===== ZAHLEN-SPECIFIC COMPONENTS ===== */
+.number-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(78px, 1fr)); gap: 10px; margin-bottom: 10px; }
+.number-card { background: var(--cream); border: 1.5px solid var(--line); border-radius: 16px; padding: 12px 6px 10px; text-align: center; cursor: pointer; transition: 0.2s; }
+.number-card:active { transform: scale(0.94); }
+.number-card .nc-num { font-family: Fredoka, sans-serif; font-weight: 700; font-size: 22px; color: var(--ink); }
+.number-card .nc-speaker { font-size: 12px; color: var(--ink-soft); margin-top: 1px; }
+.number-card .nc-word { font-size: 11.5px; color: var(--teal-dark); font-weight: 700; font-family: Fredoka, sans-serif; min-height: 14px; margin-top: 3px; opacity: 0; transition: 0.2s; }
+.number-card .nc-dots { display: flex; flex-wrap: wrap; gap: 2px; align-items: center; justify-content: center; margin-top: 4px; min-height: 8px; opacity: 0; transition: 0.2s; }
+.number-card .nc-dot { width: 5px; height: 5px; border-radius: 50%; background: var(--coral); flex-shrink: 0; }
+.number-card .nc-dot.group2 { background: var(--teal); }
+.number-card .nc-plus { font-size: 9px; color: var(--ink-soft); margin: 0 1px; }
+.number-card.revealed { background: var(--sage-light); border-color: var(--sage); }
+.number-card.revealed .nc-word, .number-card.revealed .nc-dots { opacity: 1; }
+.number-card.playing { box-shadow: 0 0 0 3px var(--coral-light); }
+
+.listen-card { background: linear-gradient(155deg,var(--teal-light),#f7f3e6); border-radius: 16px; padding: 22px 18px; text-align: center; margin-bottom: 8px; }
+.listen-round-label { font-family: Fredoka, sans-serif; font-weight: 700; font-size: 12.5px; color: var(--teal-dark); text-transform: uppercase; letter-spacing: 1px; margin-bottom: 10px; }
+.listen-play-btn { font-size: 42px; background: none; border: none; cursor: pointer; line-height: 1; padding: 6px 14px; }
+.listen-play-btn:active { transform: scale(0.92); }
+.listen-options { display: flex; gap: 10px; justify-content: center; margin-top: 8px; flex-wrap: wrap; }
+.listen-opt { background: #fff; border: 1.5px solid var(--line); border-radius: 14px; padding: 14px 24px; font-family: Fredoka, sans-serif; font-weight: 700; font-size: 20px; cursor: pointer; min-width: 60px; transition: 0.15s; }
+.listen-opt:active { transform: scale(0.94); }
+.listen-opt.correct { background: var(--sage-light); border-color: var(--sage); color: var(--sage-dark); }
+.listen-opt.incorrect { background: #fbe3e0; border-color: var(--rose); color: var(--rose); }
+.listen-feedback { margin-top: 10px; font-family: Fredoka, sans-serif; font-weight: 700; min-height: 20px; font-size: 14.5px; text-align: center; }
+.listen-feedback.ok { color: var(--sage-dark); }
+.listen-feedback.bad { color: var(--rose); }
+
+.blitz-card { background: linear-gradient(155deg,var(--coral-light),#fff); border-radius: 16px; padding: 22px 16px; text-align: center; margin-bottom: 12px; }
+.blitz-number { font-family: Fredoka, sans-serif; font-weight: 700; font-size: 58px; color: var(--coral-dark); min-height: 72px; display: flex; align-items: center; justify-content: center; }
+.blitz-timerbar { height: 6px; background: var(--teal-light); border-radius: 999px; overflow: hidden; margin: 10px 0 4px; }
+.blitz-timerfill { height: 100%; background: linear-gradient(90deg,var(--gold),var(--coral)); width: 100%; }
+.blitz-question { font-family: Fredoka, sans-serif; font-weight: 700; font-size: 15px; color: var(--ink); margin: 10px 0 12px; }
+.blitz-options { display: flex; flex-direction: column; gap: 8px; }
+.blitz-opt { background: #fff; border: 1.5px solid var(--line); border-radius: 12px; padding: 13px; font-family: Fredoka, sans-serif; font-weight: 700; font-size: 15px; cursor: pointer; }
+.blitz-opt.correct { background: var(--sage-light); border-color: var(--sage); color: var(--sage-dark); }
+.blitz-opt.incorrect { background: #fbe3e0; border-color: var(--rose); color: var(--rose); }
+
+.puzzle-build-card { background: linear-gradient(155deg,var(--teal-light),#f7f3e6); border-radius: 16px; padding: 20px 16px; text-align: center; margin-bottom: 14px; }
+.puzzle-round-label { font-family: Fredoka, sans-serif; font-weight: 700; font-size: 12.5px; color: var(--teal-dark); text-transform: uppercase; letter-spacing: 1px; margin-bottom: 8px; }
+.puzzle-target-num { font-family: Fredoka, sans-serif; font-weight: 700; font-size: 44px; color: var(--ink); }
+.puzzle-pieces { display: flex; gap: 10px; justify-content: center; margin: 14px 0 6px; flex-wrap: wrap; }
+.puzzle-piece { background: #fff; border: 1.5px solid var(--line); border-radius: 12px; padding: 12px 18px; font-family: Fredoka, sans-serif; font-weight: 700; font-size: 16px; cursor: pointer; transition: 0.15s; }
+.puzzle-piece.picked { background: var(--sage-light); border-color: var(--sage); color: var(--sage-dark); opacity: 0.55; pointer-events: none; }
+.puzzle-result { font-family: Fredoka, sans-serif; font-weight: 700; font-size: 22px; color: var(--coral-dark); min-height: 30px; margin-top: 6px; }
+
+.special-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(90px, 1fr)); gap: 10px; margin-bottom: 4px; }
+.special-card { background: var(--cream); border: 1.5px solid var(--line); border-radius: 14px; padding: 12px 8px; text-align: center; cursor: pointer; transition: 0.18s; }
+.special-card:active { transform: scale(0.95); }
+.special-card .sp-num { font-family: Fredoka, sans-serif; font-weight: 700; font-size: 24px; }
+.special-card .sp-word { font-size: 12px; color: var(--teal-dark); font-weight: 700; font-family: Fredoka, sans-serif; margin-top: 2px; }
+.special-card.done { background: var(--sage-light); border-color: var(--sage); }
+
+.shop-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(100px, 1fr)); gap: 10px; margin-bottom: 4px; }
+.shop-item { background: var(--cream); border: 1.5px solid var(--line); border-radius: 14px; padding: 12px 8px; text-align: center; cursor: pointer; transition: 0.15s; }
+.shop-item:active { transform: scale(0.95); }
+.shop-item .si-icon { font-size: 30px; }
+.shop-item .si-name { font-family: Fredoka, sans-serif; font-weight: 700; font-size: 13px; margin-top: 4px; }
+.shop-item .si-price { color: var(--coral-dark); font-weight: 800; font-size: 13.5px; margin-top: 2px; }
+
+.phone-avatar-row { display: flex; align-items: center; gap: 10px; background: var(--cream); border-radius: 14px; padding: 12px 14px; margin-bottom: 14px; }
+.phone-avatar { width: 38px; height: 38px; border-radius: 50%; background: var(--teal); color: #fff; display: flex; align-items: center; justify-content: center; font-size: 18px; flex-shrink: 0; }
+.phone-input-row { display: flex; gap: 8px; align-items: center; margin-top: 12px; }
+.phone-input { flex: 1 1 0%; border: 1.5px solid var(--line); border-radius: 12px; padding: 12px 14px; font-size: 17px; font-family: Fredoka, sans-serif; letter-spacing: 1px; background: #fff; color: var(--ink); }
+.phone-display { font-family: Fredoka, sans-serif; font-weight: 700; font-size: 26px; color: var(--ink); text-align: center; letter-spacing: 2px; background: var(--cream); border-radius: 12px; padding: 14px; margin-bottom: 10px; }
+
+.lock-wrap { display: flex; justify-content: center; gap: 10px; margin: 14px 0 4px; }
+.lock-digit { width: 50px; height: 58px; border-radius: 12px; background: var(--cream); border: 2px solid var(--line); display: flex; align-items: center; justify-content: center; font-family: Fredoka, sans-serif; font-weight: 700; font-size: 22px; color: var(--ink-soft); transition: 0.3s; }
+.lock-digit.solved { background: var(--sage-light); border-color: var(--sage); color: var(--sage-dark); animation: lockpop 0.4s ease; }
+@keyframes lockpop { 0% { transform: scale(0.7); } 60% { transform: scale(1.15); } 100% { transform: scale(1); } }
+.final-challenge-card { background: linear-gradient(155deg,var(--teal-light),#f7f3e6); border-radius: 16px; padding: 18px; margin-bottom: 14px; }
+.final-input-row { display: flex; gap: 8px; margin-top: 12px; }
+.final-input { flex: 1 1 0%; border: 1.5px solid var(--line); border-radius: 12px; padding: 12px 14px; font-size: 16px; font-family: Fredoka, sans-serif; background: #fff; color: var(--ink); }
+.safe-emoji { font-size: 60px; text-align: center; margin-bottom: 4px; transition: 0.4s; }
+.safe-emoji.open { animation: trophy-pop 0.6s ease; }
+.confetti-container { position: fixed; top: 0; left: 0; width: 100%; height: 100%; pointer-events: none; z-index: 999; overflow: hidden; }
+.confetti-piece { position: absolute; top: -20px; width: 8px; height: 14px; opacity: 0.9; border-radius: 2px; animation: confetti-fall linear forwards; }
+@keyframes confetti-fall { to { transform: translateY(110vh) rotate(540deg); opacity: 0; } }
+
+@media (max-width: 420px) {
+  .number-grid { grid-template-columns: repeat(4, 1fr); }
+  .shop-grid, .special-grid { grid-template-columns: repeat(3, 1fr); }
+  .start-hero h1 { font-size: 22px; }
+  .blitz-number { font-size: 46px; }
+  .puzzle-target-num { font-size: 36px; }
+}
+</style>
+</head>
+<body>
+<div class="app">
+
+  <!-- HEADER / PASSPORT -->
+  <div class="passport">
+    <div class="passport-top">
+      <div class="lexi-wrap"><div class="lexi" id="lexiAvatar">🦊</div></div>
+      <div class="passport-title">
+        <div class="eyebrow" id="passportEyebrow">🔐 Deine Mission</div>
+        <h1>🔢 Die Zahlen</h1>
+      </div>
+      <div class="xp-pill">⭐ <span id="xpCount">0</span> XP</div>
+    </div>
+    <div class="progress-track"><div class="progress-fill" id="progressFill" style="width:0%;"></div></div>
+    <div class="stamps-row" id="stampsRow"></div>
+    <div class="lexi-tip show" id="lexiTip">Tippe auf „Mission starten!“, um deine Zahlenreise zu beginnen. 🦊</div>
+  </div>
+
+  <!-- 0: START -->
+  <section class="screen active" id="screen-start">
+    <div class="card start-hero">
+      <div class="big-lexi">🔢</div>
+      <div class="lesson-tag">A1 · Zahlen</div>
+      <span class="unit-tag">🔢 Die Zahlen – Numbers 0–20</span>
+      <h1>🔐 Deine Mission: Knacke den Zahlencode!</h1>
+      <p class="subtitle">Lerne die Zahlen auf Deutsch – spielerisch, interaktiv und mit Spaß!</p>
+      <p>Hallo, ich bin Lexi! 🦊 Heute lernen wir zusammen die Zahlen von 0 bis 20 – hören, lesen, schreiben und im echten Leben benutzen. Am Ende knackst du den geheimen Zahlencode! 🔐</p>
+      <div class="start-badges">
+        <div class="start-badge">🎧 Hören</div>
+        <div class="start-badge">👀 Lesen</div>
+        <div class="start-badge">✍️ Schreiben</div>
+        <div class="start-badge">🔐 Code knacken</div>
+      </div>
+      <p class="journey-note">6 Missionen warten auf dich! 🚀</p>
+      <button class="btn btn-primary btn-block" data-next>Mission starten! ▶</button>
+    </div>
+  </section>
+
+  <!-- 1: MISSION 1 - ENTDECKE DIE ZAHLEN -->
+  <section class="screen" id="screen-m1">
+    <div class="card">
+      <h2 class="section-title">🔢 Entdecke die Zahlen</h2>
+      <p class="section-sub">Tippe auf eine Zahl, um sie zu hören und zu sehen.</p>
+      <div class="number-grid" id="numberGrid"></div>
+      <button class="btn btn-secondary btn-block" id="playAllBtn" style="margin-top:6px;">🔊 Alle anhören</button>
+    </div>
+    <div class="nav-row">
+      <button class="btn btn-ghost" data-prev>◀ Zurück</button>
+      <button class="btn btn-primary" data-next>Weiter ▶</button>
+    </div>
+  </section>
+
+  <!-- 2: MISSION 2 - HÖR ZU! -->
+  <section class="screen" id="screen-m2">
+    <div class="card">
+      <h2 class="section-title">👂 Hör zu!</h2>
+      <p class="section-sub">Höre die Zahl genau und wähle die richtige Antwort.</p>
+      <div class="challenge-progress-wrap">
+        <div class="challenge-progress-label"><span>Runde</span><span id="listenProgressText">1/6</span></div>
+        <div class="progress-track"><div class="progress-fill" id="listenProgressFill" style="width:0%;"></div></div>
+      </div>
+      <div class="listen-card">
+        <div class="listen-round-label">Höre genau hin</div>
+        <button class="listen-play-btn" id="listenPlayBtn">🔊</button>
+        <div class="listen-options" id="listenOptions"></div>
+        <div class="listen-feedback" id="listenFeedback"></div>
+      </div>
+    </div>
+    <div class="nav-row">
+      <button class="btn btn-ghost" data-prev>◀ Zurück</button>
+      <button class="btn btn-primary" data-next>Weiter ▶</button>
+    </div>
+  </section>
+
+  <!-- 3: MISSION 3 - BLITZ-ZAHLEN -->
+  <section class="screen" id="screen-m3">
+    <div class="card">
+      <h2 class="section-title">⚡ Blitz-Zahlen</h2>
+      <p class="section-sub">Schau schnell hin – dann wähle das richtige Wort!</p>
+      <div class="challenge-progress-wrap">
+        <div class="challenge-progress-label"><span>Runde</span><span id="blitzProgressText">1/6</span></div>
+        <div class="progress-track"><div class="progress-fill" id="blitzProgressFill" style="width:0%;"></div></div>
+      </div>
+      <div class="blitz-card">
+        <div class="blitz-number" id="blitzNumber">–</div>
+        <div class="blitz-timerbar"><div class="blitz-timerfill" id="blitzTimerFill"></div></div>
+        <div class="blitz-question" id="blitzQuestion" style="display:none;">Wie heißt die Zahl?</div>
+        <div class="blitz-options" id="blitzOptions"></div>
+      </div>
+      <button class="btn btn-secondary btn-block" id="blitzStartBtn">▶ Runde starten</button>
+    </div>
+    <div class="nav-row">
+      <button class="btn btn-ghost" data-prev>◀ Zurück</button>
+      <button class="btn btn-primary" data-next>Weiter ▶</button>
+    </div>
+  </section>
+
+  <!-- 4: MISSION 4 - ZAHLEN-PUZZLE -->
+  <section class="screen" id="screen-m4">
+    <div class="card">
+      <h2 class="section-title">🧩 Zahlen-Puzzle</h2>
+      <p class="section-sub">Baue die Zahlwörter 13–19 selbst zusammen. Tippe die Teile in der richtigen Reihenfolge!</p>
+      <div class="puzzle-build-card">
+        <div class="puzzle-round-label" id="puzzleRoundLabel"></div>
+        <div class="puzzle-target-num" id="puzzleTargetNum"></div>
+        <div class="puzzle-pieces" id="puzzlePieces"></div>
+        <div class="puzzle-result" id="puzzleResult"></div>
+      </div>
+    </div>
+    <div class="card">
+      <h2 class="section-title" style="margin-top:0;">⭐ Besondere Zahlen</h2>
+      <p class="section-sub">Diese Zahlen sind ein bisschen anders. Tippe, um sie zu hören.</p>
+      <div class="special-grid" id="specialGrid"></div>
+    </div>
+    <div class="card">
+      <h2 class="section-title" style="margin-top:0;">🧩 Übung</h2>
+      <p class="section-sub">Wähle die richtige Antwort.</p>
+      <div id="puzzleQuiz"></div>
+    </div>
+    <div class="nav-row">
+      <button class="btn btn-ghost" data-prev>◀ Zurück</button>
+      <button class="btn btn-primary" data-next>Weiter ▶</button>
+    </div>
+  </section>
+
+  <!-- 5: MISSION 5 - IM GESCHÄFT -->
+  <section class="screen" id="screen-m5">
+    <div class="card">
+      <h2 class="section-title">🛒 Im Geschäft</h2>
+      <p class="section-sub">Tippe auf ein Produkt, um den Preis zu hören.</p>
+      <div class="shop-grid" id="shopGrid"></div>
+    </div>
+    <div class="card">
+      <h2 class="section-title" style="margin-top:0;">💶 Wie viel kostet das?</h2>
+      <div id="shopQuiz1"></div>
+    </div>
+    <div class="card">
+      <h2 class="section-title" style="margin-top:0;">➕ Rechne zusammen!</h2>
+      <p class="section-sub">Wie viel kostet alles zusammen?</p>
+      <div id="shopQuiz2"></div>
+    </div>
+    <div class="nav-row">
+      <button class="btn btn-ghost" data-prev>◀ Zurück</button>
+      <button class="btn btn-primary" data-next>Weiter ▶</button>
+    </div>
+  </section>
+
+  <!-- 6: MISSION 6 - DIE TELEFONNUMMER -->
+  <section class="screen" id="screen-m6">
+    <div class="card">
+      <h2 class="section-title">📱 Die Telefonnummer</h2>
+      <p class="section-sub">Hör zu und tippe die Nummer.</p>
+      <div class="phone-avatar-row">
+        <div class="phone-avatar">👩</div>
+        <div style="font-family:'Fredoka',sans-serif;font-weight:700;font-size:14.5px;">Hallo! Wie ist deine Telefonnummer?</div>
+      </div>
+      <div style="text-align:center;"><button class="listen-play-btn" id="phoneListenBtn">🔊</button></div>
+      <div class="phone-input-row">
+        <input type="text" class="phone-input" id="phoneInput" placeholder="z. B. 0123 4567" inputmode="numeric">
+        <button class="btn btn-primary btn-sm" id="phoneCheckBtn">Prüfen</button>
+      </div>
+      <div class="listen-feedback" id="phoneFeedback"></div>
+    </div>
+    <div class="card">
+      <h2 class="section-title" style="margin-top:0;">🗣️ Sprich die Telefonnummer!</h2>
+      <p class="section-sub">Lies die Nummer laut vor. Tippe 🔊, um sie zur Hilfe zu hören.</p>
+      <div class="phone-display" id="phoneDisplay2"></div>
+      <div style="text-align:center;"><button class="btn btn-secondary" id="phoneListenBtn2">🔊 Anhören</button></div>
+      <button class="btn btn-sage btn-block" id="phoneSpokeBtn" style="margin-top:12px;">✓ Ich habe es gesagt</button>
+      <div class="speaking-done" id="phoneSpokeDone">🎉 Super! Du kannst Telefonnummern sagen!</div>
+    </div>
+    <div class="nav-row">
+      <button class="btn btn-ghost" data-prev>◀ Zurück</button>
+      <button class="btn btn-primary" data-next>Zum Finale ▶</button>
+    </div>
+  </section>
+
+  <!-- 7: FINAL MISSION - KNACKE DEN ZAHLENCODE -->
+  <section class="screen" id="screen-final">
+    <div class="card" style="text-align:center;">
+      <h2 class="section-title" style="justify-content:center;">🔐 Knacke den Zahlencode!</h2>
+      <p class="section-sub">Löse alle 4 Herausforderungen und öffne den Safe.</p>
+      <div class="safe-emoji" id="safeEmoji">🔒</div>
+      <div class="lock-wrap" id="lockWrap"></div>
+    </div>
+    <div class="final-challenge-card" id="finalChallengeCard"></div>
+    <div class="card mission-hero" id="finalSuccessCard" style="display:none;">
+      <div class="trophy">🎉</div>
+      <h2 style="margin:0;">CODE GEKNACKT!</h2>
+      <p style="color:var(--ink-soft);">Herzlichen Glückwunsch! 🎉<br>Du kannst jetzt die Zahlen von 0 bis 20!</p>
+    </div>
+    <div class="nav-row">
+      <button class="btn btn-ghost" data-prev>◀ Zurück</button>
+      <button class="btn btn-primary" data-next>Zur Auswertung ▶</button>
+    </div>
+  </section>
+
+  <!-- 8: END-OF-LESSON SUMMARY -->
+  <section class="screen" id="screen-summary">
+    <div class="card mission-hero">
+      <div class="trophy">🏆</div>
+      <h1 style="margin:0;">🎯 Heute gelernt</h1>
+      <ul class="goals-list" style="text-align:left;">
+        <li><span class="goal-check">✓</span> 0–20 auf Deutsch</li>
+        <li><span class="goal-check">✓</span> Zahlen hören 👂</li>
+        <li><span class="goal-check">✓</span> Zahlen lesen 👀</li>
+        <li><span class="goal-check">✓</span> Zahlen schreiben ✍️</li>
+        <li><span class="goal-check">✓</span> Preise verstehen 💶</li>
+        <li><span class="goal-check">✓</span> Telefonnummern verstehen 📱</li>
+      </ul>
+      <div class="xp-total"><span>⭐ Dein Ergebnis</span>⭐ <span id="summaryXP">0</span> XP</div>
+      <div class="badge-plate">
+        <div style="font-size:26px;">🎖️</div>
+        <div class="badge-name">ZAHLEN-PROFI</div>
+      </div>
+      <p id="summaryMessage" style="font-family:'Fredoka',sans-serif;font-weight:700;color:var(--coral-dark);"></p>
+      <button class="btn btn-sage btn-block" id="restartBtn">🔄 Noch einmal spielen</button>
+    </div>
+  </section>
+
+</div>
+
+<script>
+/* ===================== DATA ===================== */
+const numberWords = {0:'null',1:'eins',2:'zwei',3:'drei',4:'vier',5:'fünf',6:'sechs',7:'sieben',8:'acht',9:'neun',10:'zehn',11:'elf',12:'zwölf',13:'dreizehn',14:'vierzehn',15:'fünfzehn',16:'sechzehn',17:'siebzehn',18:'achtzehn',19:'neunzehn',20:'zwanzig'};
+const zigWords = {2:'zwanzig',3:'dreißig',4:'vierzig',5:'fünfzig',6:'sechzig',7:'siebzig',8:'achtzig',9:'neunzig'};
+
+const shopProducts = [
+  { icon:'🥖', name:'Brot', price:2 },
+  { icon:'🍎', name:'Apfel', price:3 },
+  { icon:'🥛', name:'Milch', price:4 },
+  { icon:'🍕', name:'Pizza', price:7 },
+  { icon:'🍫', name:'Schokolade', price:5 }
+];
+const shopQuiz1Data = [
+  { q:'Wie viel kostet das Brot? 🥖', opts:['2 €','4 €','7 €'], correct:'2 €' },
+  { q:'Wie viel kostet die Milch? 🥛', opts:['3 €','4 €','5 €'], correct:'4 €' },
+  { q:'Wie viel kostet die Pizza? 🍕', opts:['5 €','6 €','7 €'], correct:'7 €' }
+];
+const shopQuiz2Data = [
+  { q:'Du kaufst Brot und Milch. Wie viel kostet alles? 🥖🥛', opts:['5 €','6 €','9 €'], correct:'6 €' },
+  { q:'Du kaufst Apfel und Schokolade. Wie viel kostet alles? 🍎🍫', opts:['7 €','8 €','9 €'], correct:'8 €' },
+  { q:'Du kaufst Pizza und Brot. Wie viel kostet alles? 🍕🥖', opts:['8 €','9 €','10 €'], correct:'9 €' }
+];
+
+const teenOrder = [13,14,15,16,17,18,19];
+const teenPieces = { 13:['drei','zehn'], 14:['vier','zehn'], 15:['fünf','zehn'], 16:['sech','zehn'], 17:['sieb','zehn'], 18:['acht','zehn'], 19:['neun','zehn'] };
+const specialNumbers = [0,1,11,12,20];
+const puzzleQuizData = [
+  { q:'Wie sagt man 14 auf Deutsch?', opts:['vierzehn','vierzig','vier'], correct:'vierzehn' },
+  { q:'Wie sagt man 17 auf Deutsch?', opts:['siebzehn','siebzig','sieben'], correct:'siebzehn' },
+  { q:'Wie sagt man 12 auf Deutsch?', opts:['zwölf','zwei','zwanzig'], correct:'zwölf' },
+  { q:'Wie sagt man 20 auf Deutsch?', opts:['zwanzig','zwölf','zehn'], correct:'zwanzig' },
+  { q:'Wie sagt man 11 auf Deutsch?', opts:['elf','eins','zehn'], correct:'elf' }
+];
+
+const phoneNumber1 = '01594726';
+const phoneNumber2 = '0173824';
+
+const finalChallenges = [
+  { type:'listen', prompt:'🔊 Hör zu und tippe die Zahl (als Ziffer).', word:16, answer:'16' },
+  { type:'read', prompt:'Wie heißt diese Zahl?', display:'12', answer:'zwölf' },
+  { type:'calc', prompt:'7 + 5 = ?', answer:'12' },
+  { type:'phone', prompt:'🔊 Hör die Telefonnummer und tippe sie.', digits:'042', answer:'042' }
+];
+
+const praiseWords = ['Super! 🎉','Genau!','Sehr gut! 👏','Toll gemacht!'];
+
+/* ===================== STATE ===================== */
+let xp = 0;
+const screens = ['screen-start','screen-m1','screen-m2','screen-m3','screen-m4','screen-m5','screen-m6','screen-final','screen-summary'];
+let currentScreen = 0;
+const missionEyebrow = {
+  'screen-start':'🔐 Deine Mission',
+  'screen-m1':'Mission 1 / 6',
+  'screen-m2':'Mission 2 / 6',
+  'screen-m3':'Mission 3 / 6',
+  'screen-m4':'Mission 4 / 6',
+  'screen-m5':'Mission 5 / 6',
+  'screen-m6':'Mission 6 / 6',
+  'screen-final':'🔐 Finale',
+  'screen-summary':'Fertig! 🎉'
+};
+
+/* ===================== SPEECH ===================== */
+let germanVoice = null;
+function pickVoice(){
+  const voices = speechSynthesis.getVoices();
+  germanVoice = voices.find(v => v.lang && v.lang.toLowerCase().startsWith('de')) || null;
+}
+if ('speechSynthesis' in window) {
+  pickVoice();
+  speechSynthesis.onvoiceschanged = pickVoice;
+}
+function speak(text, onEnd){
+  if (!('speechSynthesis' in window)) { if (onEnd) onEnd(); return; }
+  speechSynthesis.cancel();
+  const u = new SpeechSynthesisUtterance(text);
+  u.lang = 'de-DE';
+  if (germanVoice) u.voice = germanVoice;
+  u.rate = 0.9;
+  const lexi = document.getElementById('lexiAvatar');
+  lexi.classList.add('talking');
+  u.onend = () => { lexi.classList.remove('talking'); if (onEnd) onEnd(); };
+  u.onerror = () => { lexi.classList.remove('talking'); if (onEnd) onEnd(); };
+  speechSynthesis.speak(u);
+}
+
+/* ===================== NAVIGATION / PROGRESS ===================== */
+function renderStamps(){
+  const row = document.getElementById('stampsRow');
+  row.innerHTML = screens.map((s,i) => `<div class="stamp-dot" id="stamp-${i}"></div>`).join('');
+}
+function updateHeader(){
+  screens.forEach((s,i) => {
+    const dot = document.getElementById('stamp-'+i);
+    dot.className = 'stamp-dot' + (i < currentScreen ? ' done' : '') + (i === currentScreen ? ' current' : '');
+  });
+  const pct = Math.round((currentScreen / (screens.length - 1)) * 100);
+  document.getElementById('progressFill').style.width = pct + '%';
+  document.getElementById('xpCount').textContent = xp;
+  document.getElementById('passportEyebrow').textContent = missionEyebrow[screens[currentScreen]] || '';
+  const summaryXP = document.getElementById('summaryXP');
+  if (summaryXP) {
+    summaryXP.textContent = xp;
+    const msgEl = document.getElementById('summaryMessage');
+    if (xp >= 250) msgEl.textContent = 'Super! Du bist ein Zahlen-Profi! 🏆';
+    else if (xp >= 120) msgEl.textContent = 'Sehr gut! Noch ein bisschen üben und du schaffst es! 💪';
+    else msgEl.textContent = 'Kein Problem! Übung macht den Meister. 🔄';
+  }
+}
+function showScreen(i){
+  document.getElementById(screens[currentScreen]).classList.remove('active');
+  currentScreen = Math.max(0, Math.min(screens.length - 1, i));
+  document.getElementById(screens[currentScreen]).classList.add('active');
+  updateHeader();
+  window.scrollTo({ top: 0, behavior: 'smooth' });
+  document.getElementById('lexiTip').classList.remove('show');
+}
+function addXP(n){ xp += n; document.getElementById('xpCount').textContent = xp; }
+
+document.querySelectorAll('[data-next]').forEach(b => b.addEventListener('click', () => showScreen(currentScreen + 1)));
+document.querySelectorAll('[data-prev]').forEach(b => b.addEventListener('click', () => showScreen(currentScreen - 1)));
+
+/* ===================== GENERIC MULTIPLE CHOICE ===================== */
+function renderMC(containerId, data, prefix, xpEach){
+  const wrap = document.getElementById(containerId);
+  wrap.innerHTML = data.map((item, i) => `
+    <div class="situation-card">
+      <div class="situation-text">${item.q}</div>
+      <div class="mc-options">${item.opts.map(o => `<button class="mc-opt" data-opt="${o}">${o}</button>`).join('')}</div>
+      <div class="mc-feedback" id="${prefix}fb-${i}"></div>
+    </div>`).join('');
+  data.forEach((item, i) => {
+    const card = wrap.children[i];
+    const fb = card.querySelector(`#${prefix}fb-${i}`);
+    let answered = false;
+    card.querySelectorAll('.mc-opt').forEach(btn => {
+      btn.addEventListener('click', () => {
+        if (answered) return;
+        answered = true;
+        const chosen = btn.dataset.opt;
+        speak(chosen);
+        if (chosen === item.correct) {
+          btn.classList.add('correct');
+          fb.textContent = praiseWords[Math.floor(Math.random()*praiseWords.length)];
+          fb.className = 'mc-feedback ok';
+          addXP(xpEach);
+        } else {
+          btn.classList.add('incorrect');
+          card.querySelectorAll('.mc-opt').forEach(b => { if (b.dataset.opt === item.correct) b.classList.add('correct'); });
+          fb.textContent = 'Richtig ist: „' + item.correct + '“';
+          fb.className = 'mc-feedback bad';
+        }
+      });
+    });
+  });
+}
+
+/* ===================== HELPERS ===================== */
+function randInt(min,max){ return Math.floor(Math.random()*(max-min+1))+min; }
+function pickDistractors(correct, poolMin, poolMax, count){
+  let pool = [];
+  for(let i=poolMin;i<=poolMax;i++) if(i!==correct) pool.push(i);
+  pool.sort(() => Math.random()-0.5);
+  return pool.slice(0,count);
+}
+
+/* ===================== MISSION 1: ENTDECKE DIE ZAHLEN ===================== */
+function dotsHTML(n){
+  if (n === 0) return '<span style="font-size:10px;color:var(--ink-soft);">–</span>';
+  if (n <= 10) return Array.from({length:n}).map(() => '<span class="nc-dot"></span>').join('');
+  const rest = n - 10;
+  return Array.from({length:10}).map(() => '<span class="nc-dot"></span>').join('') +
+         '<span class="nc-plus">+</span>' +
+         Array.from({length:rest}).map(() => '<span class="nc-dot group2"></span>').join('');
+}
+function renderNumbers(){
+  const wrap = document.getElementById('numberGrid');
+  wrap.innerHTML = Array.from({length:21}).map((_,n) => `
+    <div class="number-card" id="num-${n}">
+      <div class="nc-num">${n}</div>
+      <div class="nc-speaker">🔊</div>
+      <div class="nc-word">${numberWords[n]}</div>
+      <div class="nc-dots">${dotsHTML(n)}</div>
+    </div>`).join('');
+  for (let n = 0; n <= 20; n++) {
+    document.getElementById('num-'+n).addEventListener('click', () => revealAndSpeak(n));
+  }
+  document.getElementById('playAllBtn').addEventListener('click', () => playAllNumbers(0));
+}
+function revealAndSpeak(n, onEnd){
+  const card = document.getElementById('num-'+n);
+  card.classList.add('revealed');
+  if (!card.classList.contains('done')) { card.classList.add('done'); addXP(5); }
+  document.querySelectorAll('.number-card').forEach(c => c.classList.remove('playing'));
+  card.classList.add('playing');
+  speak(numberWords[n], () => { card.classList.remove('playing'); if (onEnd) onEnd(); });
+}
+function playAllNumbers(i){
+  if (i > 20) return;
+  revealAndSpeak(i, () => setTimeout(() => playAllNumbers(i+1), 120));
+}
+
+/* ===================== MISSION 2: HÖR ZU! ===================== */
+let listenRounds = [], listenIndex = 0;
+function makeListenRound(){
+  const correct = randInt(0,20);
+  const distractors = pickDistractors(correct,0,20,2);
+  const opts = [correct,...distractors].sort(() => Math.random()-0.5);
+  return { correct, opts };
+}
+function renderListening(){
+  listenRounds = Array.from({length:6}, () => makeListenRound());
+  listenIndex = 0;
+  document.getElementById('listenPlayBtn').addEventListener('click', () => speak(numberWords[listenRounds[listenIndex].correct]));
+  showListenRound();
+}
+function showListenRound(){
+  const round = listenRounds[listenIndex];
+  document.getElementById('listenProgressText').textContent = (listenIndex+1)+'/6';
+  document.getElementById('listenProgressFill').style.width = Math.round((listenIndex/6)*100)+'%';
+  const optsWrap = document.getElementById('listenOptions');
+  optsWrap.innerHTML = round.opts.map(o => `<button class="listen-opt" data-val="${o}">${o}</button>`).join('');
+  const fb = document.getElementById('listenFeedback');
+  fb.textContent = ''; fb.className = 'listen-feedback';
+  let answered = false;
+  optsWrap.querySelectorAll('.listen-opt').forEach(btn => {
+    btn.addEventListener('click', () => {
+      if (answered) return;
+      if (parseInt(btn.dataset.val) === round.correct) {
+        answered = true;
+        btn.classList.add('correct');
+        fb.textContent = '🎉 Richtig!'; fb.className = 'listen-feedback ok';
+        addXP(10);
+        document.getElementById('listenProgressFill').style.width = Math.round(((listenIndex+1)/6)*100)+'%';
+        setTimeout(() => {
+          listenIndex++;
+          if (listenIndex < 6) { showListenRound(); }
+          else { fb.textContent = '🏆 Alle Runden geschafft!'; }
+        }, 1100);
+      } else {
+        btn.classList.add('incorrect');
+        fb.textContent = 'Fast! Versuch es noch einmal. 💪'; fb.className = 'listen-feedback bad';
+      }
+    });
+  });
+  speak(numberWords[round.correct]);
+}
+
+/* ===================== MISSION 3: BLITZ-ZAHLEN ===================== */
+let blitzRounds = [], blitzIndex = 0;
+function makeBlitzDistractors(n){
+  let opts = [numberWords[n]];
+  if (n >= 13 && n <= 19) {
+    const unit = n - 10;
+    opts.push(numberWords[unit]);
+    if (zigWords[unit]) opts.push(zigWords[unit]);
+  } else if (n === 11) {
+    opts.push(numberWords[1], numberWords[10]);
+  } else if (n === 12) {
+    opts.push(numberWords[2], numberWords[10]);
+  } else if (n === 20) {
+    opts.push(numberWords[2], numberWords[10]);
+  } else {
+    pickDistractors(n,0,10,2).forEach(d => opts.push(numberWords[d]));
+  }
+  opts = [...new Set(opts)];
+  while (opts.length < 3) {
+    const r = numberWords[randInt(0,20)];
+    if (!opts.includes(r)) opts.push(r);
+  }
+  return opts.slice(0,3).sort(() => Math.random()-0.5);
+}
+function renderBlitz(){
+  blitzRounds = [...Array(21).keys()].sort(() => Math.random()-0.5).slice(0,6);
+  blitzIndex = 0;
+  updateBlitzProgress();
+  resetBlitzRound();
+  document.getElementById('blitzStartBtn').addEventListener('click', startBlitzRound);
+}
+function updateBlitzProgress(){
+  document.getElementById('blitzProgressText').textContent = (blitzIndex+1)+'/6';
+  document.getElementById('blitzProgressFill').style.width = Math.round((blitzIndex/6)*100)+'%';
+}
+function resetBlitzRound(){
+  document.getElementById('blitzNumber').textContent = '–';
+  document.getElementById('blitzQuestion').style.display = 'none';
+  document.getElementById('blitzOptions').innerHTML = '';
+  const fill = document.getElementById('blitzTimerFill');
+  fill.style.transition = 'none'; fill.style.width = '100%';
+  document.getElementById('blitzStartBtn').style.display = 'inline-flex';
+}
+function startBlitzRound(){
+  document.getElementById('blitzStartBtn').style.display = 'none';
+  const n = blitzRounds[blitzIndex];
+  const numEl = document.getElementById('blitzNumber');
+  numEl.textContent = n;
+  const fill = document.getElementById('blitzTimerFill');
+  fill.style.transition = 'none'; fill.style.width = '100%';
+  requestAnimationFrame(() => requestAnimationFrame(() => {
+    fill.style.transition = 'width 1.4s linear'; fill.style.width = '0%';
+  }));
+  setTimeout(() => { numEl.textContent = '❓'; showBlitzOptions(n); }, 1400);
+}
+function showBlitzOptions(n){
+  document.getElementById('blitzQuestion').style.display = 'block';
+  const opts = makeBlitzDistractors(n);
+  const wrap = document.getElementById('blitzOptions');
+  wrap.innerHTML = opts.map(w => `<button class="blitz-opt" data-word="${w}">${w}</button>`).join('');
+  let answered = false;
+  wrap.querySelectorAll('.blitz-opt').forEach(btn => {
+    btn.addEventListener('click', () => {
+      if (answered) return;
+      if (btn.dataset.word === numberWords[n]) {
+        answered = true;
+        btn.classList.add('correct');
+        addXP(10);
+        setTimeout(() => {
+          blitzIndex++;
+          if (blitzIndex < 6) { updateBlitzProgress(); resetBlitzRound(); }
+          else {
+            document.getElementById('blitzProgressFill').style.width = '100%';
+            document.getElementById('blitzQuestion').textContent = '🏆 Alle Runden geschafft!';
+          }
+        }, 900);
+      } else {
+        btn.classList.add('incorrect');
+      }
+    });
+  });
+}
+
+/* ===================== MISSION 4: ZAHLEN-PUZZLE ===================== */
+let puzzleIndex = 0;
+function renderPuzzle(){
+  puzzleIndex = 0;
+  showPuzzleRound();
+  renderSpecialNumbers();
+  renderMC('puzzleQuiz', puzzleQuizData, 'pz', 5);
+}
+function showPuzzleRound(){
+  const n = teenOrder[puzzleIndex];
+  document.getElementById('puzzleRoundLabel').textContent = `Zahl ${puzzleIndex+1} / ${teenOrder.length}`;
+  document.getElementById('puzzleTargetNum').textContent = n;
+  document.getElementById('puzzleResult').textContent = '';
+  const [unit, zehn] = teenPieces[n];
+  const decoyPool = teenOrder.filter(x => x !== n).map(x => teenPieces[x][0]);
+  const decoy = decoyPool[Math.floor(Math.random()*decoyPool.length)];
+  const pieces = [unit, zehn, decoy].sort(() => Math.random()-0.5);
+  const wrap = document.getElementById('puzzlePieces');
+  wrap.innerHTML = pieces.map(p => `<div class="puzzle-piece" data-piece="${p}">${p}</div>`).join('');
+  let firstPicked = null;
+  wrap.querySelectorAll('.puzzle-piece').forEach(el => {
+    el.addEventListener('click', () => {
+      if (el.classList.contains('picked')) return;
+      const val = el.dataset.piece;
+      if (!firstPicked) {
+        if (val === unit) { firstPicked = el; el.classList.add('picked'); }
+        else { el.classList.add('wrong-shake'); setTimeout(() => el.classList.remove('wrong-shake'), 400); }
+      } else {
+        if (val === zehn) {
+          el.classList.add('picked');
+          const full = numberWords[n];
+          document.getElementById('puzzleResult').textContent = full;
+          speak(full);
+          addXP(5);
+          setTimeout(() => {
+            puzzleIndex++;
+            if (puzzleIndex < teenOrder.length) { showPuzzleRound(); }
+            else {
+              document.getElementById('puzzleTargetNum').textContent = '🏆';
+              document.getElementById('puzzleResult').textContent = 'Muster entdeckt!';
+              document.getElementById('puzzlePieces').innerHTML = '';
+            }
+          }, 1000);
+        } else {
+          el.classList.add('wrong-shake'); setTimeout(() => el.classList.remove('wrong-shake'), 400);
+        }
+      }
+    });
+  });
+}
+function renderSpecialNumbers(){
+  const wrap = document.getElementById('specialGrid');
+  wrap.innerHTML = specialNumbers.map(n => `<div class="special-card" data-n="${n}"><div class="sp-num">${n}</div><div class="sp-word">${numberWords[n]}</div></div>`).join('');
+  wrap.querySelectorAll('.special-card').forEach(el => el.addEventListener('click', () => {
+    speak(numberWords[+el.dataset.n]);
+    el.classList.add('done');
+  }));
+}
+
+/* ===================== MISSION 5: IM GESCHÄFT ===================== */
+function renderShop(){
+  const wrap = document.getElementById('shopGrid');
+  wrap.innerHTML = shopProducts.map(p => `
+    <div class="shop-item" data-speak="Das ${p.name} kostet ${numberWords[p.price]} Euro.">
+      <div class="si-icon">${p.icon}</div>
+      <div class="si-name">${p.name}</div>
+      <div class="si-price">${p.price} €</div>
+    </div>`).join('');
+  wrap.querySelectorAll('.shop-item').forEach(el => el.addEventListener('click', () => speak(el.dataset.speak)));
+  renderMC('shopQuiz1', shopQuiz1Data, 'sq1', 8);
+  renderMC('shopQuiz2', shopQuiz2Data, 'sq2', 12);
+}
+
+/* ===================== MISSION 6: DIE TELEFONNUMMER ===================== */
+function renderPhone1(){
+  const spoken = phoneNumber1.split('').map(d => numberWords[+d]).join(' ');
+  document.getElementById('phoneListenBtn').addEventListener('click', () => speak(spoken));
+  document.getElementById('phoneCheckBtn').addEventListener('click', () => {
+    const val = document.getElementById('phoneInput').value.replace(/[^0-9]/g,'');
+    const fb = document.getElementById('phoneFeedback');
+    if (val === phoneNumber1) {
+      fb.textContent = '🎉 Richtig! Perfekt gehört!'; fb.className = 'listen-feedback ok';
+      addXP(15);
+    } else {
+      fb.textContent = 'Fast! Hör noch einmal genau hin. 💪'; fb.className = 'listen-feedback bad';
+    }
+  });
+  speak(spoken);
+}
+function renderPhone2(){
+  document.getElementById('phoneDisplay2').textContent = '0173 824';
+  const spoken = phoneNumber2.split('').map(d => numberWords[+d]).join(' ');
+  document.getElementById('phoneListenBtn2').addEventListener('click', () => speak(spoken));
+  document.getElementById('phoneSpokeBtn').addEventListener('click', () => {
+    document.getElementById('phoneSpokeDone').classList.add('show');
+    addXP(5);
+  });
+}
+
+/* ===================== FINAL MISSION: ZAHLENCODE ===================== */
+let finalIndex = 0;
+function renderFinal(){
+  finalIndex = 0;
+  document.getElementById('lockWrap').innerHTML = finalChallenges.map((_,i) => `<div class="lock-digit" id="lock-${i}">•</div>`).join('');
+  document.getElementById('safeEmoji').textContent = '🔒';
+  document.getElementById('safeEmoji').classList.remove('open');
+  document.getElementById('finalSuccessCard').style.display = 'none';
+  document.getElementById('finalChallengeCard').style.display = 'block';
+  showFinalChallenge();
+}
+function showFinalChallenge(){
+  const c = finalChallenges[finalIndex];
+  const card = document.getElementById('finalChallengeCard');
+  let inner = `<div class="puzzle-round-label">Herausforderung ${finalIndex+1} / 4</div>`;
+  inner += `<div style="font-family:'Fredoka',sans-serif;font-weight:700;font-size:16px;margin-bottom:10px;text-align:center;">${c.prompt}</div>`;
+  if (c.type === 'listen' || c.type === 'phone') {
+    inner += `<div style="text-align:center;"><button class="listen-play-btn" id="finalPlayBtn">🔊</button></div>`;
+  } else if (c.type === 'read') {
+    inner += `<div class="puzzle-target-num" style="text-align:center;">${c.display}</div>`;
+  }
+  inner += `<div class="final-input-row"><input type="text" class="final-input" id="finalInput" placeholder="Antwort..."><button class="btn btn-primary btn-sm" id="finalCheckBtn">✓</button></div>`;
+  inner += `<div class="listen-feedback" id="finalFeedback"></div>`;
+  card.innerHTML = inner;
+
+  if (c.type !== 'read') document.getElementById('finalInput').setAttribute('inputmode','numeric');
+
+  if (c.type === 'listen') {
+    document.getElementById('finalPlayBtn').addEventListener('click', () => speak(numberWords[c.word]));
+    speak(numberWords[c.word]);
+  }
+  if (c.type === 'phone') {
+    const spoken = c.digits.split('').map(d => numberWords[+d]).join(' ');
+    document.getElementById('finalPlayBtn').addEventListener('click', () => speak(spoken));
+    speak(spoken);
+  }
+  document.getElementById('finalCheckBtn').addEventListener('click', checkFinalAnswer);
+  document.getElementById('finalInput').addEventListener('keydown', e => { if (e.key === 'Enter') checkFinalAnswer(); });
+}
+function normalizeAnswer(s){ return s.trim().toLowerCase().replace(/\s+/g,''); }
+function checkFinalAnswer(){
+  const c = finalChallenges[finalIndex];
+  const val = document.getElementById('finalInput').value;
+  const fb = document.getElementById('finalFeedback');
+  if (normalizeAnswer(val) === normalizeAnswer(c.answer)) {
+    fb.textContent = '🎉 Richtig!'; fb.className = 'listen-feedback ok';
+    const lockEl = document.getElementById('lock-'+finalIndex);
+    lockEl.classList.add('solved'); lockEl.textContent = '★';
+    addXP(10);
+    setTimeout(() => {
+      finalIndex++;
+      if (finalIndex < finalChallenges.length) { showFinalChallenge(); }
+      else { finishFinal(); }
+    }, 900);
+  } else {
+    fb.textContent = 'Fast! Versuch es noch einmal. 💪'; fb.className = 'listen-feedback bad';
+  }
+}
+function finishFinal(){
+  document.getElementById('finalChallengeCard').style.display = 'none';
+  const safe = document.getElementById('safeEmoji');
+  safe.textContent = '🔓'; safe.classList.add('open');
+  document.getElementById('finalSuccessCard').style.display = 'block';
+  addXP(30);
+  launchConfetti();
+}
+function launchConfetti(){
+  const colors = ['#e8734a','#2f6f76','#e8b84b','#6f9c85','#d9605f'];
+  const container = document.createElement('div');
+  container.className = 'confetti-container';
+  document.body.appendChild(container);
+  for (let i = 0; i < 40; i++) {
+    const piece = document.createElement('div');
+    piece.className = 'confetti-piece';
+    piece.style.left = Math.random()*100 + '%';
+    piece.style.background = colors[Math.floor(Math.random()*colors.length)];
+    piece.style.animationDuration = (2 + Math.random()*1.5) + 's';
+    piece.style.animationDelay = (Math.random()*0.4) + 's';
+    container.appendChild(piece);
+  }
+  setTimeout(() => container.remove(), 4000);
+}
+
+/* ===================== SUMMARY ===================== */
+document.getElementById('restartBtn').addEventListener('click', () => location.reload());
+
+/* ===================== INIT ===================== */
+renderStamps();
+renderNumbers();
+renderListening();
+renderBlitz();
+renderPuzzle();
+renderShop();
+renderPhone1();
+renderPhone2();
+renderFinal();
+updateHeader();
+</script>
+</body>
+</html>
