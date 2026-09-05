@@ -1,0 +1,1407 @@
+<!DOCTYPE html>
+<html lang="de">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1">
+<title>Deutsch A1 – Dinge und Artikel</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Fredoka:wght@400;500;600;700&family=Nunito:wght@400;600;700;800&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --cream:#FBF6EC;
+    --paper:#FFFDF9;
+    --ink:#2B2118;
+    --ink-soft:#6b6053;
+    --teal:#2f6f76;
+    --teal-dark:#1f4d52;
+    --teal-light:#eaf3f3;
+    --coral:#e8734a;
+    --coral-dark:#c85a34;
+    --coral-light:#fdece3;
+    --gold:#e8b84b;
+    --gold-dark:#b9871f;
+    --sage:#6f9c85;
+    --sage-dark:#4f7b64;
+    --sage-light:#e9f3ee;
+    --rose:#d9605f;
+    --rose-dark:#a8403f;
+    --rose-light:#fbe3e0;
+    --line:#e7ddc9;
+    --shadow: 0 8px 24px rgba(43,33,24,0.10);
+    --radius:20px;
+  }
+  *{box-sizing:border-box;}
+  html,body{margin:0;padding:0;}
+  body{
+    background:
+      radial-gradient(circle at 8% 4%, #fff 0%, transparent 45%),
+      radial-gradient(circle at 92% 96%, #f3ead4 0%, transparent 40%),
+      var(--cream);
+    color:var(--ink);
+    font-family:'Nunito', sans-serif;
+    min-height:100vh;
+    -webkit-font-smoothing:antialiased;
+    padding-bottom:40px;
+  }
+  h1,h2,h3,.display{
+    font-family:'Fredoka', sans-serif;
+    font-weight:600;
+    letter-spacing:0.2px;
+  }
+  .app{
+    max-width:720px;
+    margin:0 auto;
+    padding:14px 16px 60px;
+  }
+  /* ---------- HEADER / PASSPORT ---------- */
+  .passport{
+    background:var(--paper);
+    border-radius:var(--radius);
+    box-shadow:var(--shadow);
+    padding:14px 16px 12px;
+    border-bottom:3px dashed var(--line);
+    position:sticky;
+    top:8px;
+    z-index:50;
+    margin-bottom:18px;
+  }
+  .passport-top{display:flex;align-items:center;gap:12px;}
+  .lexi-wrap{position:relative;flex-shrink:0;}
+  .lexi{
+    width:52px;height:52px;
+    border-radius:50%;
+    background:linear-gradient(155deg,#ffd9a8,var(--coral));
+    display:flex;align-items:center;justify-content:center;
+    font-size:28px;
+    box-shadow:0 4px 10px rgba(200,90,52,0.35);
+    animation:lexi-float 3.2s ease-in-out infinite;
+  }
+  @keyframes lexi-float{
+    0%,100%{transform:translateY(0) rotate(-3deg);}
+    50%{transform:translateY(-4px) rotate(3deg);}
+  }
+  .lexi.talking{animation:lexi-talk 0.35s ease-in-out infinite;}
+  @keyframes lexi-talk{0%,100%{transform:scale(1);}50%{transform:scale(1.08);}}
+  .passport-title{flex:1;min-width:0;}
+  .passport-title .eyebrow{
+    font-size:11px;
+    text-transform:uppercase;
+    letter-spacing:1.5px;
+    color:var(--teal);
+    font-weight:800;
+  }
+  .passport-title h1{font-size:17px;margin:1px 0 0;color:var(--ink);}
+  .xp-pill{
+    flex-shrink:0;
+    background:linear-gradient(155deg,#fff2cf,var(--gold));
+    border-radius:999px;
+    padding:7px 12px;
+    font-family:'Fredoka',sans-serif;
+    font-weight:600;
+    font-size:13px;
+    color:#5a4413;
+    box-shadow:0 3px 8px rgba(184,135,31,0.35);
+    display:flex;align-items:center;gap:4px;
+    white-space:nowrap;
+  }
+  .progress-track{
+    margin-top:12px;
+    height:10px;
+    background:var(--teal-light);
+    border-radius:999px;
+    overflow:hidden;
+    position:relative;
+  }
+  .progress-fill{
+    height:100%;
+    width:0%;
+    background:linear-gradient(90deg,var(--sage),var(--teal));
+    border-radius:999px;
+    transition:width .5s cubic-bezier(.4,1.4,.6,1);
+  }
+  .stamps-row{display:flex;justify-content:space-between;margin-top:7px;gap:2px;flex-wrap:wrap;}
+  .stamp-dot{
+    width:14px;height:14px;
+    border-radius:50%;
+    background:var(--teal-light);
+    border:2px solid var(--line);
+    font-size:8px;
+    display:flex;align-items:center;justify-content:center;
+    color:transparent;
+    transition:all .3s;
+    flex-shrink:0;
+  }
+  .stamp-dot.done{background:var(--sage);border-color:var(--sage-dark);color:#fff;}
+  .stamp-dot.current{border-color:var(--coral);box-shadow:0 0 0 3px var(--coral-light);}
+  .lexi-tip{
+    margin-top:10px;
+    background:var(--teal-light);
+    border-radius:14px;
+    padding:9px 12px;
+    font-size:13.5px;
+    color:var(--teal-dark);
+    line-height:1.4;
+    display:none;
+  }
+  .lexi-tip.show{display:block;}
+  .lexi-tip b{color:var(--teal-dark);}
+
+  /* ---------- SCREENS ---------- */
+  .screen{display:none;animation:fadein .4s ease;}
+  .screen.active{display:block;}
+  @keyframes fadein{from{opacity:0;transform:translateY(8px);}to{opacity:1;transform:translateY(0);}}
+
+  .card{
+    background:var(--paper);
+    border-radius:var(--radius);
+    box-shadow:var(--shadow);
+    padding:20px 18px;
+    margin-bottom:16px;
+  }
+  .section-title{display:flex;align-items:center;gap:8px;font-size:20px;margin:0 0 4px;}
+  .section-sub{color:var(--ink-soft);font-size:14px;margin:0 0 16px;}
+
+  /* ---------- START SCREEN ---------- */
+  .start-hero{text-align:center;padding:34px 18px 26px;}
+  .start-hero .big-lexi{
+    width:110px;height:110px;
+    border-radius:50%;
+    background:linear-gradient(155deg,#ffd9a8,var(--coral));
+    display:flex;align-items:center;justify-content:center;
+    font-size:58px;
+    margin:0 auto 18px;
+    box-shadow:0 10px 24px rgba(200,90,52,0.35);
+    animation:lexi-float 3.2s ease-in-out infinite;
+  }
+  .start-hero .lesson-tag{
+    display:inline-block;
+    background:var(--coral-light);
+    color:var(--coral-dark);
+    font-family:'Fredoka',sans-serif;
+    font-weight:600;
+    font-size:12.5px;
+    padding:6px 14px;
+    border-radius:999px;
+    margin-bottom:10px;
+  }
+  .start-hero h1{font-size:28px;margin:0 0 6px;color:var(--ink);}
+  .start-hero .subtitle{
+    color:var(--teal-dark);
+    font-weight:700;
+    font-family:'Fredoka',sans-serif;
+    font-size:15px;
+    margin:0 0 10px;
+  }
+  .start-hero p{color:var(--ink-soft);font-size:15.5px;max-width:420px;margin:0 auto 22px;line-height:1.5;}
+  .start-badges{display:flex;justify-content:center;gap:10px;flex-wrap:wrap;margin-bottom:24px;}
+  .start-badge{
+    background:var(--cream);
+    border:1.5px solid var(--line);
+    border-radius:12px;
+    padding:8px 12px;
+    font-size:12.5px;
+    color:var(--ink-soft);
+    font-weight:700;
+  }
+
+  /* ---------- BUTTONS ---------- */
+  .btn{
+    font-family:'Fredoka',sans-serif;
+    font-weight:600;
+    font-size:15px;
+    border:none;
+    border-radius:14px;
+    padding:13px 22px;
+    cursor:pointer;
+    display:inline-flex;align-items:center;justify-content:center;gap:7px;
+    transition:transform .15s, box-shadow .15s, opacity .15s;
+    min-height:46px;
+  }
+  .btn:active{transform:scale(0.96);}
+  .btn-primary{background:linear-gradient(155deg,var(--coral),var(--coral-dark));color:#fff;box-shadow:0 5px 14px rgba(200,90,52,0.35);}
+  .btn-secondary{background:var(--teal-light);color:var(--teal-dark);}
+  .btn-ghost{background:transparent;color:var(--ink-soft);border:1.5px solid var(--line);}
+  .btn-sage{background:linear-gradient(155deg,var(--sage),var(--sage-dark));color:#fff;box-shadow:0 5px 14px rgba(79,123,100,0.3);}
+  .btn:disabled{opacity:.45;cursor:not-allowed;transform:none;}
+  .btn-block{width:100%;}
+  .btn-sm{padding:8px 14px;font-size:13px;min-height:36px;border-radius:10px;}
+
+  .nav-row{display:flex;justify-content:space-between;gap:10px;margin-top:6px;}
+  .nav-row .btn{flex:1;}
+
+  /* ---------- LERNZIELE ---------- */
+  .goals-list{list-style:none;margin:0;padding:0;}
+  .goals-list li{display:flex;align-items:flex-start;gap:10px;padding:11px 4px;border-bottom:1px solid var(--line);font-size:15px;}
+  .goals-list li:last-child{border-bottom:none;}
+  .goal-check{
+    flex-shrink:0;
+    width:26px;height:26px;
+    border-radius:50%;
+    background:var(--sage-light);
+    color:var(--sage-dark);
+    display:flex;align-items:center;justify-content:center;
+    font-size:13px;font-weight:800;
+  }
+
+  /* ---------- ICON GRID (warm-up) ---------- */
+  .icon-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:10px;margin-bottom:16px;}
+  .icon-tile{
+    background:var(--cream);
+    border:1.5px solid var(--line);
+    border-radius:14px;
+    padding:12px 6px;
+    text-align:center;
+    cursor:pointer;
+    transition:all .18s;
+  }
+  .icon-tile:active{transform:scale(0.94);}
+  .icon-tile .ic-emoji{font-size:26px;margin-bottom:4px;}
+  .icon-tile .ic-word{font-family:'Fredoka',sans-serif;font-weight:600;font-size:11.5px;}
+  .icon-tile.chosen{background:var(--sage-light);border-color:var(--sage);}
+  .warmup-feedback{text-align:center;font-family:'Fredoka',sans-serif;font-weight:700;font-size:15px;color:var(--sage-dark);min-height:22px;margin-top:4px;}
+  @media (max-width:420px){ .icon-grid{grid-template-columns:repeat(3,1fr);} }
+
+  /* ---------- DEFINITION CARD ---------- */
+  .definition-card{
+    background:linear-gradient(155deg,var(--teal-light),#f7f3e6);
+    border-radius:16px;
+    padding:16px;
+    text-align:center;
+    margin-bottom:16px;
+  }
+  .definition-card .def-text{font-family:'Fredoka',sans-serif;font-weight:600;font-size:16px;color:var(--teal-dark);}
+  .team-msg{
+    text-align:center;
+    font-family:'Fredoka',sans-serif;
+    font-weight:600;
+    font-size:14.5px;
+    color:var(--coral-dark);
+    margin-top:14px;
+  }
+
+  /* ---------- ARTICLE COLOR SYSTEM ---------- */
+  .art-pill{
+    display:inline-flex;align-items:center;gap:5px;
+    font-family:'Fredoka',sans-serif;
+    font-weight:700;
+    font-size:12px;
+    padding:4px 11px;
+    border-radius:999px;
+    border:1.5px solid transparent;
+  }
+  .art-pill.art-der{background:var(--teal-light);color:var(--teal-dark);border-color:var(--teal);}
+  .art-pill.art-die{background:var(--rose-light);color:var(--rose-dark);border-color:var(--rose);}
+  .art-pill.art-das{background:var(--sage-light);color:var(--sage-dark);border-color:var(--sage);}
+
+  .article-trio{display:grid;grid-template-columns:repeat(3,1fr);gap:10px;}
+  .article-card{
+    border-radius:16px;
+    padding:16px 8px;
+    text-align:center;
+    cursor:pointer;
+    transition:all .18s;
+    border:2px solid transparent;
+  }
+  .article-card:active{transform:scale(0.95);}
+  .article-card .ac-dot{font-size:18px;}
+  .article-card .ac-word{font-family:'Fredoka',sans-serif;font-weight:700;font-size:17px;margin:4px 0;}
+  .article-card .ac-example{font-size:12px;line-height:1.3;}
+  .article-card.der{background:var(--teal-light);color:var(--teal-dark);}
+  .article-card.der.heard{border-color:var(--teal);}
+  .article-card.die{background:var(--rose-light);color:var(--rose-dark);}
+  .article-card.die.heard{border-color:var(--rose);}
+  .article-card.das{background:var(--sage-light);color:var(--sage-dark);}
+  .article-card.das.heard{border-color:var(--sage);}
+  @media (max-width:420px){ .article-trio{grid-template-columns:1fr;} }
+
+  /* ---------- VOCAB CARDS ---------- */
+  .vocab-grid{display:grid;grid-template-columns:1fr 1fr;gap:10px;}
+  .vocab-card{
+    background:var(--cream);
+    border:1.5px solid var(--line);
+    border-radius:14px;
+    padding:12px 10px;
+    text-align:center;
+    cursor:pointer;
+    transition:all .2s;
+    position:relative;
+  }
+  .vocab-card:active{transform:scale(0.96);}
+  .vocab-card .vc-icon{font-size:24px;margin-bottom:4px;}
+  .vocab-card .vc-text{font-family:'Fredoka',sans-serif;font-weight:600;font-size:14.5px;margin:4px 0 2px;}
+  .vocab-card .vc-meaning{font-size:11.5px;color:var(--ink-soft);line-height:1.3;margin-bottom:4px;}
+  .vocab-card .vc-example{font-size:11px;color:var(--teal-dark);font-style:italic;line-height:1.3;}
+  .vocab-card.done{background:var(--sage-light);border-color:var(--sage);}
+  .vocab-card .vc-check{position:absolute;top:6px;right:8px;font-size:12px;color:var(--sage-dark);opacity:0;}
+  .vocab-card.done .vc-check{opacity:1;}
+  .vc-speaker{font-size:14px;}
+  @media (max-width:420px){ .vocab-grid{grid-template-columns:1fr;} }
+
+  /* ---------- MEMORY TIP ---------- */
+  .memory-row{
+    display:flex;align-items:center;justify-content:center;gap:16px;
+    background:var(--cream);
+    border-radius:14px;
+    padding:14px;
+    margin-bottom:10px;
+  }
+  .memory-side{flex:1;text-align:center;}
+  .memory-side .mt-label{font-size:11px;color:var(--ink-soft);font-weight:800;text-transform:uppercase;letter-spacing:1px;margin-bottom:4px;}
+  .memory-side .mt-word{font-family:'Fredoka',sans-serif;font-weight:700;font-size:16px;}
+  .memory-side.wrong .mt-word{color:var(--rose-dark);text-decoration:line-through;text-decoration-color:var(--rose);}
+  .memory-side.right .mt-word{color:var(--sage-dark);}
+  .memory-arrow{font-size:18px;color:var(--ink-soft);flex-shrink:0;}
+  .memory-icon{font-size:22px;display:block;margin-bottom:2px;}
+
+  /* ---------- SITUATION / MC ---------- */
+  .situation-card{background:var(--cream);border-radius:14px;padding:14px;margin-bottom:12px;}
+  .situation-text{font-size:15px;font-weight:700;font-family:'Fredoka',sans-serif;margin-bottom:10px;display:flex;align-items:center;gap:8px;}
+  .situation-text .st-icon{font-size:22px;}
+  .mc-options{display:flex;flex-wrap:wrap;gap:8px;}
+  .mc-opt{
+    background:#fff;
+    border:1.5px solid var(--line);
+    border-radius:12px;
+    padding:9px 14px;
+    font-size:13.5px;
+    font-weight:700;
+    cursor:pointer;
+    font-family:'Fredoka',sans-serif;
+  }
+  .mc-opt.correct{background:var(--sage-light);border-color:var(--sage);color:var(--sage-dark);}
+  .mc-opt.incorrect{background:var(--rose-light);border-color:var(--rose);color:var(--rose-dark);}
+  .mc-feedback{margin-top:8px;font-size:13px;font-weight:700;min-height:18px;}
+  .mc-feedback.ok{color:var(--sage-dark);}
+  .mc-feedback.bad{color:var(--rose-dark);}
+
+  /* article-specific option buttons (der/die/das) */
+  .art-opt{
+    border-radius:12px;
+    padding:10px 18px;
+    font-size:14px;
+    font-weight:700;
+    font-family:'Fredoka',sans-serif;
+    cursor:pointer;
+    border:1.5px solid transparent;
+    transition:all .15s;
+  }
+  .art-opt.der{background:var(--teal-light);color:var(--teal-dark);border-color:var(--teal);}
+  .art-opt.die{background:var(--rose-light);color:var(--rose-dark);border-color:var(--rose);}
+  .art-opt.das{background:var(--sage-light);color:var(--sage-dark);border-color:var(--sage);}
+  .art-opt.correct{box-shadow:0 0 0 3px rgba(111,156,133,0.4);}
+  .art-opt.incorrect{opacity:.4;}
+  .art-opt:disabled{cursor:not-allowed;}
+
+  .wrong-shake{animation:shake .35s;}
+  @keyframes shake{0%,100%{transform:translateX(0);}25%{transform:translateX(-5px);}75%{transform:translateX(5px);}}
+
+  /* ---------- SORTING GAME ---------- */
+  .sort-bank{display:flex;flex-wrap:wrap;gap:8px;min-height:44px;margin-bottom:16px;padding:10px;background:var(--cream);border-radius:12px;}
+  .sort-chip{
+    background:#fff;
+    border:1.5px solid var(--line);
+    border-radius:999px;
+    padding:9px 15px;
+    font-size:13.5px;
+    font-weight:700;
+    font-family:'Fredoka',sans-serif;
+    cursor:pointer;
+    transition:all .15s;
+  }
+  .sort-chip.selected{border-color:var(--coral);background:var(--coral-light);transform:scale(1.06);}
+  .sort-columns{display:grid;grid-template-columns:repeat(3,1fr);gap:8px;}
+  .sort-col{
+    border-radius:14px;
+    padding:10px 6px;
+    min-height:120px;
+    text-align:center;
+    border:2px dashed var(--line);
+    transition:all .18s;
+  }
+  .sort-col .sc-title{font-family:'Fredoka',sans-serif;font-weight:700;font-size:14px;margin-bottom:8px;}
+  .sort-col.der{background:var(--teal-light);}
+  .sort-col.der .sc-title{color:var(--teal-dark);}
+  .sort-col.die{background:var(--rose-light);}
+  .sort-col.die .sc-title{color:var(--rose-dark);}
+  .sort-col.das{background:var(--sage-light);}
+  .sort-col.das .sc-title{color:var(--sage-dark);}
+  .sort-col .sc-items{display:flex;flex-direction:column;gap:6px;}
+  .sort-col .sc-item{background:#fff;border-radius:8px;padding:6px 8px;font-size:12.5px;font-weight:700;font-family:'Fredoka',sans-serif;}
+  @media (max-width:420px){ .sort-columns{grid-template-columns:1fr;} }
+  .sort-status{text-align:center;font-size:13px;color:var(--ink-soft);margin-top:12px;min-height:18px;}
+
+  /* ---------- DIALOGUE ---------- */
+  .dlg-controls{display:flex;gap:8px;justify-content:center;margin-bottom:16px;flex-wrap:wrap;}
+  .dlg-list{display:flex;flex-direction:column;gap:10px;margin-bottom:6px;}
+  .dlg-bubble{display:flex;gap:10px;align-items:flex-end;transition:all .2s;}
+  .dlg-bubble.b{flex-direction:row-reverse;}
+  .dlg-avatar{width:34px;height:34px;border-radius:50%;background:var(--cream);border:1.5px solid var(--line);display:flex;align-items:center;justify-content:center;font-size:18px;flex-shrink:0;}
+  .dlg-text{
+    background:var(--cream);
+    border-radius:14px;
+    padding:10px 14px;
+    font-size:14px;
+    font-weight:600;
+    max-width:75%;
+    border:1.5px solid transparent;
+  }
+  .dlg-bubble.b .dlg-text{background:var(--teal-light);color:var(--teal-dark);}
+  .dlg-bubble.active .dlg-text{border-color:var(--coral);box-shadow:0 0 0 3px var(--coral-light);}
+
+  /* ---------- CHALLENGE (timed) ---------- */
+  .challenge-progress-wrap{margin-bottom:16px;}
+  .challenge-progress-label{display:flex;justify-content:space-between;font-size:12.5px;color:var(--ink-soft);font-weight:700;margin-bottom:5px;}
+  .challenge-stage{text-align:center;padding:10px 0 6px;}
+  .challenge-timer-track{height:8px;background:var(--cream);border-radius:999px;overflow:hidden;margin:0 auto 18px;max-width:280px;}
+  .challenge-timer-bar{height:100%;width:100%;background:linear-gradient(90deg,var(--gold),var(--coral));border-radius:999px;}
+  .challenge-emoji-big{font-size:56px;margin-bottom:6px;}
+  .challenge-word-big{font-family:'Fredoka',sans-serif;font-weight:700;font-size:22px;margin-bottom:16px;}
+  .challenge-art-row{display:flex;gap:10px;justify-content:center;flex-wrap:wrap;margin-bottom:10px;}
+  .challenge-art-btn{min-width:84px;}
+
+  /* ---------- CHECKLIST ---------- */
+  .check-list{display:flex;flex-direction:column;gap:8px;}
+  .check-item{display:flex;align-items:center;gap:10px;background:var(--cream);border:1.5px solid var(--line);border-radius:12px;padding:12px 14px;cursor:pointer;transition:all .18s;}
+  .check-item.checked{background:var(--sage-light);border-color:var(--sage);}
+  .check-box{width:24px;height:24px;flex-shrink:0;border-radius:7px;border:2px solid var(--line);display:flex;align-items:center;justify-content:center;font-size:13px;color:transparent;background:#fff;transition:all .18s;}
+  .check-item.checked .check-box{background:var(--sage);border-color:var(--sage-dark);color:#fff;}
+  .check-text{font-size:14.5px;font-weight:700;font-family:'Fredoka',sans-serif;}
+  .checklist-done{display:none;text-align:center;padding:14px 0 4px;}
+  .checklist-done.show{display:block;}
+
+  /* ---------- MISSION ---------- */
+  .mission-hero{text-align:center;padding:20px 10px 10px;}
+  .trophy{font-size:64px;margin-bottom:6px;animation:trophy-pop .6s ease;}
+  @keyframes trophy-pop{0%{transform:scale(0) rotate(-20deg);}70%{transform:scale(1.15) rotate(6deg);}100%{transform:scale(1) rotate(0);}}
+  .badge-plate{background:linear-gradient(155deg,#fff2cf,var(--gold));border-radius:16px;padding:14px;text-align:center;margin:16px 0;box-shadow:0 6px 16px rgba(184,135,31,0.3);}
+  .badge-plate .badge-name{font-family:'Fredoka',sans-serif;font-weight:700;font-size:16px;color:#5a4413;letter-spacing:0.5px;}
+  .xp-total{text-align:center;font-family:'Fredoka',sans-serif;font-size:34px;color:var(--coral-dark);margin:10px 0;}
+  .xp-total span{font-size:16px;color:var(--ink-soft);display:block;font-family:'Nunito',sans-serif;font-weight:700;}
+
+  .info-note{display:flex;gap:8px;background:linear-gradient(155deg,#fff6dd,#fbe7b6);border-radius:12px;padding:10px 12px;font-size:13px;color:#5a4413;margin-top:14px;line-height:1.4;}
+
+  @media (max-width:420px){
+    .start-hero h1{font-size:24px;}
+  }
+</style>
+</head>
+<body>
+<div class="app">
+
+  <!-- HEADER / PASSPORT -->
+  <div class="passport">
+    <div class="passport-top">
+      <div class="lexi-wrap"><div class="lexi" id="lexiAvatar">🦊</div></div>
+      <div class="passport-title">
+        <div class="eyebrow">Einheit 3 · Lektion 7 von deinem Deutsch-Abenteuer 🚀</div>
+        <h1>Dinge und Artikel</h1>
+      </div>
+      <div class="xp-pill">⭐ <span id="xpCount">0</span> XP</div>
+    </div>
+    <div class="progress-track"><div class="progress-fill" id="progressFill"></div></div>
+    <div class="stamps-row" id="stampsRow"></div>
+    <div class="lexi-tip" id="lexiTip"></div>
+  </div>
+
+  <!-- 0: START -->
+  <section class="screen active" id="screen-start">
+    <div class="card start-hero">
+      <div class="big-lexi">🦊</div>
+      <div class="lesson-tag">Einheit 3 · Lektion 7 – Dinge und Artikel</div>
+      <h1>🇩🇪 Dinge und Artikel</h1>
+      <p class="subtitle">der, die, das – lerne sie wie ein Team! 🤝</p>
+      <p>Ich bin Lexi! Heute lernen wir zusammen ganz normale Dinge um uns herum – ein Buch, eine Tasche, einen Stift – und ihre kleinen Begleiter: der, die, das. Bereit? 💪</p>
+      <div class="start-badges">
+        <div class="start-badge">👀 Erkennen</div>
+        <div class="start-badge">🎨 Farben</div>
+        <div class="start-badge">🧩 Üben</div>
+        <div class="start-badge">🏆 Meistern</div>
+      </div>
+      <button class="btn btn-primary btn-block" onclick="goTo(1)">Los geht's! ▶</button>
+    </div>
+  </section>
+
+  <!-- 1: LERNZIELE -->
+  <section class="screen" id="screen-objectives">
+    <div class="card">
+      <h2 class="section-title">🎯 Lernziele</h2>
+      <p class="section-sub">Nach dieser Lektion kann ich …</p>
+      <ul class="goals-list">
+        <li><span class="goal-check">✓</span> Alltagsgegenstände auf Deutsch erkennen.</li>
+        <li><span class="goal-check">✓</span> die Artikel der, die, das richtig benutzen.</li>
+        <li><span class="goal-check">✓</span> verstehen, dass jedes Nomen ein Geschlecht hat.</li>
+        <li><span class="goal-check">✓</span> ein Wort immer zusammen mit seinem Artikel lernen.</li>
+        <li><span class="goal-check">✓</span> einfache Sätze wie "Das ist ein/eine …" bilden.</li>
+      </ul>
+    </div>
+    <div class="nav-row">
+      <button class="btn btn-ghost" onclick="goTo(0)">◀ Zurück</button>
+      <button class="btn btn-primary" onclick="goTo(2)">Weiter ▶</button>
+    </div>
+  </section>
+
+  <!-- 2: WARM-UP -->
+  <section class="screen" id="screen-warmup">
+    <div class="card">
+      <h2 class="section-title">👀 Was siehst du hier?</h2>
+      <p class="section-sub">Tippe auf ein Ding, um es auf Deutsch zu hören.</p>
+      <div class="icon-grid" id="warmupGrid"></div>
+      <div class="warmup-feedback" id="warmupFeedback"></div>
+    </div>
+    <div class="nav-row">
+      <button class="btn btn-ghost" onclick="goTo(1)">◀ Zurück</button>
+      <button class="btn btn-primary" onclick="goTo(3)">Weiter ▶</button>
+    </div>
+  </section>
+
+  <!-- 3: WAS IST EIN ARTIKEL -->
+  <section class="screen" id="screen-whatisarticle">
+    <div class="card">
+      <h2 class="section-title">💡 Was ist ein Artikel?</h2>
+      <div class="definition-card">
+        <div class="def-text">In German, every noun has a little word in front of it – das ist der Artikel.</div>
+      </div>
+      <p class="section-sub">Es gibt drei Artikel. Tippe auf eine Karte, um sie zu hören:</p>
+      <div class="article-trio" id="articleTrio"></div>
+      <div class="team-msg">Learn the word and its article together – they are a team! 🤝</div>
+    </div>
+    <div class="nav-row">
+      <button class="btn btn-ghost" onclick="goTo(2)">◀ Zurück</button>
+      <button class="btn btn-primary" onclick="goTo(4)">Weiter ▶</button>
+    </div>
+  </section>
+
+  <!-- 4: VOKABELN -->
+  <section class="screen" id="screen-vocab">
+    <div class="card">
+      <h2 class="section-title">📚 Dinge im Zimmer</h2>
+      <p class="section-sub">Tippe auf eine Karte, um Wort und Beispiel zu hören.</p>
+      <div class="vocab-grid" id="vocabGrid"></div>
+    </div>
+    <div class="nav-row">
+      <button class="btn btn-ghost" onclick="goTo(3)">◀ Zurück</button>
+      <button class="btn btn-primary" onclick="goTo(5)">Weiter ▶</button>
+    </div>
+  </section>
+
+  <!-- 5: MEMORY TIP -->
+  <section class="screen" id="screen-memorytip">
+    <div class="card">
+      <h2 class="section-title">🧠 Memory Tip</h2>
+      <p class="section-sub">Lerne das Nomen NIE allein – immer zusammen mit seinem Artikel!</p>
+      <div id="memoryList"></div>
+      <div class="team-msg">Ein Wort ohne Artikel ist wie ein Team ohne Kapitän! 🧢</div>
+    </div>
+    <div class="nav-row">
+      <button class="btn btn-ghost" onclick="goTo(4)">◀ Zurück</button>
+      <button class="btn btn-primary" onclick="goTo(6)">Weiter ▶</button>
+    </div>
+  </section>
+
+  <!-- 6: WÄHLE DEN ARTIKEL -->
+  <section class="screen" id="screen-choosearticle">
+    <div class="card">
+      <h2 class="section-title">🎨 Wähle den richtigen Artikel</h2>
+      <p class="section-sub">der, die oder das? Du schaffst das!</p>
+      <div id="chooseArticleList"></div>
+    </div>
+    <div class="nav-row">
+      <button class="btn btn-ghost" onclick="goTo(5)">◀ Zurück</button>
+      <button class="btn btn-primary" onclick="goTo(7)">Weiter ▶</button>
+    </div>
+  </section>
+
+  <!-- 7: SORTIERSPIEL -->
+  <section class="screen" id="screen-sorting">
+    <div class="card">
+      <h2 class="section-title">🗂️ Sortierspiel</h2>
+      <p class="section-sub">Tippe zuerst ein Wort an, dann tippe auf die richtige Spalte.</p>
+      <div class="sort-bank" id="sortBank"></div>
+      <div class="sort-columns" id="sortColumns"></div>
+      <div class="sort-status" id="sortStatus"></div>
+    </div>
+    <div class="nav-row">
+      <button class="btn btn-ghost" onclick="goTo(6)">◀ Zurück</button>
+      <button class="btn btn-primary" onclick="goTo(8)">Weiter ▶</button>
+    </div>
+  </section>
+
+  <!-- 8: WAS IST DAS -->
+  <section class="screen" id="screen-wasistdas">
+    <div class="card">
+      <h2 class="section-title">❓ Was ist das?</h2>
+      <div class="definition-card">
+        <div class="def-text">Was ist das? — Das ist ein Buch. / Das ist eine Tasche.</div>
+      </div>
+      <p class="section-sub">Wähle den richtigen Satz für jedes Ding.</p>
+      <div id="wasistdasList"></div>
+    </div>
+    <div class="nav-row">
+      <button class="btn btn-ghost" onclick="goTo(7)">◀ Zurück</button>
+      <button class="btn btn-primary" onclick="goTo(9)">Weiter ▶</button>
+    </div>
+  </section>
+
+  <!-- 9: DIALOG -->
+  <section class="screen" id="screen-dialogue">
+    <div class="card">
+      <h2 class="section-title">🗨️ Kleiner Dialog</h2>
+      <p class="section-sub">Hör dir das Gespräch an. Du kannst pausieren und wiederholen.</p>
+      <div class="dlg-controls">
+        <button class="btn btn-primary btn-sm" id="btnPlayDlg" onclick="startDialogue()">▶ Dialog anhören</button>
+        <button class="btn btn-secondary btn-sm" id="btnPauseDlg" style="display:none;" onclick="pauseDialogue()">⏸ Pause</button>
+        <button class="btn btn-ghost btn-sm" onclick="repeatDialogue()">↺ Wiederholen</button>
+      </div>
+      <div class="dlg-list" id="dlgList"></div>
+    </div>
+    <div class="nav-row">
+      <button class="btn btn-ghost" onclick="goTo(8)">◀ Zurück</button>
+      <button class="btn btn-primary" onclick="goTo(10)">Weiter ▶</button>
+    </div>
+  </section>
+
+  <!-- 10: QUIZ -->
+  <section class="screen" id="screen-quiz">
+    <div class="card">
+      <h2 class="section-title">📝 Quiz</h2>
+      <p class="section-sub">Zeig, was du schon gelernt hast!</p>
+      <div class="challenge-progress-wrap">
+        <div class="challenge-progress-label"><span>Dein Fortschritt</span><span id="quizProgressText">0/8</span></div>
+        <div class="progress-track"><div class="progress-fill" id="quizProgressFill"></div></div>
+      </div>
+      <div id="quizList"></div>
+      <div id="quizResult" style="display:none;text-align:center;padding:16px 0 4px;">
+        <div style="font-size:40px;" id="quizEmoji">🏆</div>
+        <div style="font-family:'Fredoka',sans-serif;font-weight:700;font-size:17px;color:var(--sage-dark);" id="quizMsg"></div>
+      </div>
+    </div>
+    <div class="nav-row">
+      <button class="btn btn-ghost" onclick="goTo(9)">◀ Zurück</button>
+      <button class="btn btn-primary" onclick="goTo(11)">Weiter ▶</button>
+    </div>
+  </section>
+
+  <!-- 11: ARTIKEL CHALLENGE -->
+  <section class="screen" id="screen-challenge">
+    <div class="card">
+      <h2 class="section-title">🎯 Artikel Challenge</h2>
+      <p class="section-sub">Schnell! Wähle den Artikel, bevor die Zeit abläuft.</p>
+      <div class="challenge-progress-wrap" id="challengeIntro">
+        <p style="color:var(--ink-soft);font-size:14px;">8 Dinge, 6 Sekunden pro Runde. Bist du bereit?</p>
+        <button class="btn btn-primary btn-block" onclick="startChallenge()">🔥 Challenge starten</button>
+      </div>
+      <div id="challengeArea" style="display:none;">
+        <div class="challenge-progress-label"><span>Runde</span><span id="challengeCount">1/8</span></div>
+        <div class="challenge-timer-track"><div class="challenge-timer-bar" id="challengeTimerBar"></div></div>
+        <div class="challenge-stage">
+          <div class="challenge-emoji-big" id="challengeIcon">📚</div>
+          <div class="challenge-word-big" id="challengeWord">Buch</div>
+          <div class="challenge-art-row">
+            <button class="btn art-opt der challenge-art-btn" data-art="der" onclick="challengeAnswer('der')">der</button>
+            <button class="btn art-opt die challenge-art-btn" data-art="die" onclick="challengeAnswer('die')">die</button>
+            <button class="btn art-opt das challenge-art-btn" data-art="das" onclick="challengeAnswer('das')">das</button>
+          </div>
+          <div class="mc-feedback" id="challengeFeedback" style="text-align:center;"></div>
+        </div>
+      </div>
+      <div id="challengeResult" style="display:none;text-align:center;padding:16px 0 4px;">
+        <div style="font-size:40px;" id="challengeEmoji">🏆</div>
+        <div style="font-family:'Fredoka',sans-serif;font-weight:700;font-size:17px;color:var(--sage-dark);" id="challengeMsg"></div>
+        <button class="btn btn-secondary btn-sm" style="margin-top:10px;" onclick="startChallenge()">↺ Nochmal spielen</button>
+      </div>
+    </div>
+    <div class="nav-row">
+      <button class="btn btn-ghost" onclick="goTo(10)">◀ Zurück</button>
+      <button class="btn btn-primary" onclick="goTo(12)">Weiter ▶</button>
+    </div>
+  </section>
+
+  <!-- 12: WAS KANNST DU JETZT -->
+  <section class="screen" id="screen-checklist">
+    <div class="card">
+      <h2 class="section-title">🌟 Was kannst du jetzt?</h2>
+      <p class="section-sub">Tippe jeden Punkt an, den du schon kannst.</p>
+      <div class="check-list" id="checkList"></div>
+      <div class="checklist-done" id="checklistDone">
+        <div style="font-size:36px;">🎉</div>
+        <div style="font-family:'Fredoka',sans-serif;font-weight:700;font-size:17px;color:var(--sage-dark);">Fantastisch! Du hast diese Lektion geschafft!</div>
+        <div style="color:var(--ink-soft);font-size:13.5px;margin-top:4px;">Bereit für die nächste Lektion? 🚀</div>
+      </div>
+    </div>
+    <div class="nav-row">
+      <button class="btn btn-ghost" onclick="goTo(11)">◀ Zurück</button>
+      <button class="btn btn-primary" onclick="goTo(13)">Weiter ▶</button>
+    </div>
+  </section>
+
+  <!-- 13: MISSION GESCHAFFT -->
+  <section class="screen" id="screen-mission">
+    <div class="card mission-hero">
+      <div class="trophy">🏆</div>
+      <h1 style="margin:0;">MISSION GESCHAFFT!</h1>
+      <p style="color:var(--ink-soft);">Heute kann ich …</p>
+      <ul class="goals-list" style="text-align:left;">
+        <li><span class="goal-check">✓</span> viele Alltagsgegenstände auf Deutsch benennen.</li>
+        <li><span class="goal-check">✓</span> der, die und das richtig benutzen.</li>
+        <li><span class="goal-check">✓</span> ein Wort mit seinem Artikel zusammen lernen.</li>
+        <li><span class="goal-check">✓</span> "Das ist ein/eine …" sagen.</li>
+        <li><span class="goal-check">✓</span> Wörter unter Zeitdruck richtig zuordnen.</li>
+      </ul>
+      <div class="xp-total"><span>Gesamtpunkte</span>⭐ <span id="missionXP">0</span> XP</div>
+      <div class="badge-plate">
+        <div style="font-size:26px;">🎖️</div>
+        <div class="badge-name">ARTIKEL-CHAMPION</div>
+      </div>
+      <button class="btn btn-sage btn-block" onclick="restartLesson()">🔁 Lektion wiederholen</button>
+    </div>
+  </section>
+
+</div>
+
+<script>
+/* ============================================================
+   DATA
+   ============================================================ */
+const VOCAB = [
+  {id:'tisch',    icon:'🍽️', article:'der', word:'Tisch',    en:'table',    ex:'Der Tisch ist neu.'},
+  {id:'buch',     icon:'📚', article:'das', word:'Buch',     en:'book',     ex:'Das Buch ist interessant.'},
+  {id:'stift',    icon:'🖊️', article:'der', word:'Stift',    en:'pen',      ex:'Der Stift ist blau.'},
+  {id:'tasche',   icon:'🎒', article:'die', word:'Tasche',   en:'bag',      ex:'Die Tasche ist schwer.'},
+  {id:'stuhl',    icon:'🪑', article:'der', word:'Stuhl',    en:'chair',    ex:'Der Stuhl ist bequem.'},
+  {id:'fenster',  icon:'🪟', article:'das', word:'Fenster',  en:'window',   ex:'Das Fenster ist groß.'},
+  {id:'tuer',     icon:'🚪', article:'die', word:'Tür',      en:'door',     ex:'Die Tür ist offen.'},
+  {id:'handy',    icon:'📱', article:'das', word:'Handy',    en:'phone',    ex:'Das Handy ist neu.'},
+  {id:'computer', icon:'💻', article:'der', word:'Computer', en:'computer', ex:'Der Computer ist schnell.'},
+  {id:'schluessel',icon:'🔑', article:'der', word:'Schlüssel', en:'key',    ex:'Der Schlüssel ist klein.'},
+  {id:'uhr',      icon:'🕰️', article:'die', word:'Uhr',      en:'clock',    ex:'Die Uhr ist alt.'}
+];
+const byId = id => VOCAB.find(v=>v.id===id);
+
+const WARMUP_IDS = ['buch','stift','tasche','stuhl','fenster','tuer','handy','uhr'];
+
+const ARTICLE_INFO = [
+  {art:'der', dot:'🔵', ...byId('tisch')},
+  {art:'die', dot:'🔴', ...byId('tasche')},
+  {art:'das', dot:'🟢', ...byId('buch')}
+];
+
+const MEMORY_ITEMS = ['buch','tisch','tasche'];
+
+const CHOOSE_ARTICLE_IDS = ['buch','stift','tasche','stuhl','fenster','tuer','handy','uhr'];
+
+const SORT_IDS = ['tisch','buch','tasche','fenster','tuer','stuhl'];
+
+const WASISTDAS_ITEMS = [
+  {id:'w1', vocabId:'buch', options:['Das ist ein Buch.','Das ist eine Buch.','Das ist ein Tasche.'], correct:'Das ist ein Buch.'},
+  {id:'w2', vocabId:'tasche', options:['Das ist ein Tasche.','Das ist eine Tasche.','Das ist eine Stift.'], correct:'Das ist eine Tasche.'},
+  {id:'w3', vocabId:'stift', options:['Das ist eine Stift.','Das ist ein Buch.','Das ist ein Stift.'], correct:'Das ist ein Stift.'},
+  {id:'w4', vocabId:'uhr', options:['Das ist ein Uhr.','Das ist eine Uhr.','Das ist eine Fenster.'], correct:'Das ist eine Uhr.'}
+];
+
+const DIALOGUE_LINES = [
+  {who:'a', text:'Was ist das?'},
+  {who:'b', text:'Das ist ein Buch.'},
+  {who:'a', text:'Und was ist das?'},
+  {who:'b', text:'Das ist eine Tasche.'},
+  {who:'a', text:'Und das hier?'},
+  {who:'b', text:'Das ist ein Stift.'}
+];
+
+const QUIZ_QUESTIONS = [
+  {id:'q1', text:'Wähle den richtigen Artikel: ___ Buch', icon:'📚', options:['der','die','das'], correct:'das'},
+  {id:'q2', text:'Wähle den richtigen Artikel: ___ Tasche', icon:'🎒', options:['der','die','das'], correct:'die'},
+  {id:'q3', text:'Was bedeutet „der Schlüssel“?', icon:'🔑', options:['key','window','clock'], correct:'key'},
+  {id:'q4', text:'Welches Wort passt zu diesem Ding?', icon:'🪟', options:['das Fenster','die Tür','der Stuhl'], correct:'das Fenster'},
+  {id:'q5', text:'Ergänze: Das ist ___ Computer.', icon:'💻', options:['ein','eine','der'], correct:'ein'},
+  {id:'q6', text:'Ergänze: Das ist ___ Uhr.', icon:'🕰️', options:['ein','eine','das'], correct:'eine'},
+  {id:'q7', text:'Wähle den richtigen Artikel: ___ Stuhl', icon:'🪑', options:['der','die','das'], correct:'der'},
+  {id:'q8', text:'Welches Wort bedeutet „door“?', icon:'🚪', options:['die Tür','das Handy','der Tisch'], correct:'die Tür'}
+];
+
+const CHECKLIST_ITEMS = [
+  'Ich erkenne viele Alltagsgegenstände auf Deutsch.',
+  'Ich kenne die Artikel der, die, das.',
+  'Ich weiß, dass jedes Nomen ein Geschlecht hat.',
+  'Ich lerne Nomen immer zusammen mit ihrem Artikel.',
+  'Ich kann „Das ist ein/eine …“ sagen.'
+];
+
+const LEXI_TIPS = [
+  "Tippe auf „Los geht's!“, um deine Reise zu starten. 🦊",
+  'Lies dir in Ruhe durch, was du gleich lernen wirst.',
+  'Tippe auf ein Ding, um es auf Deutsch zu hören!',
+  'Tippe auf eine Karte, um den Artikel zu hören.',
+  'Tippe auf eine Karte, um jedes Wort zu hören.',
+  'Lerne das Nomen NIE allein – immer mit seinem Artikel!',
+  'der, die oder das? Du schaffst das!',
+  'Tippe ein Wort an, dann tippe auf die richtige Spalte.',
+  'Wähle den passenden Satz für jedes Ding.',
+  'Höre dir den Dialog an – du kannst pausieren!',
+  'Zeig, was du schon gelernt hast!',
+  'Schnell! Wähle den Artikel, bevor die Zeit abläuft.',
+  'Hake ab, was du schon kannst.',
+  'Super gemacht! Du bist ein Artikel-Champion! 🎉'
+];
+
+const SCREENS = ['start','objectives','warmup','whatisarticle','vocab','memorytip','choosearticle','sorting','wasistdas','dialogue','quiz','challenge','checklist','mission'];
+
+/* ============================================================
+   STATE
+   ============================================================ */
+let state = {
+  screenIndex:0, maxReached:0, totalXP:0, xpFlags:new Set(),
+  articleHeard:{}, chooseAnswered:{}, sortSelected:null, sortPlaced:{},
+  wasistdasAnswered:{}, dialogueIndex:0, dialoguePlaying:false,
+  quizAnswered:{}, quizScore:0, checklistChecked:{}
+};
+
+/* ============================================================
+   SPEECH
+   ============================================================ */
+function speak(text, onend){
+  if(!('speechSynthesis' in window)){ if(onend) onend(); return; }
+  window.speechSynthesis.cancel();
+  const u = new SpeechSynthesisUtterance(text);
+  u.lang = 'de-DE';
+  u.rate = 0.92;
+  u.pitch = 1.0;
+  if(onend) u.onend = onend;
+  u.onerror = function(){ if(onend) onend(); };
+  window.speechSynthesis.speak(u);
+}
+function stopSpeaking(){ if('speechSynthesis' in window) window.speechSynthesis.cancel(); }
+function shuffle(arr){
+  const a = arr.slice();
+  for(let i=a.length-1;i>0;i--){ const j = Math.floor(Math.random()*(i+1)); [a[i],a[j]]=[a[j],a[i]]; }
+  return a;
+}
+
+/* ============================================================
+   XP / NAV / HEADER
+   ============================================================ */
+function award(flagId, amount){
+  if(!state.xpFlags.has(flagId)){
+    state.xpFlags.add(flagId);
+    state.totalXP += amount;
+    renderHeader();
+    pulseLexi();
+  }
+}
+function pulseLexi(){
+  const el = document.getElementById('lexiAvatar');
+  el.classList.add('talking');
+  setTimeout(()=>el.classList.remove('talking'), 500);
+}
+function renderHeader(){
+  document.getElementById('xpCount').textContent = state.totalXP;
+  const pct = Math.round((state.screenIndex/(SCREENS.length-1))*100);
+  document.getElementById('progressFill').style.width = pct+'%';
+  const row = document.getElementById('stampsRow');
+  row.innerHTML='';
+  SCREENS.forEach((s,i)=>{
+    const d = document.createElement('div');
+    d.className = 'stamp-dot' + (i<state.screenIndex?' done':'') + (i===state.screenIndex?' current':'');
+    d.textContent = i<state.screenIndex ? '✓' : '';
+    row.appendChild(d);
+  });
+  const tip = document.getElementById('lexiTip');
+  tip.textContent = LEXI_TIPS[state.screenIndex] || '';
+  tip.classList.add('show');
+}
+function goTo(index){
+  stopSpeaking();
+  document.querySelectorAll('.screen').forEach(s=>s.classList.remove('active'));
+  document.getElementById('screen-'+SCREENS[index]).classList.add('active');
+  state.screenIndex = index;
+  if(index > state.maxReached) state.maxReached = index;
+  renderHeader();
+  window.scrollTo({top:0, behavior:'smooth'});
+  if(index===13){ document.getElementById('missionXP').textContent = state.totalXP; }
+}
+
+/* ============================================================
+   WARM-UP
+   ============================================================ */
+const WARMUP_FEEDBACK = ['Super! 🎉','Genau!','Sehr gut – du erkennst schon deutsche Wörter!','Toll gemacht! 🌟'];
+function renderWarmup(){
+  const grid = document.getElementById('warmupGrid');
+  grid.innerHTML='';
+  WARMUP_IDS.forEach(id=>{
+    const v = byId(id);
+    const tile = document.createElement('div');
+    tile.className = 'icon-tile';
+    tile.innerHTML = `<div class="ic-emoji">${v.icon}</div><div class="ic-word">${v.word}</div>`;
+    tile.onclick = ()=>{
+      speak(v.word);
+      document.querySelectorAll('.icon-tile').forEach(t=>t.classList.remove('chosen'));
+      tile.classList.add('chosen');
+      document.getElementById('warmupFeedback').textContent = WARMUP_FEEDBACK[Math.floor(Math.random()*WARMUP_FEEDBACK.length)];
+      award('warmup-'+id, 1);
+    };
+    grid.appendChild(tile);
+  });
+}
+
+/* ============================================================
+   WAS IST EIN ARTIKEL (trio)
+   ============================================================ */
+function renderArticleTrio(){
+  const wrap = document.getElementById('articleTrio');
+  wrap.innerHTML='';
+  ARTICLE_INFO.forEach(item=>{
+    const card = document.createElement('div');
+    card.className = 'article-card '+item.art;
+    card.innerHTML = `<div class="ac-dot">${item.dot}</div><div class="ac-word">${item.art}</div><div class="ac-example">${item.icon} ${item.art} ${item.word}</div>`;
+    card.onclick = ()=>{
+      speak(item.art+' '+item.word);
+      card.classList.add('heard');
+      award('artintro-'+item.art, 2);
+    };
+    wrap.appendChild(card);
+  });
+}
+
+/* ============================================================
+   VOCAB
+   ============================================================ */
+function renderVocab(){
+  const grid = document.getElementById('vocabGrid');
+  grid.innerHTML='';
+  VOCAB.forEach(v=>{
+    const card = document.createElement('div');
+    card.className = 'vocab-card';
+    card.innerHTML = `<div class="vc-check">✓</div><div class="vc-icon">${v.icon}</div>
+      <div class="art-pill art-${v.article}">${v.article}</div>
+      <div class="vc-text"><span class="vc-speaker">🔊</span> ${v.word}</div>
+      <div class="vc-meaning">${v.en}</div>
+      <div class="vc-example">„${v.ex}“</div>`;
+    card.onclick = ()=>{
+      speak(v.article+' '+v.word+'. '+v.ex);
+      card.classList.add('done');
+      award('vocab-'+v.id, 2);
+    };
+    grid.appendChild(card);
+  });
+}
+
+/* ============================================================
+   MEMORY TIP
+   ============================================================ */
+function renderMemoryTip(){
+  const list = document.getElementById('memoryList');
+  list.innerHTML='';
+  MEMORY_ITEMS.forEach(id=>{
+    const v = byId(id);
+    const row = document.createElement('div');
+    row.className = 'memory-row';
+    row.innerHTML = `
+      <div class="memory-side wrong"><span class="memory-icon">❌</span><div class="mt-label">Nicht so</div><div class="mt-word">${v.word}</div></div>
+      <div class="memory-arrow">➜</div>
+      <div class="memory-side right" style="cursor:pointer;"><span class="memory-icon">${v.icon}</span><div class="mt-label">So!</div><div class="mt-word">${v.article} ${v.word}</div></div>
+    `;
+    row.querySelector('.memory-side.right').onclick = ()=>{
+      speak(v.article+' '+v.word);
+      award('memory-'+id, 2);
+    };
+    list.appendChild(row);
+  });
+}
+
+/* ============================================================
+   CHOOSE ARTICLE GAME
+   ============================================================ */
+function renderChooseArticle(){
+  const list = document.getElementById('chooseArticleList');
+  list.innerHTML='';
+  CHOOSE_ARTICLE_IDS.forEach(id=>{
+    const v = byId(id);
+    const card = document.createElement('div');
+    card.className = 'situation-card';
+    card.innerHTML = `<div class="situation-text"><span class="st-icon">${v.icon}</span> ___ ${v.word}</div>
+      <div class="mc-options">
+        <button class="art-opt der" data-opt="der">der</button>
+        <button class="art-opt die" data-opt="die">die</button>
+        <button class="art-opt das" data-opt="das">das</button>
+      </div>
+      <div class="mc-feedback" id="cafb-${id}"></div>`;
+    list.appendChild(card);
+    card.querySelectorAll('.art-opt').forEach(btn=>{
+      btn.onclick = ()=>{
+        if(state.chooseAnswered[id]) return;
+        const chosen = btn.getAttribute('data-opt');
+        const fb = document.getElementById('cafb-'+id);
+        if(chosen === v.article){
+          btn.classList.add('correct');
+          fb.textContent = '🎉 Excellent! „'+v.article+' '+v.word+'“';
+          fb.className = 'mc-feedback ok';
+          state.chooseAnswered[id] = true;
+          award('choose-'+id, 4);
+          speak(v.article+' '+v.word);
+        } else {
+          btn.classList.add('wrong-shake');
+          setTimeout(()=>btn.classList.remove('wrong-shake'), 400);
+          fb.textContent = '💪 Good try! Try again!';
+          fb.className = 'mc-feedback bad';
+        }
+      };
+    });
+  });
+}
+
+/* ============================================================
+   SORTING GAME
+   ============================================================ */
+function renderSorting(){
+  state.sortSelected = null;
+  const bank = document.getElementById('sortBank');
+  const cols = document.getElementById('sortColumns');
+  bank.innerHTML=''; cols.innerHTML='';
+  document.getElementById('sortStatus').textContent = 'Wähle zuerst ein Wort.';
+
+  ['der','die','das'].forEach(art=>{
+    const col = document.createElement('div');
+    col.className = 'sort-col '+art;
+    col.id = 'sortcol-'+art;
+    col.innerHTML = `<div class="sc-title">${art.toUpperCase()}</div><div class="sc-items" id="sortitems-${art}"></div>`;
+    col.onclick = ()=>attemptPlacement(art, col);
+    cols.appendChild(col);
+  });
+
+  SORT_IDS.forEach(id=>{
+    const v = byId(id);
+    const chip = document.createElement('div');
+    chip.className = 'sort-chip';
+    chip.id = 'sortchip-'+id;
+    chip.textContent = v.icon+' '+v.word;
+    chip.onclick = (e)=>{
+      e.stopPropagation();
+      if(state.sortPlaced[id]) return;
+      speak(v.word);
+      document.querySelectorAll('.sort-chip').forEach(c=>c.classList.remove('selected'));
+      chip.classList.add('selected');
+      state.sortSelected = id;
+      document.getElementById('sortStatus').textContent = 'Jetzt tippe auf die richtige Spalte für „'+v.word+'“.';
+    };
+    bank.appendChild(chip);
+  });
+}
+function attemptPlacement(art, colEl){
+  const id = state.sortSelected;
+  if(!id){ document.getElementById('sortStatus').textContent = 'Wähle zuerst ein Wort aus der Liste.'; return; }
+  const v = byId(id);
+  if(state.sortPlaced[id]) return;
+  if(v.article === art){
+    state.sortPlaced[id] = true;
+    const chip = document.getElementById('sortchip-'+id);
+    if(chip) chip.remove();
+    const itemsWrap = document.getElementById('sortitems-'+art);
+    const item = document.createElement('div');
+    item.className = 'sc-item';
+    item.textContent = v.icon+' '+v.article+' '+v.word;
+    itemsWrap.appendChild(item);
+    state.sortSelected = null;
+    document.getElementById('sortStatus').textContent = '⭐ Richtig! „'+v.article+' '+v.word+'“';
+    award('sort-'+id, 4);
+    checkSortComplete();
+  } else {
+    colEl.classList.add('wrong-shake');
+    setTimeout(()=>colEl.classList.remove('wrong-shake'), 400);
+    document.getElementById('sortStatus').textContent = '💪 Nicht ganz! Versuch es noch einmal!';
+  }
+}
+function checkSortComplete(){
+  const allDone = SORT_IDS.every(id=>state.sortPlaced[id]);
+  if(allDone) document.getElementById('sortStatus').textContent = '🏆 Super! Alle Wörter sortiert!';
+}
+
+/* ============================================================
+   WAS IST DAS
+   ============================================================ */
+function renderWasIstDas(){
+  const list = document.getElementById('wasistdasList');
+  list.innerHTML='';
+  WASISTDAS_ITEMS.forEach(item=>{
+    const v = byId(item.vocabId);
+    const card = document.createElement('div');
+    card.className = 'situation-card';
+    const opts = shuffle(item.options);
+    const optsHtml = opts.map(o=>`<button class="mc-opt" data-opt="${o}">${o}</button>`).join('');
+    card.innerHTML = `<div class="situation-text"><span class="st-icon">${v.icon}</span> Was ist das?</div><div class="mc-options">${optsHtml}</div><div class="mc-feedback" id="wfb-${item.id}"></div>`;
+    list.appendChild(card);
+    card.querySelectorAll('.mc-opt').forEach(btn=>{
+      btn.onclick = ()=>{
+        if(state.wasistdasAnswered[item.id]) return;
+        const chosen = btn.getAttribute('data-opt');
+        const fb = document.getElementById('wfb-'+item.id);
+        if(chosen === item.correct){
+          btn.classList.add('correct');
+          fb.textContent = '🎉 Excellent!';
+          fb.className = 'mc-feedback ok';
+          state.wasistdasAnswered[item.id] = true;
+          award('wid-'+item.id, 4);
+          speak(item.correct);
+        } else {
+          btn.classList.add('incorrect');
+          fb.textContent = '⭐ Fast! Richtig ist: „'+item.correct+'“';
+          fb.className = 'mc-feedback bad';
+          setTimeout(()=>btn.classList.remove('incorrect'), 500);
+        }
+      };
+    });
+  });
+}
+
+/* ============================================================
+   DIALOGUE
+   ============================================================ */
+function renderDialogue(){
+  const list = document.getElementById('dlgList');
+  list.innerHTML='';
+  DIALOGUE_LINES.forEach((line,i)=>{
+    const bubble = document.createElement('div');
+    bubble.className = 'dlg-bubble '+line.who;
+    bubble.id = 'dlg-'+i;
+    const avatar = line.who==='a' ? '👩' : '👨';
+    bubble.innerHTML = `<div class="dlg-avatar">${avatar}</div><div class="dlg-text">${line.text}</div>`;
+    list.appendChild(bubble);
+  });
+  updateDialogueBtns();
+}
+function playDialogueFrom(idx){
+  if(idx >= DIALOGUE_LINES.length){
+    state.dialoguePlaying = false;
+    state.dialogueIndex = 0;
+    document.querySelectorAll('.dlg-bubble').forEach(b=>b.classList.remove('active'));
+    updateDialogueBtns();
+    award('dialogue-complete', 5);
+    return;
+  }
+  document.querySelectorAll('.dlg-bubble').forEach(b=>b.classList.remove('active'));
+  const bubble = document.getElementById('dlg-'+idx);
+  bubble.classList.add('active');
+  state.dialogueIndex = idx;
+  speak(DIALOGUE_LINES[idx].text, ()=>{
+    if(state.dialoguePlaying) playDialogueFrom(idx+1);
+  });
+}
+function startDialogue(){
+  state.dialoguePlaying = true;
+  updateDialogueBtns();
+  playDialogueFrom(state.dialogueIndex || 0);
+}
+function pauseDialogue(){
+  state.dialoguePlaying = false;
+  stopSpeaking();
+  updateDialogueBtns();
+}
+function repeatDialogue(){
+  stopSpeaking();
+  state.dialogueIndex = 0;
+  state.dialoguePlaying = true;
+  updateDialogueBtns();
+  playDialogueFrom(0);
+}
+function updateDialogueBtns(){
+  document.getElementById('btnPlayDlg').style.display = state.dialoguePlaying ? 'none' : 'inline-flex';
+  document.getElementById('btnPauseDlg').style.display = state.dialoguePlaying ? 'inline-flex' : 'none';
+}
+
+/* ============================================================
+   QUIZ
+   ============================================================ */
+function renderQuiz(){
+  const list = document.getElementById('quizList');
+  list.innerHTML='';
+  document.getElementById('quizResult').style.display='none';
+  state.quizAnswered = {};
+  state.quizScore = 0;
+  updateQuizProgress();
+  QUIZ_QUESTIONS.forEach(q=>{
+    const card = document.createElement('div');
+    card.className = 'situation-card';
+    const opts = shuffle(q.options);
+    const optsHtml = opts.map(o=>`<button class="mc-opt" data-opt="${o}">${o}</button>`).join('');
+    card.innerHTML = `<div class="situation-text"><span class="st-icon">${q.icon}</span> ${q.text}</div><div class="mc-options">${optsHtml}</div><div class="mc-feedback" id="qfb-${q.id}"></div>`;
+    list.appendChild(card);
+    card.querySelectorAll('.mc-opt').forEach(btn=>{
+      btn.onclick = ()=>{
+        if(state.quizAnswered[q.id]) return;
+        const chosen = btn.getAttribute('data-opt');
+        const fb = document.getElementById('qfb-'+q.id);
+        state.quizAnswered[q.id] = true;
+        if(chosen === q.correct){
+          btn.classList.add('correct');
+          fb.textContent = 'Richtig! 🎉';
+          fb.className = 'mc-feedback ok';
+          state.quizScore++;
+          award('quiz-'+q.id, 5);
+        } else {
+          btn.classList.add('incorrect');
+          fb.textContent = 'Die richtige Antwort war: '+q.correct;
+          fb.className = 'mc-feedback bad';
+        }
+        card.querySelectorAll('.mc-opt').forEach(b=>b.disabled=true);
+        updateQuizProgress();
+        checkQuizComplete();
+      };
+    });
+  });
+}
+function updateQuizProgress(){
+  const answered = Object.keys(state.quizAnswered).length;
+  const pct = Math.round((answered/QUIZ_QUESTIONS.length)*100);
+  document.getElementById('quizProgressFill').style.width = pct+'%';
+  document.getElementById('quizProgressText').textContent = answered+'/'+QUIZ_QUESTIONS.length;
+}
+function checkQuizComplete(){
+  const answered = Object.keys(state.quizAnswered).length;
+  if(answered < QUIZ_QUESTIONS.length) return;
+  const score = state.quizScore, total = QUIZ_QUESTIONS.length;
+  let msg, emoji;
+  if(score===total){ msg='Du bist ein Artikel Champion! 🏆'; emoji='🏆'; }
+  else if(score>=total-2){ msg='Great job! Keep practicing! ⭐'; emoji='⭐'; }
+  else { msg="Don't worry! Practice makes progress! 💪"; emoji='💪'; }
+  document.getElementById('quizEmoji').textContent = emoji;
+  document.getElementById('quizMsg').textContent = score+'/'+total+' – '+msg;
+  document.getElementById('quizResult').style.display='block';
+}
+
+/* ============================================================
+   ARTIKEL CHALLENGE (timed)
+   ============================================================ */
+let challengeState = { order:[], idx:0, score:0, timeoutId:null };
+function startChallenge(){
+  document.getElementById('challengeIntro').style.display='none';
+  document.getElementById('challengeResult').style.display='none';
+  document.getElementById('challengeArea').style.display='block';
+  challengeState.order = shuffle(VOCAB).slice(0,8);
+  challengeState.idx = 0;
+  challengeState.score = 0;
+  nextChallengeRound();
+}
+function nextChallengeRound(){
+  clearTimeout(challengeState.timeoutId);
+  if(challengeState.idx >= challengeState.order.length){ finishChallenge(); return; }
+  const item = challengeState.order[challengeState.idx];
+  document.getElementById('challengeIcon').textContent = item.icon;
+  document.getElementById('challengeWord').textContent = item.word;
+  document.getElementById('challengeCount').textContent = (challengeState.idx+1)+'/'+challengeState.order.length;
+  document.getElementById('challengeFeedback').textContent = '';
+  document.querySelectorAll('.challenge-art-btn').forEach(b=>{
+    b.disabled = false;
+    b.classList.remove('correct','incorrect');
+  });
+  const bar = document.getElementById('challengeTimerBar');
+  bar.style.transition = 'none';
+  bar.style.width = '100%';
+  requestAnimationFrame(()=>{
+    requestAnimationFrame(()=>{
+      bar.style.transition = 'width 6s linear';
+      bar.style.width = '0%';
+    });
+  });
+  challengeState.timeoutId = setTimeout(()=>challengeAnswer(null), 6000);
+}
+function challengeAnswer(chosen){
+  clearTimeout(challengeState.timeoutId);
+  const item = challengeState.order[challengeState.idx];
+  document.querySelectorAll('.challenge-art-btn').forEach(b=>b.disabled=true);
+  const fb = document.getElementById('challengeFeedback');
+  if(chosen === item.article){
+    challengeState.score++;
+    fb.textContent = '🎉 Excellent!';
+    fb.className = 'mc-feedback ok';
+    award('chal-'+item.id+'-'+challengeState.idx, 3);
+    document.querySelector('.challenge-art-btn[data-art="'+chosen+'"]').classList.add('correct');
+  } else if(chosen === null){
+    fb.textContent = '⏱️ Zeit vorbei! Richtig: '+item.article;
+    fb.className = 'mc-feedback bad';
+  } else {
+    fb.textContent = '⭐ Fast! Richtig ist: '+item.article;
+    fb.className = 'mc-feedback bad';
+    document.querySelector('.challenge-art-btn[data-art="'+chosen+'"]').classList.add('incorrect');
+  }
+  challengeState.idx++;
+  setTimeout(nextChallengeRound, 1100);
+}
+function finishChallenge(){
+  document.getElementById('challengeArea').style.display='none';
+  const total = challengeState.order.length, score = challengeState.score;
+  let msg, emoji;
+  if(score===total){ msg='Perfekt! Du bist ein Artikel-Champion! 🏆'; emoji='🏆'; }
+  else if(score>=total-2){ msg='Super gemacht! Fast alles richtig! 🌟'; emoji='🌟'; }
+  else if(score>=Math.ceil(total/2)){ msg='Gut gemacht! Weiter üben! 💪'; emoji='💪'; }
+  else { msg='Nicht aufgeben! Übung macht den Meister! 🌱'; emoji='🌱'; }
+  document.getElementById('challengeEmoji').textContent = emoji;
+  document.getElementById('challengeMsg').textContent = score+'/'+total+' – '+msg;
+  document.getElementById('challengeResult').style.display='block';
+}
+
+/* ============================================================
+   CHECKLIST
+   ============================================================ */
+function renderChecklist(){
+  const list = document.getElementById('checkList');
+  list.innerHTML='';
+  document.getElementById('checklistDone').classList.remove('show');
+  CHECKLIST_ITEMS.forEach((text,i)=>{
+    const item = document.createElement('div');
+    item.className = 'check-item';
+    if(state.checklistChecked[i]) item.classList.add('checked');
+    item.innerHTML = `<div class="check-box">✓</div><div class="check-text">${text}</div>`;
+    item.onclick = ()=>{
+      state.checklistChecked[i] = !state.checklistChecked[i];
+      item.classList.toggle('checked');
+      if(state.checklistChecked[i]) award('check-'+i, 2);
+      checkAllChecked();
+    };
+    list.appendChild(item);
+  });
+  checkAllChecked();
+}
+function checkAllChecked(){
+  const allChecked = CHECKLIST_ITEMS.every((_,i)=>state.checklistChecked[i]);
+  document.getElementById('checklistDone').classList.toggle('show', allChecked);
+}
+
+/* ============================================================
+   RESTART
+   ============================================================ */
+function restartLesson(){
+  stopSpeaking();
+  clearTimeout(challengeState.timeoutId);
+  state = {
+    screenIndex:0, maxReached:0, totalXP:0, xpFlags:new Set(),
+    articleHeard:{}, chooseAnswered:{}, sortSelected:null, sortPlaced:{},
+    wasistdasAnswered:{}, dialogueIndex:0, dialoguePlaying:false,
+    quizAnswered:{}, quizScore:0, checklistChecked:{}
+  };
+  challengeState = { order:[], idx:0, score:0, timeoutId:null };
+  document.getElementById('challengeIntro').style.display='block';
+  document.getElementById('challengeArea').style.display='none';
+  document.getElementById('challengeResult').style.display='none';
+  renderAll();
+  goTo(0);
+}
+
+/* ============================================================
+   INIT
+   ============================================================ */
+function renderAll(){
+  renderWarmup();
+  renderArticleTrio();
+  renderVocab();
+  renderMemoryTip();
+  renderChooseArticle();
+  renderSorting();
+  renderWasIstDas();
+  renderDialogue();
+  renderQuiz();
+  renderChecklist();
+  renderHeader();
+}
+renderAll();
+</script>
+</body>
+</html>
