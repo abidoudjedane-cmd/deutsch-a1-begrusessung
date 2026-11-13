@@ -1,0 +1,877 @@
+<!DOCTYPE html>
+<html lang="de">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1">
+<title>Deutsch mit Abir – A1 – Lektion 8: Singular &amp; Plural</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Fredoka:wght@400;500;600;700&family=Nunito:wght@400;600;700;800&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --cream:#FBF6EC;
+    --paper:#FFFDF9;
+    --ink:#2B2118;
+    --ink-soft:#6b6053;
+    --teal:#2f6f76;
+    --teal-dark:#1f4d52;
+    --teal-light:#eaf3f3;
+    --coral:#e8734a;
+    --coral-dark:#c85a34;
+    --coral-light:#fdece3;
+    --gold:#e8b84b;
+    --gold-dark:#b9871f;
+    --sage:#6f9c85;
+    --sage-dark:#4f7b64;
+    --sage-light:#e9f3ee;
+    --rose:#d9605f;
+    --rose-dark:#a8403f;
+    --rose-light:#fbe3e0;
+    --line:#e7ddc9;
+    --shadow: 0 8px 24px rgba(43,33,24,0.10);
+    --radius:20px;
+  }
+  *{box-sizing:border-box;}
+  html,body{margin:0;padding:0;}
+  body{
+    background:
+      radial-gradient(circle at 8% 4%, #fff 0%, transparent 45%),
+      radial-gradient(circle at 92% 96%, #f3ead4 0%, transparent 40%),
+      var(--cream);
+    color:var(--ink);
+    font-family:'Nunito', sans-serif;
+    min-height:100vh;
+    -webkit-font-smoothing:antialiased;
+    padding-bottom:40px;
+  }
+  h1,h2,h3,.display{
+    font-family:'Fredoka', sans-serif;
+    font-weight:600;
+    letter-spacing:0.2px;
+  }
+  .app{
+    max-width:720px;
+    margin:0 auto;
+    padding:14px 16px 60px;
+  }
+  /* ---------- HEADER / PASSPORT ---------- */
+  .passport{
+    background:var(--paper);
+    border-radius:var(--radius);
+    box-shadow:var(--shadow);
+    padding:14px 16px 12px;
+    border-bottom:3px dashed var(--line);
+    position:sticky;
+    top:8px;
+    z-index:50;
+    margin-bottom:18px;
+  }
+  .passport-top{display:flex;align-items:center;gap:12px;}
+  .lexi-wrap{position:relative;flex-shrink:0;}
+  .lexi{
+    width:52px;height:52px;
+    border-radius:50%;
+    background:linear-gradient(155deg,#ffd9a8,var(--coral));
+    display:flex;align-items:center;justify-content:center;
+    font-size:28px;
+    box-shadow:0 4px 10px rgba(200,90,52,0.35);
+    animation:lexi-float 3.2s ease-in-out infinite;
+  }
+  @keyframes lexi-float{
+    0%,100%{transform:translateY(0) rotate(-3deg);}
+    50%{transform:translateY(-4px) rotate(3deg);}
+  }
+  .lexi.talking{animation:lexi-talk 0.35s ease-in-out infinite;}
+  @keyframes lexi-talk{0%,100%{transform:scale(1);}50%{transform:scale(1.08);}}
+  .passport-title{flex:1;min-width:0;}
+  .passport-title .eyebrow{
+    font-size:11px;
+    text-transform:uppercase;
+    letter-spacing:1.5px;
+    color:var(--teal);
+    font-weight:800;
+  }
+  .passport-title h1{font-size:17px;margin:1px 0 0;color:var(--ink);}
+  .xp-pill{
+    flex-shrink:0;
+    background:linear-gradient(155deg,#fff2cf,var(--gold));
+    border-radius:999px;
+    padding:7px 12px;
+    font-family:'Fredoka',sans-serif;
+    font-weight:600;
+    font-size:13px;
+    color:#5a4413;
+    box-shadow:0 3px 8px rgba(184,135,31,0.35);
+    display:flex;align-items:center;gap:4px;
+    white-space:nowrap;
+  }
+  .progress-track{
+    margin-top:12px;
+    height:10px;
+    background:var(--teal-light);
+    border-radius:999px;
+    overflow:hidden;
+    position:relative;
+  }
+  .progress-fill{
+    height:100%;
+    width:0%;
+    background:linear-gradient(90deg,var(--sage),var(--teal));
+    border-radius:999px;
+    transition:width .5s cubic-bezier(.4,1.4,.6,1);
+  }
+  .stamps-row{display:flex;justify-content:space-between;margin-top:7px;gap:2px;flex-wrap:wrap;}
+  .stamp-dot{
+    width:14px;height:14px;
+    border-radius:50%;
+    background:var(--teal-light);
+    border:2px solid var(--line);
+    font-size:8px;
+    display:flex;align-items:center;justify-content:center;
+    color:transparent;
+    transition:all .3s;
+    flex-shrink:0;
+  }
+  .stamp-dot.done{background:var(--sage);border-color:var(--sage-dark);color:#fff;}
+  .stamp-dot.current{border-color:var(--coral);box-shadow:0 0 0 3px var(--coral-light);}
+  .lexi-tip{
+    margin-top:10px;
+    background:var(--teal-light);
+    border-radius:14px;
+    padding:9px 12px;
+    font-size:13.5px;
+    color:var(--teal-dark);
+    line-height:1.4;
+    display:none;
+  }
+  .lexi-tip.show{display:block;}
+  .lexi-tip b{color:var(--teal-dark);}
+
+  /* ---------- SCREENS ---------- */
+  .screen{display:none;animation:fadein .4s ease;}
+  .screen.active{display:block;}
+  @keyframes fadein{from{opacity:0;transform:translateY(8px);}to{opacity:1;transform:translateY(0);}}
+
+  .card{
+    background:var(--paper);
+    border-radius:var(--radius);
+    box-shadow:var(--shadow);
+    padding:20px 18px;
+    margin-bottom:16px;
+  }
+  .section-title{display:flex;align-items:center;gap:8px;font-size:20px;margin:0 0 4px;}
+  .section-sub{color:var(--ink-soft);font-size:14px;margin:0 0 16px;}
+
+  /* ---------- START SCREEN ---------- */
+  .start-hero{text-align:center;padding:34px 18px 26px;}
+  .start-hero .big-lexi{
+    width:110px;height:110px;
+    border-radius:50%;
+    background:linear-gradient(155deg,#ffd9a8,var(--coral));
+    display:flex;align-items:center;justify-content:center;
+    font-size:58px;
+    margin:0 auto 18px;
+    box-shadow:0 10px 24px rgba(200,90,52,0.35);
+    animation:lexi-float 3.2s ease-in-out infinite;
+  }
+  .start-hero .lesson-tag{
+    display:inline-block;
+    background:var(--coral-light);
+    color:var(--coral-dark);
+    font-family:'Fredoka',sans-serif;
+    font-weight:600;
+    font-size:12.5px;
+    padding:6px 14px;
+    border-radius:999px;
+    margin-bottom:10px;
+  }
+  .start-hero h1{font-size:28px;margin:0 0 6px;color:var(--ink);}
+  .start-hero .subtitle{
+    color:var(--teal-dark);
+    font-weight:700;
+    font-family:'Fredoka',sans-serif;
+    font-size:15px;
+    margin:0 0 10px;
+  }
+  .start-hero p{color:var(--ink-soft);font-size:15.5px;max-width:420px;margin:0 auto 22px;line-height:1.5;}
+  .start-badges{display:flex;justify-content:center;gap:10px;flex-wrap:wrap;margin-bottom:24px;}
+  .start-badge{
+    background:var(--cream);
+    border:1.5px solid var(--line);
+    border-radius:12px;
+    padding:8px 12px;
+    font-size:12.5px;
+    color:var(--ink-soft);
+    font-weight:700;
+  }
+
+  /* ---------- BUTTONS ---------- */
+  .btn{
+    font-family:'Fredoka',sans-serif;
+    font-weight:600;
+    font-size:15px;
+    border:none;
+    border-radius:14px;
+    padding:13px 22px;
+    cursor:pointer;
+    display:inline-flex;align-items:center;justify-content:center;gap:7px;
+    transition:transform .15s, box-shadow .15s, opacity .15s;
+    min-height:46px;
+  }
+  .btn:active{transform:scale(0.96);}
+  .btn-primary{background:linear-gradient(155deg,var(--coral),var(--coral-dark));color:#fff;box-shadow:0 5px 14px rgba(200,90,52,0.35);}
+  .btn-secondary{background:var(--teal-light);color:var(--teal-dark);}
+  .btn-ghost{background:transparent;color:var(--ink-soft);border:1.5px solid var(--line);}
+  .btn-sage{background:linear-gradient(155deg,var(--sage),var(--sage-dark));color:#fff;box-shadow:0 5px 14px rgba(79,123,100,0.3);}
+  .btn:disabled{opacity:.45;cursor:not-allowed;transform:none;}
+  .btn-block{width:100%;}
+  .btn-sm{padding:8px 14px;font-size:13px;min-height:36px;border-radius:10px;}
+
+  .nav-row{display:flex;justify-content:space-between;gap:10px;margin-top:6px;}
+  .nav-row .btn{flex:1;}
+
+  /* ---------- LERNZIELE ---------- */
+  .goals-list{list-style:none;margin:0;padding:0;}
+  .goals-list li{display:flex;align-items:flex-start;gap:10px;padding:11px 4px;border-bottom:1px solid var(--line);font-size:15px;}
+  .goals-list li:last-child{border-bottom:none;}
+  .goal-check{
+    flex-shrink:0;
+    width:26px;height:26px;
+    border-radius:50%;
+    background:var(--sage-light);
+    color:var(--sage-dark);
+    display:flex;align-items:center;justify-content:center;
+    font-size:13px;font-weight:800;
+  }
+
+  /* ---------- ICON GRID (warm-up) ---------- */
+  .icon-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:10px;margin-bottom:16px;}
+  .icon-tile{
+    background:var(--cream);
+    border:1.5px solid var(--line);
+    border-radius:14px;
+    padding:12px 6px;
+    text-align:center;
+    cursor:pointer;
+    transition:all .18s;
+  }
+  .icon-tile:active{transform:scale(0.94);}
+  .icon-tile .ic-emoji{font-size:26px;margin-bottom:4px;}
+  .icon-tile .ic-word{font-family:'Fredoka',sans-serif;font-weight:600;font-size:11.5px;}
+  .icon-tile.chosen{background:var(--sage-light);border-color:var(--sage);}
+  .warmup-feedback{text-align:center;font-family:'Fredoka',sans-serif;font-weight:700;font-size:15px;color:var(--sage-dark);min-height:22px;margin-top:4px;}
+  @media (max-width:420px){ .icon-grid{grid-template-columns:repeat(3,1fr);} }
+
+  /* ---------- DEFINITION CARD ---------- */
+  .definition-card{
+    background:linear-gradient(155deg,var(--teal-light),#f7f3e6);
+    border-radius:16px;
+    padding:16px;
+    text-align:center;
+    margin-bottom:16px;
+  }
+  .definition-card .def-text{font-family:'Fredoka',sans-serif;font-weight:600;font-size:16px;color:var(--teal-dark);}
+  .team-msg{
+    text-align:center;
+    font-family:'Fredoka',sans-serif;
+    font-weight:600;
+    font-size:14.5px;
+    color:var(--coral-dark);
+    margin-top:14px;
+  }
+
+  /* ---------- ARTICLE COLOR SYSTEM ---------- */
+  .art-pill{
+    display:inline-flex;align-items:center;gap:5px;
+    font-family:'Fredoka',sans-serif;
+    font-weight:700;
+    font-size:12px;
+    padding:4px 11px;
+    border-radius:999px;
+    border:1.5px solid transparent;
+  }
+  .art-pill.art-der{background:var(--teal-light);color:var(--teal-dark);border-color:var(--teal);}
+  .art-pill.art-die{background:var(--rose-light);color:var(--rose-dark);border-color:var(--rose);}
+  .art-pill.art-das{background:var(--sage-light);color:var(--sage-dark);border-color:var(--sage);}
+
+  .article-trio{display:grid;grid-template-columns:repeat(3,1fr);gap:10px;}
+  .article-card{
+    border-radius:16px;
+    padding:16px 8px;
+    text-align:center;
+    cursor:pointer;
+    transition:all .18s;
+    border:2px solid transparent;
+  }
+  .article-card:active{transform:scale(0.95);}
+  .article-card .ac-dot{font-size:18px;}
+  .article-card .ac-word{font-family:'Fredoka',sans-serif;font-weight:700;font-size:17px;margin:4px 0;}
+  .article-card .ac-example{font-size:12px;line-height:1.3;}
+  .article-card.der{background:var(--teal-light);color:var(--teal-dark);}
+  .article-card.der.heard{border-color:var(--teal);}
+  .article-card.die{background:var(--rose-light);color:var(--rose-dark);}
+  .article-card.die.heard{border-color:var(--rose);}
+  .article-card.das{background:var(--sage-light);color:var(--sage-dark);}
+  .article-card.das.heard{border-color:var(--sage);}
+  @media (max-width:420px){ .article-trio{grid-template-columns:1fr;} }
+
+  /* ---------- VOCAB CARDS ---------- */
+  .vocab-grid{display:grid;grid-template-columns:1fr 1fr;gap:10px;}
+  .vocab-card{
+    background:var(--cream);
+    border:1.5px solid var(--line);
+    border-radius:14px;
+    padding:12px 10px;
+    text-align:center;
+    cursor:pointer;
+    transition:all .2s;
+    position:relative;
+  }
+  .vocab-card:active{transform:scale(0.96);}
+  .vocab-card .vc-icon{font-size:24px;margin-bottom:4px;}
+  .vocab-card .vc-text{font-family:'Fredoka',sans-serif;font-weight:600;font-size:14.5px;margin:4px 0 2px;}
+  .vocab-card .vc-meaning{font-size:11.5px;color:var(--ink-soft);line-height:1.3;margin-bottom:4px;}
+  .vocab-card .vc-example{font-size:11px;color:var(--teal-dark);font-style:italic;line-height:1.3;}
+  .vocab-card.done{background:var(--sage-light);border-color:var(--sage);}
+  .vocab-card .vc-check{position:absolute;top:6px;right:8px;font-size:12px;color:var(--sage-dark);opacity:0;}
+  .vocab-card.done .vc-check{opacity:1;}
+  .vc-speaker{font-size:14px;}
+  @media (max-width:420px){ .vocab-grid{grid-template-columns:1fr;} }
+
+  /* ---------- MEMORY TIP ---------- */
+  .memory-row{
+    display:flex;align-items:center;justify-content:center;gap:16px;
+    background:var(--cream);
+    border-radius:14px;
+    padding:14px;
+    margin-bottom:10px;
+  }
+  .memory-side{flex:1;text-align:center;}
+  .memory-side .mt-label{font-size:11px;color:var(--ink-soft);font-weight:800;text-transform:uppercase;letter-spacing:1px;margin-bottom:4px;}
+  .memory-side .mt-word{font-family:'Fredoka',sans-serif;font-weight:700;font-size:16px;}
+  .memory-side.wrong .mt-word{color:var(--rose-dark);text-decoration:line-through;text-decoration-color:var(--rose);}
+  .memory-side.right .mt-word{color:var(--sage-dark);}
+  .memory-arrow{font-size:18px;color:var(--ink-soft);flex-shrink:0;}
+  .memory-icon{font-size:22px;display:block;margin-bottom:2px;}
+
+  /* ---------- SITUATION / MC ---------- */
+  .situation-card{background:var(--cream);border-radius:14px;padding:14px;margin-bottom:12px;}
+  .situation-text{font-size:15px;font-weight:700;font-family:'Fredoka',sans-serif;margin-bottom:10px;display:flex;align-items:center;gap:8px;}
+  .situation-text .st-icon{font-size:22px;}
+  .mc-options{display:flex;flex-wrap:wrap;gap:8px;}
+  .mc-opt{
+    background:#fff;
+    border:1.5px solid var(--line);
+    border-radius:12px;
+    padding:9px 14px;
+    font-size:13.5px;
+    font-weight:700;
+    cursor:pointer;
+    font-family:'Fredoka',sans-serif;
+  }
+  .mc-opt.correct{background:var(--sage-light);border-color:var(--sage);color:var(--sage-dark);}
+  .mc-opt.incorrect{background:var(--rose-light);border-color:var(--rose);color:var(--rose-dark);}
+  .mc-feedback{margin-top:8px;font-size:13px;font-weight:700;min-height:18px;}
+  .mc-feedback.ok{color:var(--sage-dark);}
+  .mc-feedback.bad{color:var(--rose-dark);}
+
+  /* article-specific option buttons (der/die/das) */
+  .art-opt{
+    border-radius:12px;
+    padding:10px 18px;
+    font-size:14px;
+    font-weight:700;
+    font-family:'Fredoka',sans-serif;
+    cursor:pointer;
+    border:1.5px solid transparent;
+    transition:all .15s;
+  }
+  .art-opt.der{background:var(--teal-light);color:var(--teal-dark);border-color:var(--teal);}
+  .art-opt.die{background:var(--rose-light);color:var(--rose-dark);border-color:var(--rose);}
+  .art-opt.das{background:var(--sage-light);color:var(--sage-dark);border-color:var(--sage);}
+  .art-opt.correct{box-shadow:0 0 0 3px rgba(111,156,133,0.4);}
+  .art-opt.incorrect{opacity:.4;}
+  .art-opt:disabled{cursor:not-allowed;}
+
+  .wrong-shake{animation:shake .35s;}
+  @keyframes shake{0%,100%{transform:translateX(0);}25%{transform:translateX(-5px);}75%{transform:translateX(5px);}}
+
+  /* ---------- SORTING GAME ---------- */
+  .sort-bank{display:flex;flex-wrap:wrap;gap:8px;min-height:44px;margin-bottom:16px;padding:10px;background:var(--cream);border-radius:12px;}
+  .sort-chip{
+    background:#fff;
+    border:1.5px solid var(--line);
+    border-radius:999px;
+    padding:9px 15px;
+    font-size:13.5px;
+    font-weight:700;
+    font-family:'Fredoka',sans-serif;
+    cursor:pointer;
+    transition:all .15s;
+  }
+  .sort-chip.selected{border-color:var(--coral);background:var(--coral-light);transform:scale(1.06);}
+  .sort-columns{display:grid;grid-template-columns:repeat(3,1fr);gap:8px;}
+  .sort-col{
+    border-radius:14px;
+    padding:10px 6px;
+    min-height:120px;
+    text-align:center;
+    border:2px dashed var(--line);
+    transition:all .18s;
+  }
+  .sort-col .sc-title{font-family:'Fredoka',sans-serif;font-weight:700;font-size:14px;margin-bottom:8px;}
+  .sort-col.der{background:var(--teal-light);}
+  .sort-col.der .sc-title{color:var(--teal-dark);}
+  .sort-col.die{background:var(--rose-light);}
+  .sort-col.die .sc-title{color:var(--rose-dark);}
+  .sort-col.das{background:var(--sage-light);}
+  .sort-col.das .sc-title{color:var(--sage-dark);}
+  .sort-col .sc-items{display:flex;flex-direction:column;gap:6px;}
+  .sort-col .sc-item{background:#fff;border-radius:8px;padding:6px 8px;font-size:12.5px;font-weight:700;font-family:'Fredoka',sans-serif;}
+  @media (max-width:420px){ .sort-columns{grid-template-columns:1fr;} }
+  .sort-status{text-align:center;font-size:13px;color:var(--ink-soft);margin-top:12px;min-height:18px;}
+
+  /* ---------- DIALOGUE ---------- */
+  .dlg-controls{display:flex;gap:8px;justify-content:center;margin-bottom:16px;flex-wrap:wrap;}
+  .dlg-list{display:flex;flex-direction:column;gap:10px;margin-bottom:6px;}
+  .dlg-bubble{display:flex;gap:10px;align-items:flex-end;transition:all .2s;}
+  .dlg-bubble.b{flex-direction:row-reverse;}
+  .dlg-avatar{width:34px;height:34px;border-radius:50%;background:var(--cream);border:1.5px solid var(--line);display:flex;align-items:center;justify-content:center;font-size:18px;flex-shrink:0;}
+  .dlg-text{
+    background:var(--cream);
+    border-radius:14px;
+    padding:10px 14px;
+    font-size:14px;
+    font-weight:600;
+    max-width:75%;
+    border:1.5px solid transparent;
+  }
+  .dlg-bubble.b .dlg-text{background:var(--teal-light);color:var(--teal-dark);}
+  .dlg-bubble.active .dlg-text{border-color:var(--coral);box-shadow:0 0 0 3px var(--coral-light);}
+
+  /* ---------- CHALLENGE (timed) ---------- */
+  .challenge-progress-wrap{margin-bottom:16px;}
+  .challenge-progress-label{display:flex;justify-content:space-between;font-size:12.5px;color:var(--ink-soft);font-weight:700;margin-bottom:5px;}
+  .challenge-stage{text-align:center;padding:10px 0 6px;}
+  .challenge-timer-track{height:8px;background:var(--cream);border-radius:999px;overflow:hidden;margin:0 auto 18px;max-width:280px;}
+  .challenge-timer-bar{height:100%;width:100%;background:linear-gradient(90deg,var(--gold),var(--coral));border-radius:999px;}
+  .challenge-emoji-big{font-size:56px;margin-bottom:6px;}
+  .challenge-word-big{font-family:'Fredoka',sans-serif;font-weight:700;font-size:22px;margin-bottom:16px;}
+  .challenge-art-row{display:flex;gap:10px;justify-content:center;flex-wrap:wrap;margin-bottom:10px;}
+  .challenge-art-btn{min-width:84px;}
+
+  /* ---------- CHECKLIST ---------- */
+  .check-list{display:flex;flex-direction:column;gap:8px;}
+  .check-item{display:flex;align-items:center;gap:10px;background:var(--cream);border:1.5px solid var(--line);border-radius:12px;padding:12px 14px;cursor:pointer;transition:all .18s;}
+  .check-item.checked{background:var(--sage-light);border-color:var(--sage);}
+  .check-box{width:24px;height:24px;flex-shrink:0;border-radius:7px;border:2px solid var(--line);display:flex;align-items:center;justify-content:center;font-size:13px;color:transparent;background:#fff;transition:all .18s;}
+  .check-item.checked .check-box{background:var(--sage);border-color:var(--sage-dark);color:#fff;}
+  .check-text{font-size:14.5px;font-weight:700;font-family:'Fredoka',sans-serif;}
+  .checklist-done{display:none;text-align:center;padding:14px 0 4px;}
+  .checklist-done.show{display:block;}
+
+  /* ---------- MISSION ---------- */
+  .mission-hero{text-align:center;padding:20px 10px 10px;}
+  .trophy{font-size:64px;margin-bottom:6px;animation:trophy-pop .6s ease;}
+  @keyframes trophy-pop{0%{transform:scale(0) rotate(-20deg);}70%{transform:scale(1.15) rotate(6deg);}100%{transform:scale(1) rotate(0);}}
+  .badge-plate{background:linear-gradient(155deg,#fff2cf,var(--gold));border-radius:16px;padding:14px;text-align:center;margin:16px 0;box-shadow:0 6px 16px rgba(184,135,31,0.3);}
+  .badge-plate .badge-name{font-family:'Fredoka',sans-serif;font-weight:700;font-size:16px;color:#5a4413;letter-spacing:0.5px;}
+  .xp-total{text-align:center;font-family:'Fredoka',sans-serif;font-size:34px;color:var(--coral-dark);margin:10px 0;}
+  .xp-total span{font-size:16px;color:var(--ink-soft);display:block;font-family:'Nunito',sans-serif;font-weight:700;}
+
+  .info-note{display:flex;gap:8px;background:linear-gradient(155deg,#fff6dd,#fbe7b6);border-radius:12px;padding:10px 12px;font-size:13px;color:#5a4413;margin-top:14px;line-height:1.4;}
+
+  @media (max-width:420px){
+    .start-hero h1{font-size:24px;}
+  }
+  /* ===== LEKTION 8 ADDITIONS ===== */
+  .hl{color:var(--coral-dark);background:var(--coral-light);border-radius:4px;padding:0 1px;font-weight:800;}
+  .xpfloat{position:fixed;z-index:99;font-family:'Fredoka',sans-serif;font-weight:700;color:var(--gold-dark);font-size:20px;pointer-events:none;animation:floatup 1s ease forwards;}
+  @keyframes floatup{from{opacity:1;transform:translateY(0);}to{opacity:0;transform:translateY(-50px);}}
+  .lexi-tip.cheer{background:var(--sage-light);color:var(--sage-dark);font-weight:800;}
+  .pop{animation:pop .4s ease;}
+  @keyframes pop{0%{transform:scale(1);}50%{transform:scale(1.07);}100%{transform:scale(1);}}
+  .burst{position:fixed;left:50%;top:40%;font-size:26px;z-index:99;pointer-events:none;animation:burst 1.1s ease-out forwards;}
+  @keyframes burst{to{transform:translate(var(--dx),var(--dy)) rotate(240deg);opacity:0;}}
+  .tabs{display:flex;gap:6px;flex-wrap:wrap;margin-bottom:12px;}
+  .tab{font-family:'Fredoka',sans-serif;font-weight:600;font-size:13px;padding:8px 12px;border-radius:999px;border:1.5px solid var(--line);background:var(--cream);cursor:pointer;}
+  .tab.on{background:var(--teal);color:#fff;border-color:var(--teal-dark);}
+  .fc{perspective:700px;height:130px;cursor:pointer;}
+  .fc-in{position:relative;width:100%;height:100%;transition:transform .45s;transform-style:preserve-3d;}
+  .fc.flip .fc-in{transform:rotateY(180deg);}
+  .fc-f,.fc-b{position:absolute;inset:0;backface-visibility:hidden;-webkit-backface-visibility:hidden;border-radius:14px;border:1.5px solid var(--line);display:flex;flex-direction:column;align-items:center;justify-content:center;gap:3px;text-align:center;padding:6px;}
+  .fc-f{background:var(--cream);}
+  .fc-b{background:var(--sage-light);border-color:var(--sage);transform:rotateY(180deg);}
+  .fc .big{font-size:28px;} .fc .w{font-family:'Fredoka',sans-serif;font-weight:600;font-size:15px;}
+  .pat-grid{display:grid;grid-template-columns:1fr 1fr;gap:10px;}
+  .pat-card{background:var(--cream);border:1.5px solid var(--line);border-radius:14px;padding:12px 10px;text-align:center;cursor:pointer;}
+  .pat-card.open{background:var(--sage-light);border-color:var(--sage);}
+  .pat-card .pl{font-family:'Fredoka',sans-serif;font-weight:700;font-size:22px;color:var(--teal-dark);}
+  .pat-card .ex{font-family:'Fredoka',sans-serif;font-weight:600;font-size:15px;margin:6px 0 2px;min-height:22px;}
+  .pat-card .tip{font-size:11.5px;color:var(--ink-soft);line-height:1.3;}
+  .tog-grid{display:grid;grid-template-columns:1fr 1fr;gap:10px;}
+  .tog{background:var(--cream);border:1.5px solid var(--line);border-radius:14px;padding:14px 8px;text-align:center;cursor:pointer;min-height:110px;}
+  .tog .em{font-size:26px;letter-spacing:2px;min-height:34px;} .tog .tw{font-family:'Fredoka',sans-serif;font-weight:700;font-size:16px;margin-top:4px;}
+  .tog .tl{font-size:11px;font-weight:800;color:var(--ink-soft);}
+  .tog.pl{background:var(--rose-light);border-color:var(--rose);}
+  .two{display:grid;grid-template-columns:1fr 1fr;gap:10px;margin-bottom:14px;}
+  .two .def-text{font-size:14px;}
+  .mrow{display:grid;grid-template-columns:1fr 1fr;gap:8px;}
+  .mcol{display:flex;flex-direction:column;gap:8px;}
+  .mbtn{background:#fff;border:1.5px solid var(--line);border-radius:12px;padding:10px;font-family:'Fredoka',sans-serif;font-weight:600;font-size:14px;cursor:pointer;min-height:44px;}
+  .mbtn.sel{border-color:var(--coral);background:var(--coral-light);} .mbtn.done{background:var(--sage-light);border-color:var(--sage);color:var(--sage-dark);cursor:default;}
+  .sort6{display:grid;grid-template-columns:repeat(3,1fr);gap:8px;}
+  .sort6 .sort-col{background:var(--cream);min-height:96px;}
+  .sort6 .sort-col.over{border-color:var(--coral);background:var(--coral-light);}
+  .sort-chip[draggable="true"]{cursor:grab;touch-action:manipulation;}
+  @media (max-width:420px){.sort6{grid-template-columns:1fr 1fr;}.pat-grid,.tog-grid{grid-template-columns:1fr 1fr;}.two{grid-template-columns:1fr;}}
+  .fill-row{display:flex;align-items:center;gap:8px;flex-wrap:wrap;font-family:'Fredoka',sans-serif;font-weight:600;font-size:18px;}
+  .fill-in{width:58px;font:inherit;text-align:center;padding:6px;border:2px solid var(--teal);border-radius:10px;background:#fff;}
+  .sp-keys{display:flex;gap:6px;margin:0 0 12px;}
+  .sp-keys .btn{padding:6px 14px;min-height:38px;}
+  .mist{background:var(--cream);border-radius:12px;padding:10px 12px;margin-bottom:8px;cursor:pointer;font-size:14px;}
+  .mist .x{color:var(--rose-dark);font-weight:800;text-decoration:line-through;} .mist .fix{display:none;margin-top:6px;color:var(--sage-dark);font-weight:700;}
+  .mist.open .fix{display:block;}
+  .sum-table{width:100%;border-collapse:collapse;font-size:13.5px;margin-bottom:12px;}
+  .sum-table td,.sum-table th{border-bottom:1px solid var(--line);padding:6px 4px;text-align:left;}
+  .badge-row{display:flex;gap:8px;justify-content:center;flex-wrap:wrap;margin:10px 0;}
+  .ach{background:var(--cream);border:1.5px solid var(--line);border-radius:12px;padding:8px 12px;font-size:12.5px;font-weight:700;opacity:.5;}
+  .ach.on{opacity:1;background:var(--sage-light);border-color:var(--sage);}
+  .brand{color:var(--ink-soft);font-size:12px;margin-top:14px;}
+  @media (prefers-reduced-motion:reduce){*{animation:none!important;transition:none!important;}}
+  @media print{.passport,.nav-row,.no-print{display:none!important;}.screen{display:none!important;}#screen-summary{display:block!important;}body{background:#fff;}.card{box-shadow:none;}}
+
+</style>
+</head>
+<body>
+<div class="app">
+  <div class="passport">
+    <div class="passport-top">
+      <div class="lexi-wrap"><div class="lexi" id="lexiAvatar">🦊</div></div>
+      <div class="passport-title">
+        <div class="eyebrow">Einheit 3 · Lektion 8 von deinem Deutsch-Abenteuer 🚀</div>
+        <h1>Singular &amp; Plural</h1>
+      </div>
+      <div class="xp-pill" id="xpPill">⭐ <span id="xpCount">0</span> XP</div>
+    </div>
+    <div class="progress-track"><div class="progress-fill" id="progressFill"></div></div>
+    <div class="stamps-row" id="stampsRow"></div>
+    <div class="lexi-tip" id="lexiTip"></div>
+  </div>
+  <div id="screens"></div>
+</div>
+<script>
+/* ---- shared helpers (identical to Lektion 7) ---- */
+function speak(text, onend){
+  if(!('speechSynthesis' in window)){ if(onend) onend(); return; }
+  window.speechSynthesis.cancel();
+  const u = new SpeechSynthesisUtterance(text);
+  u.lang = 'de-DE';
+  u.rate = 0.92;
+  u.pitch = 1.0;
+  if(onend) u.onend = onend;
+  u.onerror = function(){ if(onend) onend(); };
+  window.speechSynthesis.speak(u);
+}
+function stopSpeaking(){ if('speechSynthesis' in window) window.speechSynthesis.cancel(); }
+function shuffle(arr){
+  const a = arr.slice();
+  for(let i=a.length-1;i>0;i--){ const j = Math.floor(Math.random()*(i+1)); [a[i],a[j]]=[a[j],a[i]]; }
+  return a;
+}
+function renderHeader(){
+  document.getElementById('xpCount').textContent = state.totalXP;
+  const pct = Math.round((state.screenIndex/(SCREENS.length-1))*100);
+  document.getElementById('progressFill').style.width = pct+'%';
+  const row = document.getElementById('stampsRow');
+  row.innerHTML='';
+  SCREENS.forEach((s,i)=>{
+    const d = document.createElement('div');
+    d.className = 'stamp-dot' + (i<state.screenIndex?' done':'') + (i===state.screenIndex?' current':'');
+    d.textContent = i<state.screenIndex ? '✓' : '';
+    row.appendChild(d);
+  });
+  const tip = document.getElementById('lexiTip');
+  tip.textContent = LEXI_TIPS[state.screenIndex] || '';
+  tip.classList.add('show');
+}
+
+/* ===== DATA ===== */
+// [cat, icon, article, singular, plural, pattern]
+const V = [
+ ['k','🍽️','der','Tisch','Tische','e'],['k','🪑','der','Stuhl','Stühle','eu'],['k','📚','das','Buch','Bücher','eru'],
+ ['k','🖊️','der','Stift','Stifte','e'],['k','🎒','die','Tasche','Taschen','n'],['k','🧑‍🏫','der','Lehrer','Lehrer','o'],
+ ['z','🛏️','das','Bett','Betten','n'],['z','🛋️','das','Sofa','Sofas','s'],['z','🚗','das','Auto','Autos','s'],
+ ['z','🌸','die','Blume','Blumen','n'],['z','📱','das','Handy','Handys','s'],['z','🪟','das','Fenster','Fenster','o'],
+ ['e','🍎','der','Apfel','Äpfel','u'],['e','🍌','die','Banane','Bananen','n'],['e','🍞','das','Brot','Brote','e'],
+ ['e','🥚','das','Ei','Eier','er'],['e','🍰','der','Kuchen','Kuchen','o'],['e','🥛','das','Glas','Gläser','eru'],
+ ['m','🧒','das','Kind','Kinder','er'],['m','👩','die','Frau','Frauen','n'],['m','👨‍👧','der','Vater','Väter','u'],
+ ['m','🐱','die','Katze','Katzen','n'],['m','🐶','der','Hund','Hunde','e'],['m','🐭','die','Maus','Mäuse','eu']
+].map(a=>({cat:a[0],icon:a[1],art:a[2],sg:a[3],pl:a[4],pat:a[5]}));
+const W = s => V.find(v=>v.sg===s);
+const CATS = {k:'🏫 Klassenzimmer', z:'🏠 Zuhause', e:'🍎 Essen', m:'🐱 Menschen & Tiere'};
+const PLAB = {e:'-e',er:'-er',n:'-(e)n',s:'-s',u:'Umlaut',o:'bleibt gleich',eu:'Umlaut + -e',eru:'Umlaut + -er'};
+const CHEERS = ['Sehr gut!','Weiter so!','Du schaffst das!','Fantastisch!','Toll gemacht!','Prima!','Super!'];
+const SCREENS = ['start','intro','patterns','rules','vocab','match','choose','sort','fill','challenge','assess','summary','mission'];
+const LEXI_TIPS = [
+ "Tippe auf „Los geht's!“ – ich bin Lexi! 🦊",'Tippe auf die Karten: Einzahl oder Mehrzahl?','Tippe auf eine Karte, um den Plural zu entdecken!',
+ 'Tippe auf die Karten und lies die Regeln.','Tippe auf eine Karte – sie dreht sich um!','Tippe links ein Wort, dann rechts den Plural.',
+ 'Welcher Plural ist richtig? Du schaffst das!','Ziehe das Wort in die richtige Gruppe – oder tippe es an.','Ergänze die fehlenden Buchstaben!',
+ 'Schnell! Wähle den richtigen Plural.','Zeig, was du kannst: 10 Fragen!','Dein Spickzettel – du kannst ihn drucken. 🖨️','Fantastisch! Du bist ein Plural-Profi! 🎉'];
+let state = {screenIndex:0,maxReached:0,totalXP:0,xpFlags:new Set(),sel:null,sorted:{},best:{chal:0,ass:0},sortDone:false};
+const $ = id => document.getElementById(id);
+const hl = (a,b)=>[...b].map((c,i)=>(i>=a.length||c!==a[i])?`<b class="hl">${c}</b>`:c).join('');
+const say = (v,both)=>speak(both ? `${v.art} ${v.sg}. die ${v.pl}.` : v.sg);
+const pill = a=>`<span class="art-pill art-${a}">${a}</span>`;
+
+/* ===== FEEDBACK / XP / LEXI ===== */
+function award(flag,n){
+  if(state.xpFlags.has(flag)) return;
+  state.xpFlags.add(flag); state.totalXP += n; renderHeader(); pulseLexi();
+  const r=$('xpPill').getBoundingClientRect(), f=document.createElement('div');
+  f.className='xpfloat'; f.textContent='+'+n; f.style.left=(r.left+10)+'px'; f.style.top=(r.bottom)+'px';
+  document.body.appendChild(f); setTimeout(()=>f.remove(),1000);
+}
+function pulseLexi(){const e=$('lexiAvatar');e.classList.add('talking');setTimeout(()=>e.classList.remove('talking'),500);}
+function cheer(){
+  const t=$('lexiTip'); t.textContent='🦊 '+CHEERS[Math.floor(Math.random()*CHEERS.length)]; t.classList.add('cheer','show');
+  clearTimeout(cheer.t); cheer.t=setTimeout(()=>{t.classList.remove('cheer');renderHeader();},2000);
+}
+function burst(){
+  ['🎉','⭐','✨','🎊'].forEach((e,k)=>{for(let i=0;i<4;i++){const s=document.createElement('span');s.className='burst';s.textContent=e;
+   s.style.setProperty('--dx',(Math.random()*320-160)+'px');s.style.setProperty('--dy',(Math.random()*-260-20)+'px');document.body.appendChild(s);setTimeout(()=>s.remove(),1100);}});
+}
+function good(fb,msg,flag,n,el){fb.textContent='🎉 '+msg;fb.className='mc-feedback ok';if(el)el.classList.add('pop');award(flag,n);cheer();}
+function bad(fb,msg,el){fb.textContent='💡 '+msg;fb.className='mc-feedback bad';if(el){el.classList.add('wrong-shake');setTimeout(()=>el.classList.remove('wrong-shake'),400);}}
+
+/* ===== NAV ===== */
+function goTo(i){
+  stopSpeaking(); clearTimeout(chal.t);
+  document.querySelectorAll('.screen').forEach(s=>s.classList.remove('active'));
+  $('screen-'+SCREENS[i]).classList.add('active');
+  state.screenIndex=i; state.maxReached=Math.max(i,state.maxReached); renderHeader();
+  window.scrollTo({top:0,behavior:'smooth'});
+  if(SCREENS[i]==='mission') renderMission();
+}
+const nav=(i)=>`<div class="nav-row no-print"><button class="btn btn-ghost" onclick="goTo(${i-1})">◀ Zurück</button><button class="btn btn-primary" onclick="goTo(${i+1})">Weiter ▶</button></div>`;
+const card=(t,sub,body)=>`<div class="card"><h2 class="section-title">${t}</h2><p class="section-sub">${sub}</p>${body}</div>`;
+
+/* ===== BUILD SCREENS ===== */
+function build(){
+  const S={};
+  S.start=`<div class="card start-hero"><div class="big-lexi">🦊</div><div class="lesson-tag">Einheit 3 · Lektion 8 – Singular &amp; Plural</div>
+   <h1>🇩🇪 Singular &amp; Plural</h1><p class="subtitle">Ein Tisch, viele Tische! 🍽️🍽️🍽️</p>
+   <p>Ich bin Lexi! Heute lernen wir, wie man in Deutsch „einer“ und „viele“ sagt – mit Mustern, Spielen und einem Abschlusstest. Bereit? 💪</p>
+   <ul class="goals-list" style="text-align:left;max-width:420px;margin:0 auto 20px;">
+    <li><span class="goal-check">✓</span> Singular und Plural erkennen.</li><li><span class="goal-check">✓</span> die 6 wichtigsten Plural-Muster kennen.</li>
+    <li><span class="goal-check">✓</span> „die“ im Plural und „Das sind …“ benutzen.</li><li><span class="goal-check">✓</span> 24 Alltagswörter mit Plural lernen.</li></ul>
+   <div class="start-badges"><div class="start-badge">🔍 Muster</div><div class="start-badge">🃏 Karten</div><div class="start-badge">🧩 Spiele</div><div class="start-badge">🏆 Test</div></div>
+   <button class="btn btn-primary btn-block" onclick="goTo(1)">Los geht's! ▶</button><div class="brand">Deutsch mit Abir · A1 – Beginners</div></div>`;
+  S.intro=card('👀 Eins oder viele?','Tippe auf eine Karte: Was ändert sich?',
+   `<div class="two"><div class="definition-card"><div class="def-text">Singular = 1<br><small>ein Ding · one thing</small></div></div><div class="definition-card"><div class="def-text">Plural = 2, 3, 4 …<br><small>mehrere Dinge · more than one</small></div></div></div><div class="tog-grid" id="togGrid"></div>
+   <div class="team-msg">Singular: das Buch · Plural: die Bücher 📚</div>`);
+  S.patterns=card('🔍 Die 6 Plural-Muster','Tippe auf eine Karte, um den Plural zu sehen.','<div class="pat-grid" id="patGrid"></div><div class="team-msg">Lerne jedes Nomen mit seinem Plural: der Tisch, die Tische! 🤝</div>');
+  S.rules=card('📏 Wichtige Regeln','Tippe auf die Artikel und auf die Fehler.',
+   `<div class="situation-card"><div class="situation-text">1️⃣ Im Plural ist der Artikel immer DIE.</div><div class="mc-options" id="artMorph"></div><div class="mc-feedback" id="morphFb"></div></div>
+   <div class="situation-card"><div class="situation-text">2️⃣ ein / eine gibt es nur im Singular.</div>
+    <div style="font-size:14px;line-height:1.7;">Das ist <b>ein</b> Tisch. ➜ Das sind <span class="hl">Tische</span>. <span class="no-print" style="cursor:pointer" onclick="speak('Das ist ein Tisch. Das sind Tische.')">🔊</span><br>Das ist <b>eine</b> Katze. ➜ Das sind <span class="hl">Katzen</span>.</div></div>
+   <div class="situation-card"><div class="situation-text">3️⃣ ist ➜ sind</div>
+    <div style="font-size:14px;line-height:1.7;">Der Tisch <b>ist</b> neu. ➜ Die Tische <b>sind</b> neu. <span style="cursor:pointer" onclick="speak('Der Tisch ist neu. Die Tische sind neu.')">🔊</span></div></div>
+   <h3 style="margin:16px 0 8px;">⚠️ Typische Fehler – tippe, um zu sehen, was falsch ist</h3><div id="mistList"></div>`);
+  S.vocab=card('🃏 Wortschatz-Karten','Tippe auf eine Karte: Singular vorne, Plural hinten.','<div class="tabs" id="vTabs"></div><div class="vocab-grid" id="fcGrid"></div><div class="section-sub" style="margin:12px 0 0;text-align:center;" id="fcCount"></div>');
+  S.match=card('🔗 Verbinde Singular + Plural','Tippe links ein Wort, dann rechts den passenden Plural.','<div class="mrow"><div class="mcol" id="mL"></div><div class="mcol" id="mR"></div></div><div class="mc-feedback" id="mFb" style="text-align:center;"></div><button class="btn btn-secondary btn-sm" onclick="renderMatch()">↺ Neue Wörter</button>');
+  S.choose=card('✅ Welcher Plural ist richtig?','Wähle die richtige Form. Ich erkläre dir, warum!','<div id="chooseList"></div>');
+  S.sort=card('🗂️ Muster-Sortierspiel','Ziehe das Wort in die richtige Gruppe – oder tippe erst das Wort, dann die Gruppe.','<div class="sort-bank" id="sBank"></div><div class="sort6" id="sCols"></div><div class="sort-status" id="sStat"></div>');
+  S.fill=card('✏️ Fehlende Buchstaben','Ergänze den Plural. Keine Umlaut-Taste? Tippe ä ö ü unten!',
+   '<div class="sp-keys no-print"><button class="btn btn-secondary btn-sm" onclick="ins(\'ä\')">ä</button><button class="btn btn-secondary btn-sm" onclick="ins(\'ö\')">ö</button><button class="btn btn-secondary btn-sm" onclick="ins(\'ü\')">ü</button></div><div id="fillList"></div>');
+  S.challenge=card('⏱️ Mini-Challenge','Schnell! Wähle den richtigen Plural, bevor die Zeit abläuft.',
+   `<div id="chIntro"><p style="color:var(--ink-soft);font-size:14px;">8 Wörter, 7 Sekunden pro Runde.</p><button class="btn btn-primary btn-block" onclick="startChal()">🔥 Challenge starten</button></div>
+   <div id="chArea" style="display:none;"><div class="challenge-progress-label"><span>Runde</span><span id="chCount"></span></div><div class="challenge-timer-track"><div class="challenge-timer-bar" id="chBar"></div></div>
+   <div class="challenge-stage"><div class="challenge-emoji-big" id="chIcon"></div><div class="challenge-word-big" id="chWord"></div><div class="challenge-art-row" id="chOpts"></div><div class="mc-feedback" id="chFb" style="text-align:center;"></div></div></div>
+   <div id="chRes" style="display:none;text-align:center;"><div style="font-size:40px;" id="chEmoji"></div><div style="font-family:'Fredoka',sans-serif;font-weight:700;font-size:17px;color:var(--sage-dark);" id="chMsg"></div><button class="btn btn-secondary btn-sm" style="margin-top:10px;" onclick="startChal()">↺ Nochmal</button></div>`);
+  S.assess=card('📝 Abschlusstest','10 Fragen – zeig, was du gelernt hast!',
+   `<div class="challenge-progress-label"><span id="aNo">Frage 1/10</span><span id="aSc">0 Punkte</span></div><div class="progress-track" style="margin-bottom:14px;"><div class="progress-fill" id="aFill"></div></div>
+   <div id="aQ"></div><div id="aRes" style="display:none;text-align:center;padding-top:8px;"></div>`);
+  S.summary=card('🖨️ Zusammenfassung · Deutsch mit Abir','Lektion 8 – Singular &amp; Plural (A1)',
+   `<button class="btn btn-primary btn-block no-print" style="margin-bottom:14px;" onclick="window.print()">🖨️ Zusammenfassung drucken</button>
+   <table class="sum-table"><tr><th>Muster</th><th>Beispiel</th><th>Tipp</th></tr>
+   <tr><td>-e</td><td>der Tisch ➜ die Tische</td><td>oft maskulin</td></tr><tr><td>-er</td><td>das Kind ➜ die Kinder</td><td>oft neutral</td></tr>
+   <tr><td>-(e)n</td><td>die Frau ➜ die Frauen</td><td>meist feminin</td></tr><tr><td>-s</td><td>das Auto ➜ die Autos</td><td>moderne Wörter</td></tr>
+   <tr><td>Umlaut</td><td>der Apfel ➜ die Äpfel</td><td>a➜ä o➜ö u➜ü</td></tr><tr><td>gleich</td><td>der Lehrer ➜ die Lehrer</td><td>-er, -el, -en</td></tr></table>
+   <ul class="goals-list"><li><span class="goal-check">✓</span> Plural-Artikel: immer <b>die</b>.</li><li><span class="goal-check">✓</span> ein / eine: nur Singular. Plural: Das sind Tische.</li>
+   <li><span class="goal-check">✓</span> ist ➜ sind. Lerne Nomen mit Artikel + Plural!</li></ul><h3 style="margin:14px 0 6px;">Wortschatz</h3>
+   ${Object.keys(CATS).map(c=>`<b>${CATS[c]}</b><table class="sum-table">${V.filter(v=>v.cat===c).map(v=>`<tr><td>${v.icon} ${v.art} ${v.sg}</td><td>die ${hl(v.sg,v.pl)}</td></tr>`).join('')}</table>`).join('')}`);
+  S.mission=`<div class="card mission-hero"><div class="trophy">🏆</div><h1 style="margin:0;">MISSION GESCHAFFT!</h1><p style="color:var(--ink-soft);">Heute kann ich …</p>
+   <ul class="goals-list" style="text-align:left;"><li><span class="goal-check">✓</span> Singular und Plural unterscheiden.</li><li><span class="goal-check">✓</span> die 6 Plural-Muster erkennen.</li>
+   <li><span class="goal-check">✓</span> „die“ im Plural benutzen.</li><li><span class="goal-check">✓</span> „Das sind …“ sagen.</li></ul>
+   <div class="xp-total"><span>Gesamtpunkte</span>⭐ <span id="missionXP">0</span> XP</div><div class="badge-row" id="achRow"></div>
+   <div class="badge-plate"><div style="font-size:26px;">🎖️</div><div class="badge-name">PLURAL-PROFI</div></div>
+   <button class="btn btn-sage btn-block" onclick="restart()">🔁 Lektion wiederholen</button></div>`;
+  $('screens').innerHTML=SCREENS.map((id,i)=>`<section class="screen${i?'':' active'}" id="screen-${id}">${S[id]}${(i&&i<SCREENS.length-1)?nav(i):''}</section>`).join('');
+}
+
+/* ===== INTRO: toggle singular / plural ===== */
+function renderIntro(){
+  const g=$('togGrid'); g.innerHTML='';
+  ['Buch','Katze','Apfel','Kind'].map(W).forEach(v=>{
+    const d=document.createElement('div'); d.className='tog';
+    const draw=pl=>{d.classList.toggle('pl',pl);d.innerHTML=`<div class="em">${pl?v.icon.repeat(3):v.icon}</div><div class="tw">${pl?'die '+hl(v.sg,v.pl):v.art+' '+v.sg}</div><div class="tl">${pl?'PLURAL':'SINGULAR'} · tippe</div>`;};
+    let pl=false; draw(pl);
+    d.onclick=()=>{pl=!pl;draw(pl);speak(pl?'die '+v.pl:v.art+' '+v.sg);if(pl){award('intro-'+v.sg,2);cheer();}};
+    g.appendChild(d);
+  });
+}
+/* ===== PATTERNS: click to reveal ===== */
+const PATS=[['-e','Tisch','Many masculine nouns.'],['-er','Kind','Often neuter words.'],['-(e)n','Frau','Most feminine words: Blume ➜ Blumen.'],['-s','Auto','Modern / foreign words.'],['Umlaut','Apfel','a➜ä, o➜ö, u➜ü: Vater ➜ Väter.'],['bleibt gleich','Lehrer','Words with -er, -el, -en.']];
+function renderPatterns(){
+  const g=$('patGrid'); g.innerHTML='';
+  PATS.forEach(p=>{const v=W(p[1]),d=document.createElement('div');d.className='pat-card';
+    d.innerHTML=`<div class="pl">${p[0]}</div><div class="ex">${v.icon} ${v.art} ${v.sg} ➜ <span class="rv">❓</span></div><div class="tip">${p[2]}</div>`;
+    d.onclick=()=>{d.classList.add('open');d.querySelector('.rv').innerHTML='die '+hl(v.sg,v.pl);say(v,true);award('pat-'+v.sg,2);};
+    g.appendChild(d);});
+}
+/* ===== RULES ===== */
+function renderRules(){
+  const m=$('artMorph'); m.innerHTML='';
+  [['der','Tisch'],['die','Tasche'],['das','Buch']].forEach(a=>{
+    const b=document.createElement('button');b.className='art-opt '+a[0];b.textContent=a[0]+' '+a[1];
+    b.onclick=()=>{const v=W(a[1]);b.className='art-opt die correct';b.innerHTML='die '+hl(v.sg,v.pl);speak('die '+v.pl);$('morphFb').textContent='Im Plural: immer DIE! ✨';$('morphFb').className='mc-feedback ok';award('morph-'+a[1],2);cheer();};
+    m.appendChild(b);});
+  const M=[['die Tischs','die Tische','Tisch ➜ -e, not -s.'],['der Tische','die Tische','Plural article = always die.'],['ein Tische','Tische','No ein/eine in the plural.'],['Die Tische ist neu.','Die Tische sind neu.','Plural ➜ sind.']];
+  $('mistList').innerHTML=M.map(x=>`<div class="mist"><span class="x">${x[0]}</span><div class="fix">✅ ${x[1]} <small style="font-weight:600;color:var(--ink-soft)">– ${x[2]}</small></div></div>`).join('');
+  document.querySelectorAll('.mist').forEach((e,i)=>e.onclick=()=>{e.classList.add('open');award('mist-'+i,1);});
+}
+/* ===== VOCAB FLASHCARDS ===== */
+let vcat='k';
+function renderVocab(){
+  $('vTabs').innerHTML=Object.keys(CATS).map(c=>`<div class="tab${c===vcat?' on':''}" onclick="vcat='${c}';renderVocab()">${CATS[c]}</div>`).join('');
+  const g=$('fcGrid'); g.innerHTML='';
+  V.filter(v=>v.cat===vcat).forEach(v=>{
+    const d=document.createElement('div');d.className='fc';
+    d.innerHTML=`<div class="fc-in"><div class="fc-f"><div class="big">${v.icon}</div>${pill(v.art)}<div class="w">🔊 ${v.sg}</div></div><div class="fc-b"><div class="big">${v.icon.repeat(2)}</div><div class="w">die ${hl(v.sg,v.pl)}</div><div class="art-pill art-die" style="font-size:11px;">${PLAB[v.pat]}</div></div></div>`;
+    d.onclick=()=>{d.classList.toggle('flip');say(v,d.classList.contains('flip'));if(d.classList.contains('flip')){award('fc-'+v.sg,1);}$('fcCount').textContent=[...state.xpFlags].filter(f=>f.startsWith('fc-')).length+'/24 Karten umgedreht';};
+    g.appendChild(d);});
+  $('fcCount').textContent=[...state.xpFlags].filter(f=>f.startsWith('fc-')).length+'/24 Karten umgedreht';
+}
+/* ===== MATCH ===== */
+let mt={l:null,done:0};
+function renderMatch(){
+  mt={l:null,done:0}; $('mFb').textContent='';
+  const pick=shuffle(V).slice(0,5), L=$('mL'),R=$('mR'); L.innerHTML='';R.innerHTML='';
+  pick.forEach(v=>{const b=document.createElement('button');b.className='mbtn';b.textContent=v.icon+' '+v.art+' '+v.sg;b.onclick=()=>{if(b.classList.contains('done'))return;L.querySelectorAll('.mbtn').forEach(x=>x.classList.remove('sel'));b.classList.add('sel');mt.l=v;speak(v.sg);};L.appendChild(b);});
+  shuffle(pick).forEach(v=>{const b=document.createElement('button');b.className='mbtn';b.textContent='die '+v.pl;b.onclick=()=>{
+    if(b.classList.contains('done'))return; if(!mt.l){$('mFb').textContent='Wähle zuerst links ein Wort.';return;}
+    if(mt.l===v){b.classList.add('done');const lb=[...L.children].find(x=>x.classList.contains('sel'));lb.className='mbtn done';mt.l=null;mt.done++;speak('die '+v.pl);award('match-'+v.sg,2);cheer();
+      if(mt.done===5){$('mFb').className='mc-feedback ok';$('mFb').textContent='🏆 Alle Paare gefunden!';}}
+    else bad($('mFb'),'Nicht ganz – „'+mt.l.sg+'“ ➜ denk an das Muster '+PLAB[mt.l.pat]+'.',b);};R.appendChild(b);});
+}
+/* ===== CHOOSE PLURAL ===== */
+const CH=[['Buch',['Buchs','Bücher','Büchen'],'Neuter nouns often take -er + umlaut.'],['Apfel',['Apfels','Äpfel','Apfeln'],'Only the umlaut changes: a ➜ ä.'],['Frau',['Fraus','Fraue','Frauen'],'Feminine nouns mostly take -(e)n.'],
+ ['Auto',['Autos','Autoen','Auter'],'Modern words take -s.'],['Lehrer',['Lehrers','Lehrer','Lehrere'],'Nouns ending in -er don’t change.'],['Hund',['Hunde','Hünde','Hunds'],'Hund takes -e, no umlaut.']];
+function renderChoose(){
+  const l=$('chooseList'); l.innerHTML='';
+  CH.forEach(c=>{const v=W(c[0]),d=document.createElement('div');d.className='situation-card';
+    d.innerHTML=`<div class="situation-text"><span class="st-icon">${v.icon}</span> ${v.art} ${v.sg} ➜ die ___</div><div class="mc-options"></div><div class="mc-feedback"></div>`;
+    const fb=d.querySelector('.mc-feedback'); let done=false;
+    shuffle(c[1]).forEach(o=>{const b=document.createElement('button');b.className='mc-opt';b.textContent=o;b.onclick=()=>{if(done)return;
+      if(o===v.pl){done=true;b.classList.add('correct');good(fb,'Richtig! die '+v.pl+' – '+c[2],'ch-'+c[0],3,d);speak('die '+v.pl);}
+      else{b.classList.add('incorrect');b.disabled=true;bad(fb,'Fast! Versuch es nochmal.',d);}};d.querySelector('.mc-options').appendChild(b);});
+    l.appendChild(d);});
+}
+/* ===== SORT: drag & drop + tap ===== */
+const SORTW=['Tisch','Kind','Blume','Auto','Apfel','Lehrer','Hund','Ei','Handy','Vater'];
+const SG=[['e','-e'],['er','-er'],['n','-(e)n'],['s','-s'],['u','Umlaut'],['o','gleich']];
+function renderSort(){
+  state.sel=null; state.sorted={}; const b=$('sBank'),c=$('sCols'); b.innerHTML='';c.innerHTML=''; $('sStat').textContent='Wähle ein Wort.';
+  SG.forEach(g=>{const col=document.createElement('div');col.className='sort-col';col.innerHTML=`<div class="sc-title">${g[1]}</div><div class="sc-items" id="si-${g[0]}"></div>`;
+    col.onclick=()=>place(g[0],col);col.ondragover=e=>{e.preventDefault();col.classList.add('over');};col.ondragleave=()=>col.classList.remove('over');
+    col.ondrop=e=>{e.preventDefault();col.classList.remove('over');place(g[0],col);};c.appendChild(col);});
+  SORTW.forEach(s=>{const v=W(s),ch=document.createElement('div');ch.className='sort-chip';ch.id='sc-'+s;ch.draggable=true;ch.textContent=v.icon+' '+v.art+' '+v.sg;
+    ch.ondragstart=()=>{state.sel=s;};ch.onclick=e=>{e.stopPropagation();document.querySelectorAll('.sort-chip').forEach(x=>x.classList.remove('selected'));ch.classList.add('selected');state.sel=s;speak(v.sg);$('sStat').textContent='Jetzt tippe auf die Gruppe für „'+v.sg+'“.';};b.appendChild(ch);});
+}
+function place(pat,col){
+  const s=state.sel; if(!s)return $('sStat').textContent='Wähle zuerst ein Wort.'; const v=W(s);
+  if(v.pat===pat){state.sorted[s]=1;$('sc-'+s).remove();const i=document.createElement('div');i.className='sc-item';i.innerHTML=v.art+' '+v.sg+' ➜ die '+hl(v.sg,v.pl);$('si-'+pat).appendChild(i);state.sel=null;
+    $('sStat').textContent='⭐ Richtig! '+PLAB[pat];award('sort-'+s,3);cheer();speak('die '+v.pl);
+    if(Object.keys(state.sorted).length===SORTW.length){$('sStat').textContent='🏆 Alle Wörter sortiert! Muster-Detektiv!';state.sortDone=true;burst();}}
+  else{col.classList.add('wrong-shake');setTimeout(()=>col.classList.remove('wrong-shake'),400);$('sStat').textContent='💡 Nicht ganz – „'+v.sg+'“ ➜ die '+v.pl+'. Versuch eine andere Gruppe!';}
+}
+/* ===== FILL MISSING LETTERS ===== */
+const FILL=[['Tisch','e','','🍽️'],['Kind','er','','🧒'],['Frau','en','','👩'],['Auto','s','','🚗'],['','Ä','pfel','🍎'],['V','ä','ter','👨‍👧']];
+let lastIn=null;
+function ins(ch){if(lastIn){lastIn.value+=ch;lastIn.focus();}}
+function renderFill(){
+  const l=$('fillList'); l.innerHTML='';
+  FILL.forEach((f,i)=>{const d=document.createElement('div');d.className='situation-card';let tries=0,done=false;
+    d.innerHTML=`<div class="fill-row"><span style="font-size:26px">${f[3]}</span> die ${f[0]}<input class="fill-in" maxlength="3" autocomplete="off" autocapitalize="off">${f[2]}<button class="btn btn-secondary btn-sm">Prüfen</button></div><div class="mc-feedback"></div>`;
+    const inp=d.querySelector('input'),fb=d.querySelector('.mc-feedback'); inp.onfocus=()=>lastIn=inp;
+    const check=()=>{if(done)return;let a=inp.value.trim().toLowerCase();const t=f[1].toLowerCase();
+      if(a==={ä:'ae',ö:'oe',ü:'ue'}[t])a=t; const full=f[0]+f[1]+f[2];
+      if(a===t){done=true;inp.disabled=true;good(fb,'Richtig! die '+full,'fill-'+i,3,d);speak('die '+full);}
+      else{tries++;if(tries>1){inp.value=f[1];inp.disabled=true;done=true;bad(fb,'Die Lösung: die '+full,d);}else bad(fb,'Tipp: '+(t.length>1?'zwei Buchstaben.':'ein Buchstabe – denk an das Muster!'),d);}};
+    d.querySelector('button').onclick=check; inp.onkeydown=e=>{if(e.key==='Enter')check();}; l.appendChild(d);});
+}
+/* ===== TIMED CHALLENGE ===== */
+let chal={order:[],i:0,sc:0,t:null};
+function distract(v){const w=v.sg;return shuffle([w+'e',w+'er',w+'en',w+'s',w+'n'].filter(x=>x!==v.pl)).slice(0,2);}
+function startChal(){$('chIntro').style.display='none';$('chRes').style.display='none';$('chArea').style.display='block';chal.order=shuffle(V).slice(0,8);chal.i=0;chal.sc=0;nextChal();}
+function nextChal(){
+  clearTimeout(chal.t); if(chal.i>=8)return endChal(); const v=chal.order[chal.i];
+  $('chIcon').textContent=v.icon;$('chWord').textContent=v.art+' '+v.sg+' ➜ die ?';$('chCount').textContent=(chal.i+1)+'/8';$('chFb').textContent='';
+  const o=$('chOpts');o.innerHTML='';shuffle([v.pl,...distract(v)]).forEach(p=>{const b=document.createElement('button');b.className='btn btn-secondary';b.textContent=p;b.onclick=()=>ansChal(p,b);o.appendChild(b);});
+  const bar=$('chBar');bar.style.transition='none';bar.style.width='100%';requestAnimationFrame(()=>requestAnimationFrame(()=>{bar.style.transition='width 7s linear';bar.style.width='0%';}));
+  chal.t=setTimeout(()=>ansChal(null),7000);
+}
+function ansChal(p,b){
+  clearTimeout(chal.t);const v=chal.order[chal.i];document.querySelectorAll('#chOpts .btn').forEach(x=>x.disabled=true);
+  if(p===v.pl){chal.sc++;b.classList.add('btn-sage');good($('chFb'),'Richtig!','chal-'+chal.i+v.sg,2,null);}
+  else bad($('chFb'),(p===null?'⏱️ Zeit vorbei! ':'')+'Richtig: die '+v.pl,b);
+  chal.i++;setTimeout(nextChal,1200);
+}
+function endChal(){
+  $('chArea').style.display='none';$('chRes').style.display='block';state.best.chal=Math.max(state.best.chal,chal.sc);
+  $('chEmoji').textContent=chal.sc>=7?'🏆':chal.sc>=5?'🌟':'🌱';$('chMsg').textContent=chal.sc+'/8 – '+(chal.sc>=7?'Fantastisch!':chal.sc>=5?'Weiter so!':'Übung macht den Meister!');if(chal.sc>=7)burst();
+}
+/* ===== FINAL ASSESSMENT ===== */
+const AQ=[
+ ['Erkennen','📚','Welches Wort ist Plural?',['der Tisch','die Tische','das Buch'],'die Tische','Plural = more than one: die Tische.'],
+ ['Erkennen','🐱','Welcher Satz ist Plural?',['Das ist eine Katze.','Das sind Katzen.','Die Katze ist klein.'],'Das sind Katzen.','Plural uses „sind“ and no ein/eine.'],
+ ['-e','🖊️','Plural von „der Stift“:',['die Stifts','die Stifte','die Stiften'],'die Stifte','Stift ➜ Stifte (-e).'],
+ ['-er','🧒','Plural von „das Kind“:',['die Kinder','die Kinde','die Kinds'],'die Kinder','Kind ➜ Kinder (-er).'],
+ ['-(e)n','🌸','Plural von „die Blume“:',['die Blumes','die Blumen','die Blumer'],'die Blumen','Feminine ➜ often -n/-en.'],
+ ['-s','🚗','Plural von „das Auto“:',['die Autos','die Autoen','die Auter'],'die Autos','Auto ➜ Autos (-s).'],
+ ['Umlaut','🍎','Plural von „der Apfel“:',['die Apfels','die Äpfel','die Apfeln'],'die Äpfel','a ➜ ä, no ending.'],
+ ['Gleich','🧑‍🏫','Plural von „der Lehrer“:',['die Lehrers','die Lehrer','die Lehrere'],'die Lehrer','-er nouns stay the same.'],
+ ['Artikel','🐶','___ Hunde sind süß.',['Der','Die','Das'],'Die','Plural article is always DIE.'],
+ ['Wortschatz','📚📚📚','Was siehst du?',['die Bücher','die Buchs','das Bücher'],'die Bücher','Buch ➜ Bücher (umlaut + -er).']];
+let A={i:0,sc:0,miss:[],lock:false};
+function renderAssess(){A={i:0,sc:0,miss:[],lock:false};$('aRes').style.display='none';$('aQ').style.display='block';showQ();}
+function showQ(){
+  const q=AQ[A.i];A.lock=false;$('aNo').textContent='Frage '+(A.i+1)+'/10';$('aSc').textContent=A.sc+' Punkte';$('aFill').style.width=(A.i*10)+'%';
+  $('aQ').innerHTML=`<div class="situation-card"><div class="situation-text"><span class="st-icon">${q[1]}</span> ${q[2]}</div><div class="mc-options" id="aOpts"></div><div class="mc-feedback" id="aFb"></div></div><div id="aNext"></div>`;
+  shuffle(q[3]).forEach(o=>{const b=document.createElement('button');b.className='mc-opt';b.textContent=o;b.onclick=()=>{if(A.lock)return;A.lock=true;
+    document.querySelectorAll('#aOpts .mc-opt').forEach(x=>{x.disabled=true;if(x.textContent===q[4])x.classList.add('correct');});
+    if(o===q[4]){A.sc++;good($('aFb'),'Richtig! '+q[5],'ass-'+A.i,3,b);speak(q[4]);}else{b.classList.add('incorrect');A.miss.push(q[0]);bad($('aFb'),'Nicht ganz. '+q[5]);}
+    $('aSc').textContent=A.sc+' Punkte';$('aNext').innerHTML=`<button class="btn btn-primary btn-block" onclick="nextQ()">${A.i<9?'Weiter ▶':'Ergebnis ansehen 🏁'}</button>`;};$('aOpts').appendChild(b);});
+}
+function nextQ(){A.i++;A.i<10?showQ():endAssess();}
+function endAssess(){
+  const s=A.sc;state.best.ass=Math.max(state.best.ass,s);$('aFill').style.width='100%';$('aQ').style.display='none';
+  const [e,m]=s===10?['🏆','Perfekt! Du bist ein Plural-Champion!']:s>=8?['⭐','Sehr gut! Fast alles richtig!']:s>=6?['💪','Gut gemacht! Weiter üben!']:['🌱','Nicht aufgeben – versuch es nochmal!'];
+  const miss=[...new Set(A.miss)];
+  $('aRes').innerHTML=`<div style="font-size:44px">${e}</div><div style="font-family:'Fredoka',sans-serif;font-weight:700;font-size:20px;color:var(--sage-dark)">${s}/10</div><p style="font-weight:700">${m}</p>${miss.length?`<p class="section-sub">Wiederhole: ${miss.join(', ')}</p>`:''}<button class="btn btn-secondary" onclick="renderAssess()">↺ Test wiederholen</button>`;
+  $('aRes').style.display='block';if(s>=8)burst();
+}
+/* ===== MISSION / RESTART ===== */
+function renderMission(){
+  $('missionXP').textContent=state.totalXP;
+  $('achRow').innerHTML=[['🔍 Muster-Detektiv',state.sortDone],['🎯 Schnell & richtig',state.best.chal>=7],['🧪 Test bestanden',state.best.ass>=7]].map(a=>`<div class="ach${a[1]?' on':''}">${a[0]}${a[1]?' ✓':' 🔒'}</div>`).join('');
+  burst();
+}
+function restart(){stopSpeaking();state={screenIndex:0,maxReached:0,totalXP:0,xpFlags:new Set(),sel:null,sorted:{},best:{chal:0,ass:0},sortDone:false};init();goTo(0);}
+function init(){build();renderIntro();renderPatterns();renderRules();renderVocab();renderMatch();renderChoose();renderSort();renderFill();renderAssess();renderHeader();}
+init();
+
+</script>
+</body>
+</html>
